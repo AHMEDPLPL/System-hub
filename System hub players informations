@@ -1,1 +1,541 @@
+if not game:IsLoaded() then
+    game:IsLoaded():Wait()
+end
+ 
+local speaker = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local playerlp = plr
+local Characterlp = plr.Character
+local Area = game:GetService("Workspace")
+local players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local coregui = game:GetService("CoreGui")
+local Mouse = plr:GetMouse()
+local MyView = Area.CurrentCamera
+local MyTeamColor = plr.TeamColor
+local HoldingM2 = false
+local Active = false
+local Lock = false
+local Epitaph = .187 ---Note: The Bigger The Number, The More Prediction.
+local HeadOffset = Vector3.new(0, .1, 0)
+Players = game:GetService("Players")
+IYMouse = Players.LocalPlayer:GetMouse()
+UserInputService = game:GetService("UserInputService")
+autoclicking = false
+local WalkTo = false
+local Guarding = false
+local Flinging = false
+local Platformstand = false
+local viewing = nil
+local Control = false
+local Lagging = false
+local AutoObby = false
+local invisRunning = false
+local IsInvis = false
+local IsRunning = true
+local invisFix
+local invisDied
+local InvisibleCharacter
+local CF
+local Clip = true
+local Regulars = false
+local vnoclipParts = {}
+local FlingTBL = {}
+local frozenParts = {}
+local vfreeze = {}
+local RestoreCFling = {}
+local shownParts = {}
+local showninParts = {}
+local showninvParts = {}
+local shownvisParts = {}
+local vstrongParts = {}
+local vweakParts = {}
+local highlights = {}
+local workspace = game.Workspace
+local Noclipping = nil
+local viewDied
+local viewChanged
+local triggermd
+local triggermp
+local cancelAutoClick
+local highlight
+local highlight2
+local closesttouch = nil
+local closestclick = nil
+local closestprox = nil
+local closestseat = nil
+local lockcursorman
+local unlockcursorman
+local fakekicktbl
+CFloop = nil
+CFspeed = 50
+simRadius = false
+FLYING = false
+QEfly = true
+NOWW = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
+NOWJ = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").JumpPower
+NOWG = game.Workspace.Gravity
+NOWH = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight
+iyflyspeed = 1
+PlayerVolumeBELIKE = UserSettings():GetService("UserGameSettings").MasterVolume
+PlayerGraphicsBELIKE = settings().Rendering.QualityLevel
+vehicleflyspeed = 1
+local HumanModCons = {}
+local flyjump
+local simRadLoop
+local stareLoop
+local currentToolSize = ""
+local currentGripPos = ""
+local invisRunning = false
+local noSit
+local nositDied
+local proxDied = nil
+local clickDied = nil
+local selclick = nil
+local seltouch = nil
+local selprox = nil
+local selseat = nil
+local selinvisp = nil
+local selcanc = nil
+local YesRefresh = false
+local sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
+local setsimulation = setsimulationradius or set_simulation_radius
 
+function round(num, numDecimalPlaces)
+	local mult = 10^(numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
+end
+ 
+function getRoot(char)
+	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+	return rootPart
+end
+ 
+function SimRad()
+   if sethidden then		
+		simRadLoop = game:GetService('RunService').Stepped:Connect(function()
+			if setsimulation then
+				setsimulation(1e308, 1/0)
+			else	
+				sethidden(plr,"MaximumSimulationRadius",1/0)
+				sethidden(plr,"SimulationRadius", 1e308)
+			end
+		end)
+		simRadius = true
+	end
+end
+ 
+function toClipboard(String)
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if clipBoard then
+		clipBoard(String)
+	end
+end
+ 
+local function CursorLock()
+	UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+end
+local function UnLockCursor()
+	HoldingM2 = false Active = false Lock = false 
+	UIS.MouseBehavior = Enum.MouseBehavior.Default
+end
+
+function FindNearestPlayer()
+	local dist = math.huge
+	local Target = nil
+	for _, v in pairs(game.Players:GetPlayers()) do
+		if v ~= plr and v.Character:FindFirstChildOfClass("Humanoid") and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 and getRoot(v.Character) and v then
+			local TheirCharacter = v.Character
+			local CharacterRoot, Visible = MyView:WorldToViewportPoint(getRoot(TheirCharacter).Position)
+			if Visible then
+				local RealMag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(CharacterRoot.X, CharacterRoot.Y)).Magnitude
+				if RealMag < dist and RealMag < FOVCircle.Radius then
+					dist = RealMag
+					Target = TheirCharacter
+				end
+			end
+		end
+	end
+	return Target
+end
+ 
+function Noclip()
+   Clip = false
+	function NoclipLoop()
+		if Clip == false and plr.Character ~= nil then
+			for _, child in pairs(plr.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true then
+					child.CanCollide = false
+				end
+			end
+		end
+	end
+	Noclipping = game:GetService('RunService').Stepped:connect(NoclipLoop)
+end
+ 
+function TurnsVisible()
+		if IsInvis == false then return end
+		invisFix:Disconnect()
+		invisDied:Disconnect()
+		CF = game.Workspace.CurrentCamera.CFrame
+		Characterlp = Characterlp
+		local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+		Characterlp.HumanoidRootPart.CFrame = CF_1
+		InvisibleCharacter:Destroy()
+		playerlp.Character = Characterlp
+		Characterlp.Parent = workspace
+		IsInvis = false
+		playerlp.Character.Animate.Disabled = true
+		playerlp.Character.Animate.Disabled = false
+		invisDied = Characterlp:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+			invisRespawn()
+			invisDied:Disconnect()
+		end)
+		invisRunning = false
+	end
+
+function invisRespawn()
+		IsRunning = false
+		if IsInvis == true then
+			pcall(function()
+				playerlp.Character = Characterlp
+				wait()
+				Characterlp.Parent = game.Workspace
+				Characterlp:FindFirstChildWhichIsA'Humanoid':Destroy()
+				IsInvis = false
+				InvisibleCharacter.Parent = nil
+				invisRunning = false
+			end)
+		elseif IsInvis == false then
+			pcall(function()
+				playerlp.Character = Characterlp
+				wait()
+				Characterlp.Parent = game.Workspace
+				Characterlp:FindFirstChildWhichIsA'Humanoid':Destroy()
+				TurnsVisible()
+			end)
+		end
+	end
+ 
+function TurnVisible()
+		if IsInvis == false then return end
+		invisFix:Disconnect()
+		invisDied:Disconnect()
+		CF = game.Workspace.CurrentCamera.CFrame
+		Characterlp = Characterlp
+		local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+		Characterlp.HumanoidRootPart.CFrame = CF_1
+		InvisibleCharacter:Destroy()
+		playerlp.Character = Characterlp
+		Characterlp.Parent = workspace
+		IsInvis = false
+		playerlp.Character.Animate.Disabled = true
+		playerlp.Character.Animate.Disabled = false
+		invisDied = Characterlp:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+			invisRespawn()
+			invisDied:Disconnect()
+		end)
+		invisRunning = false
+	end
+ 
+function fixcam()
+   game.Workspace.CurrentCamera:Remove()
+	wait(.1)
+	repeat wait() until plr.Character ~= nil
+	game.Workspace.CurrentCamera.CameraSubject = plr.Character:FindFirstChildWhichIsA('Humanoid')
+	game.Workspace.CurrentCamera.CameraType = "Custom"
+	plr.CameraMinZoomDistance = 0.5
+	plr.CameraMaxZoomDistance = 400
+	plr.CameraMode = "Classic"
+	plr.Character.Head.Anchored = false
+end
+ 
+function respawn(plr)
+	if invisRunning then TurnVisible() end
+	local char = plr.Character
+	if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+	char:ClearAllChildren()
+	local newChar = Instance.new("Model")
+	newChar.Parent = workspace
+	plr.Character = newChar
+	wait()
+	plr.Character = char
+	newChar:Destroy()
+end
+ 
+function refresh(plr)
+	local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+	local pos = Human and Human.RootPart and Human.RootPart.CFrame
+	local pos1 = game.Workspace.CurrentCamera.CFrame
+	respawn(plr)
+	task.spawn(function()
+		speaker.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
+	end)
+end
+ 
+function tools(plr)
+	if plr:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass('Tool') or plr.Character:FindFirstChildOfClass('Tool') then
+		return true
+	end
+end
+ 
+function attach(speaker,target)
+	if tools(speaker) then
+		local char = speaker.Character
+		local tchar = target.Character
+		local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+		local hrp = getRoot(speaker.Character)
+		local hrp2 = getRoot(target.Character)
+		hum.Name = "1"
+		local newHum = hum:Clone()
+		newHum.Parent = char
+		newHum.Name = "Humanoid"
+		wait()
+		hum:Destroy()
+		game.Workspace.CurrentCamera.CameraSubject = char
+		newHum.DisplayDistanceType = "None"
+		local tool = speaker:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass("Tool") or speaker.Character:FindFirstChildOfClass("Tool")
+		tool.Parent = char
+		hrp.CFrame = hrp2.CFrame * CFrame.new(0, 0, 0) * CFrame.new(math.random(-100, 100)/200,math.random(-100, 100)/200,math.random(-100, 100)/200)
+		local n = 0
+		repeat
+			wait(.1)
+			n = n + 1
+			hrp.CFrame = hrp2.CFrame
+		until (tool.Parent ~= char or not hrp or not hrp2 or not hrp.Parent or not hrp2.Parent or n > 250) and n > 2
+	else
+		game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4,})
+	end
+end
+ 
+function bring(speaker,target,fast)
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = NormPos
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			plr.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+		end
+	else
+		game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4,})
+	end
+end
+ 
+function kill(speaker,target,fast)
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 5,999999)
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+		end
+	else
+		game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4,})
+	end
+end
+ 
+function teleport(speaker,target,target2,fast)
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			local hrp2 = getRoot(target2.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = hrp2.CFrame
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+		end
+	else
+		game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4,})
+	end
+end
+ 
+function GetPlayer(String)
+	local Foundplr = {}
+	local strl = String:lower()
+	if strl == "all" then
+		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+			table.insert(Foundplr,v)
+		end
+	elseif strl == "others" then
+		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.Name ~= plr.Name then
+				table.insert(Foundplr,v)
+			end
+		end
+	elseif strl == "me" then
+		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.Name == plr.Name then
+				table.insert(Foundplr,v)
+			end
+		end
+	else
+		for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.DisplayName:lower():sub(1, #String) == String:lower() or v.Name:lower():sub(1, #String) == String:lower() then
+				table.insert(Foundplr,v)
+			end
+		end
+	end
+	return Foundplr
+end
+ 
+function GetNPC(String)
+      local FoundNPC = {}
+	  local strl = String:lower()
+             for i,v in pairs(game.Workspace:GetDescendants()) do do
+			 if v:IsA("Model") and v.Name:lower():sub(1, #String) == String:lower() then
+				table.insert(FoundNPC,v)
+			end
+		end
+	end
+	return FoundNPC
+end
+ 
+local function align(part0,part1)
+	local attachment0 = Instance.new("Attachment",part1)
+	local attachment1 = Instance.new("Attachment",part0)
+ 
+	local alignpos = Instance.new("AlignPosition",part0)
+	alignpos.MaxForce = math.huge
+	alignpos.Responsiveness = 200
+	alignpos.Attachment0 = attachment0
+	alignpos.Attachment1 = attachment1
+end
+ 
+local function fling(part0)
+	local vel = Instance.new("BodyAngularVelocity",part0)
+	vel.AngularVelocity = Vector3.new(1,1,1)*999
+	vel.MaxTorque = Vector3.new(1,1,1)*9999
+end
+ 
+local function loadcharacter(character)
+	local scf = character.HumanoidRootPart.CFrame
+	character.HumanoidRootPart.CFrame = scf*CFrame.new(0,100,0)
+	character.HumanoidRootPart.Anchored = true
+ 
+	wait(1)
+ 
+	local fakec = Instance.new("Model",workspace)
+ 
+	local froot = Instance.new("Part",fakec)
+	froot.Name = "HumanoidRootPart"
+	froot.Size = Vector3.new(1,5,1)
+	froot.CFrame = scf
+	froot.Transparency = 0.5
+ 
+	Instance.new("Humanoid",fakec)
+ 
+	plr.Character = fakec
+	workspace.CurrentCamera.CameraSubject = fakec.Humanoid
+ 
+	align(froot,character.HumanoidRootPart)
+ 
+	character.Humanoid:Destroy()
+ 
+	for _,p in pairs(character:GetDescendants()) do
+		if p:IsA("BasePart") then
+			p.CanCollide = false
+			p.Massless = true
+		elseif p:IsA("BodyGyro") or p:IsA("BodyAngularVelocity") or p:IsA("BodyVelocity") then
+			p:Destroy()
+		end
+	end
+ 
+	game.RunService.Heartbeat:Connect(function()
+		for _,p in pairs(character:GetDescendants()) do
+		if p:IsA("BasePart") then
+			p.CanCollide = false
+			p.Massless = true
+			p.Anchored = false
+		elseif p:IsA("Weld")then
+			p.Enabled = false
+		end
+	end
+	end)
+ 
+ 
+	wait()
+ 
+	wait(1)
+	fling(character.HumanoidRootPart)
+end
+ 
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
+local Window = OrionLib:MakeWindow({Name = "DarkHub adminstrator"})
+ 
+local Info = Window:MakeTab({
+	Name = "Information",
+	Icon = "rbxassetid://6026568227",
+	PremiumOnly = false --- Set true, if you want to this tab was only for premium people, or false to all could use this.
+})
+
+Info:AddLabel("Player")
+ 
+local PlayerTarget
+local PlayerTargettwo
+ 
+Info:AddTextbox({
+	Name = "Player Name",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Walktofollow)
+		local Target = unpack(GetPlayer(Walktofollow))
+		PlayerTarget = Target
+	end		  
+})
+ 
+Info:AddToggle({
+	Name = "Walk To Player",
+	Default = false,
+	Callback = function(Walkn)
+        if Walkn == true then
+            if plr.Character:FindFirstChildOfClass('Humanoid') and plr.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+		plr.Character:FindFirstChildOfClass('Humanoid').Sit = false
+		wait(.1)
+	end
+	    if WalkTo == false then
+		WalkTo = true
+		repeat wait()
+		     plr.Character:FindFirstChild("Humanoid"):MoveTo(getRoot(PlayerTarget.Character).Position)
+			 until PlayerTarget.Character == nil or not getRoot(PlayerTarget.Character) or WalkTo == false	
+	end
+		else
+		    Walkn = false
+			WalkTo = false
+		end		
+  end    
+})
+ 
+ 
