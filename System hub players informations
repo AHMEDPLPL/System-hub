@@ -2,7 +2,7 @@ if not game:IsLoaded() then
     game:IsLoaded():Wait()
 end
  
-local speaker = game.Players.LocalPlayer
+local speaker = game.Players.LocalPlayer 
 local plr = game.Players.LocalPlayer
 local playerlp = plr
 local Characterlp = plr.Character
