@@ -1,0 +1,34 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
+
+OrionLib:MakeNotification({
+  Name = "Thanks for using System hub",
+  Content = "Made by AAAAA999l999",
+  Image = "rbxassetid://6026568227",
+  Time = 10
+})
+
+local Window = OrionLib:MakeWindow({
+  Name = "System hub V2",
+  HidePremium = false,
+  SaveConfig = true,
+  ConfigFolder = "",
+  IntroText = "Loading Script.."
+})
+
+local Tab = Window:MakeTab({
+  Name = "Main",
+  Icon = "rbxassetid://6026568227",
+  PremiumOnly = false
+})
+
+local placeId = game.PlaceId
+local placeInfo = game:GetService("MarketplaceService"):GetProductInfo(placeId)
+local placeName = placeInfo.Name
+
+
+Tab:AddParagraph("Welcome,"..game.Players.LocalPlayer.DisplayName,"@"..game.Players.LocalPlayer.Name)
+Tab:AddLabel("UserID "..game.Players.LocalPlayer.UserId)
+Tab:AddLabel("Executor "..identifyexecutor())
+Tab:AddLabel("Ping "..game.Players.LocalPlayer:GetNetworkPing() * (1000).." ms")
+Tab:AddLabel("Country "..game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer))
+Tab:AddLabel("Game Name "..placeName)
