@@ -1,0 +1,20 @@
+local Tab = Window:MakeTab({
+  Name = "Player",
+  Icon = "rbxassetid://6023426915",
+  PremiumOnly = false
+})
+
+Tab:AddTextbox({
+  Name = "WalkSpeed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset WalkSpeed",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end    
+})
