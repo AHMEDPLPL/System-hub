@@ -32,3 +32,5 @@ Tab:AddLabel("Executor "..identifyexecutor())
 Tab:AddLabel("Ping "..game.Players.LocalPlayer:GetNetworkPing() * (1000).." ms")
 Tab:AddLabel("Country "..game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer))
 Tab:AddLabel("Game Name "..placeName)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AHMEDPLPL/System-hub/main/Test%202"))()
