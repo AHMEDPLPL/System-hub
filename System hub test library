@@ -1771,6 +1771,7 @@ end
 function OrionLib:hide()
         MainWindow.Visible = false
         UIHidden = true
+        WindowConfig.CloseCallback()
 end
 
 return OrionLib
