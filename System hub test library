@@ -1771,13 +1771,7 @@ local Orion = {}
 local OrionVisible = true
 
 function Orion:hide()
-    if OrionVisible then
-        self.ScreenGui.Visible = false
         OrionVisible = false
-    else
-        self.ScreenGui.Visible = true
-        OrionVisible = true
-    end
 end
 
 return OrionLib
