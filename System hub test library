@@ -1767,11 +1767,27 @@ end
 
 -- Assuming 'Orion' is the main table for the Orion library
 
+-- Ensure OrionLib is initialized
+local OrionLib = OrionLib or {}
 
-function OrionLib:hide()
+-- Assuming MainWindow, UIHidden, and WindowConfig are defined elsewhere in your script
+
+-- Hide function for Orion library
+function OrionLib:Hide()
+    -- Check if MainWindow exists and is valid
+    if MainWindow then
         MainWindow.Visible = false
-        UIHidden = true
+    end
+    
+    -- Set UIHidden to true
+    UIHidden = true
+
+    -- Call CloseCallback if it exists
+    if WindowConfig and WindowConfig.CloseCallback then
         WindowConfig.CloseCallback()
+    end
 end
+
+return OrionLib
 
 return OrionLib
