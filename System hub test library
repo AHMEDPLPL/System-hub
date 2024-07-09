@@ -468,7 +468,7 @@ end
 
 function OrionLib:MakeWindow(WindowConfig)
 	local FirstTab = true
-	local Minimized = true
+	local Minimized = false
 	local Loaded = false
 	local UIHidden = false
 
@@ -1763,6 +1763,18 @@ end
 
 function OrionLib:Destroy()
 	Orion:Destroy()
+end
+
+local OrionVisible = true  -- Assuming Orion is visible by default
+
+function Orion:hide()
+    if OrionVisible then
+        Orion.Visible = false
+        OrionVisible = false
+    else
+        Orion.Visible = true
+        OrionVisible = true
+    end
 end
 
 return OrionLib
