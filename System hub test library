@@ -1767,11 +1767,10 @@ end
 
 -- Assuming 'Orion' is the main table for the Orion library
 
-local Orion = {}
-local OrionVisible = true
 
-function Orion:hide()
-        OrionVisible = false
+function OrionLib:hide()
+        MainWindow.Visible = false
+        UIHidden = true
 end
 
 return OrionLib
