@@ -657,12 +657,24 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 	AddConnection(UserInputService.InputBegan, function(Input)
-    if UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then
-        if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
+    
+
+-- Function to check if the player is using a mobile device
+local function isPlayerUsingMobile()
+    local lastInputType = UserInputService:GetLastInputType()
+    return lastInputType == Enum.UserInputType.Touch
+end
+
+-- Example usage:
+if isPlayerUsingMobile() then
+    print("Player is using a mobile device.")
+else
+    if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
             MainWindow.Visible = true
         end
-    elseif UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled then
-        print("mobile")
+end
+        
+    
     end
 end)
 
