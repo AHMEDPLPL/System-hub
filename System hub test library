@@ -1780,32 +1780,4 @@ function Orion:hide()
     end
 end
 
-function Orion:init()
-    -- Initialize the ScreenGui
-    self.ScreenGui = Instance.new("ScreenGui")
-    self.ScreenGui.Name = "Orion"
-    self.ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-    -- Your existing initialization code...
-
-    -- Create the toggle button
-    local toggleButton = Instance.new("TextButton")
-    toggleButton.Size = UDim2.new(0, 200, 0, 50)
-    toggleButton.Position = UDim2.new(0.5, -100, 0.5, -25)
-    toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
-    toggleButton.BackgroundColor3 = Color3.fromRGB(255, 140, 0)  -- Dark Orange
-    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White
-    toggleButton.Font = Enum.Font.SourceSans
-    toggleButton.TextSize = 24
-    toggleButton.Text = "Toggle Orion"
-    toggleButton.Parent = self.ScreenGui
-
-    -- Connect the toggle button to the Orion:hide() function
-    toggleButton.MouseButton1Click:Connect(function()
-        self:hide()
-    end)
-
-    -- Additional initialization code...
-end
-
 return OrionLib
