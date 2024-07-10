@@ -19,8 +19,16 @@ local OrionLib = {
 			Text = Color3.fromRGB(240, 240, 240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
+	Theme = {
+    Main = Color3.fromRGB(255, 128, 0), -- Orange
+    Second = Color3.fromRGB(32, 32, 32), -- Dark Gray
+    Stroke = Color3.fromRGB(60, 60, 60), -- Gray for stroke
+    Divider = Color3.fromRGB(60, 60, 60), -- Gray for divider
+    Text = Color3.fromRGB(240, 240, 240), -- Light grayish-white text
+    TextDark = Color3.fromRGB(150, 150, 150) -- Dark grayish text
+}
 	},
-	SelectedTheme = "Default",
+	SelectedTheme = "Theme",
 	Folder = nil,
 	SaveCfg = false
 }
@@ -657,26 +665,10 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 	AddConnection(UserInputService.InputBegan, function(Input)
-    
-
--- Function to check if the player is using a mobile device
-local function isPlayerUsingMobile()
-    local lastInputType = UserInputService:GetLastInputType()
-    return lastInputType == Enum.UserInputType.Touch
-end
-
--- Example usage:
-if isPlayerUsingMobile() then
-    print("Player is using a mobile device.")
-else
-    if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
-            MainWindow.Visible = true
-        end
-end
-        
-    
-    end
-end)
+		if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
+			MainWindow.Visible = true
+		end
+	end)
 
 	AddConnection(MinimizeBtn.MouseButton1Up, function()
 		if Minimized then
